@@ -4,38 +4,44 @@ import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 /**
- * Write a description of class Character here.
+ * This is the basis character for player and NPCs. 
  * 
  * @author Lukas Hettwer 
- * @version 30.09.2016
+ * @version 07.10.2016
  */
 public class Character extends Actor 
 {
-    private static final Character OBJ = new Character(); 
-           
-      public static Character getInstance() { 
-        return OBJ; 
-      } 
-      
-    
+
     private int animationPointer;
     private HashMap<Direction, ArrayList<GreenfootImage>> body;
     private Direction currentDirection;
-    private String pathForBody = "images/characterSpritesAnimation.png";
+    private boolean isShining;
+
     /**
      * Constructor for objects of class Character
      */
-    private Character()
+    public Character()
+    {
+        this("images/characterSpritesAnimation.png", Direction.RIGHT, true);
+    }
+
+    public Character(String pathForBody, Direction direction, boolean isShining)
     {
         body = loadImageForCharacter(pathForBody, 8,4);
-        currentDirection = Direction.RIGHT;
+        currentDirection = direction;
         setImage(body.get(currentDirection).get(0));
         animationPointer = 0;
+        this.isShining = isShining;
+    }
+
+    public boolean isShining()
+    {
+        return isShining;
     }
 
     public HashMap<Direction, ArrayList<GreenfootImage>> loadImageForCharacter(String path, int NumOfCellHorizontal,int NumOfCellVertical) 
     {
-        int PIXEL = MyWorld.getPixel();
+        int PIXEL = ((MyWorld)getWorld()).getPixel();
         HashMap<Direction, ArrayList<GreenfootImage>> animationMap = new HashMap<Direction, ArrayList<GreenfootImage>>();
         GreenfootImage loaded = new GreenfootImage(path);
         loaded.scale(PIXEL*NumOfCellHorizontal, PIXEL*NumOfCellVertical);
@@ -104,6 +110,7 @@ public class Character extends Actor
             default:
             break;
         }
+
     }
 
     public void animation(){
@@ -113,7 +120,9 @@ public class Character extends Actor
                 animationPointer = 0; 
 
             setImage(body.get(currentDirection).get(animationPointer));
+                    ((MyWorld)getWorld()).drawBackground();
             Greenfoot.delay(2);
+            
         }
     }
 
@@ -172,6 +181,6 @@ public class Character extends Actor
                 return null;
             }
         }
-    }
 
+    }
 }
