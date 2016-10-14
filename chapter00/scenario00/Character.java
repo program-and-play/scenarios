@@ -20,12 +20,12 @@ public class Character extends Actor
     /**
      * Constructor for objects of class Character
      */
-    public Character()
+    protected Character()
     {
         this("images/characterSpritesAnimation.png", Direction.RIGHT, true);
     }
 
-    public Character(String pathForBody, Direction direction, boolean isShining)
+    protected Character(String pathForBody, Direction direction, boolean isShining)
     {
         body = loadImageForCharacter(pathForBody, 8,4);
         currentDirection = direction;
@@ -67,48 +67,54 @@ public class Character extends Actor
     }
 
     public void moveForward() {
-        switch (currentDirection) {
-            case RIGHT:
-            animation();
-            this.setLocation(Math.floorMod((this.getX() + 1), getWorld().getWidth()), this.getY());
-            animation();
-            this.setLocation(Math.floorMod((this.getX() + 1), getWorld().getWidth()), this.getY());
-            animation();
-            this.setLocation(Math.floorMod((this.getX() + 1), getWorld().getWidth()), this.getY());
-            animation();
-            break;
-            case LEFT:
-            animation();
-            this.setLocation(Math.floorMod((this.getX() - 1), getWorld().getWidth()), this.getY());
-            animation();
-            this.setLocation(Math.floorMod((this.getX() - 1), getWorld().getWidth()), this.getY());
-            animation();
-            this.setLocation(Math.floorMod((this.getX() - 1), getWorld().getWidth()), this.getY());
-            animation();
-            break;
+        int factor = ((MyWorld)getWorld()).getFactor();
 
-            case DOWN:
-            animation();
-            this.setLocation(this.getX() , Math.floorMod((this.getY() + 1) , getWorld().getHeight()));
-            animation();
-            this.setLocation(this.getX() , Math.floorMod((this.getY() + 1) , getWorld().getHeight()));
-            animation();
-            this.setLocation(this.getX() , Math.floorMod((this.getY() + 1) , getWorld().getHeight()));
-            animation();
-            break;
+        if(!((MyWorld)getWorld()).isPositionOk(this, currentDirection))
+        {
+            Greenfoot.stop();
+        }
+        else{
 
-            case UP:
-            animation();
-            this.setLocation(this.getX() , Math.floorMod((this.getY() - 1) , getWorld().getHeight()));
-            animation();
-            this.setLocation(this.getX() , Math.floorMod((this.getY() - 1) , getWorld().getHeight()));
-            animation();
-            this.setLocation(this.getX() , Math.floorMod((this.getY() - 1) , getWorld().getHeight()));
-            animation();
-            break;
+            switch (currentDirection) {
+                case RIGHT:
+                for(int i = 0; i< factor; i++)
+                {
+                    animation();
+                    this.setLocation(Math.floorMod((this.getX() + 1), getWorld().getWidth()), this.getY());
+                }
+                animation();
+                break;
+                case LEFT:
+                for(int i = 0; i< factor; i++)
+                {
+                    animation();
+                    this.setLocation(Math.floorMod((this.getX() - 1), getWorld().getWidth()), this.getY());
+                }
+                animation();
+                break;
 
-            default:
-            break;
+                case DOWN:
+                for(int i = 0; i< factor; i++)
+                {
+                    animation();
+                    this.setLocation(this.getX() , Math.floorMod((this.getY() + 1) , getWorld().getHeight()));
+                }
+                animation();
+                break;
+
+                case UP:
+                for(int i = 0; i< factor; i++)
+                {
+                    animation();
+                    this.setLocation(this.getX() , Math.floorMod((this.getY() - 1) , getWorld().getHeight()));
+                }
+                animation();
+                break;
+
+                default:
+                break;
+
+            }
         }
 
     }
@@ -120,9 +126,9 @@ public class Character extends Actor
                 animationPointer = 0; 
 
             setImage(body.get(currentDirection).get(animationPointer));
-                    ((MyWorld)getWorld()).drawBackground();
+            ((MyWorld)getWorld()).drawBackground();
             Greenfoot.delay(2);
-            
+
         }
     }
 
@@ -183,4 +189,5 @@ public class Character extends Actor
         }
 
     }
+
 }
