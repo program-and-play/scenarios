@@ -1,0 +1,6 @@
+World: Kara 06 Putting Leaf
+X: 6
+Y: 4
+
+
+  @

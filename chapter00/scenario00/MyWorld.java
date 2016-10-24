@@ -62,7 +62,22 @@ public class MyWorld extends World
         this.addObject(MyCharacter.getInstance(), 3,2);
 
         drawBackground();
+        
+        MyCharacter.getInstance().moveForward();
+        MyCharacter.getInstance().moveForward();
     }
+    
+        /**
+     * Act - do whatever the MyCharacter wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
+    public void act() 
+    {
+                this.addObject(MyCharacter.getInstance(), 0,0);
+                MyCharacter.getInstance().moveForward();
+                System.out.println("Hello ");
+    }  
+    
 
     @Override
     public void addObject(Actor object, int x, int y){

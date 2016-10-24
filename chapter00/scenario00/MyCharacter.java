@@ -20,12 +20,5 @@ public class MyCharacter extends Character
         super();
     }
 
-    /**
-     * Act - do whatever the MyCharacter wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        moveForward();
-    }    
+  
 }
