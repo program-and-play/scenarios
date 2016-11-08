@@ -60,7 +60,7 @@ public class WorldSetup {
     public static final char KARA = '@';
     public static final char TREE = '#';
     public static final char LEAF = '.';
-    public static final char MUSHROOM = '$';
+    public static final char STONE = '$';
     public static final char MUSHROOM_LEAF = '*'; // Mushroom on a leaf
     public static final char KARA_LEAF = '+'; // Kara on a leaf
 
@@ -203,6 +203,7 @@ public class WorldSetup {
      *         defined.
      */
     public char getActorTypeAt(int x, int y) {
+
         if (y >= 0 && y < actorPositions.size()) {
             List<Character> line = actorPositions.get(y);
             if (x >= 0 && x < line.size()) {
@@ -231,20 +232,23 @@ public class WorldSetup {
                                 * cellSize);
                         break;
 
+                    case WorldSetup.STONE:
+                        img.drawImage(EmptyWorld.ICON_STONE, x * cellSize + 10, y
+                                * cellSize);
+                        break;
+                    case WorldSetup.LEAF:
+                        img.drawImage(EmptyWorld.ICON_LEAF, x * cellSize + 10, y
+                                * cellSize);
+                        break;
+
                 /* case WorldSetup.TREE:
                      img.drawImage(EmptyWorld.ICON_TREE, x * cellSize + 10, y
                              * cellSize);
                      break;
 
-                 case WorldSetup.LEAF:
-                     img.drawImage(KaraWorld.ICON_LEAF, x * cellSize + 10, y
-                             * cellSize);
-                     break;
 
-                 case WorldSetup.MUSHROOM:
-                     img.drawImage(KaraWorld.ICON_MUSHROOM, x * cellSize + 10, y
-                             * cellSize);
-                     break;
+
+
 
                  case WorldSetup.MUSHROOM_LEAF:
                      img.drawImage(KaraWorld.ICON_LEAF, x * cellSize + 10, y
@@ -502,8 +506,8 @@ public class WorldSetup {
                     try {
                         currentBuilder
                                 .setHeight(Integer.parseInt(line
-                                .substring(HEIGHT_KEY.length())
-                                .trim()));
+                                        .substring(HEIGHT_KEY.length())
+                                        .trim()));
                         continue;
                     } catch (NumberFormatException e) {
                         // do nothing
@@ -523,9 +527,9 @@ public class WorldSetup {
                 if (foundAttribute) {
                     continue;
                 }
-//TODO das muss besser gehen
-//                if (line.matches("[@#.$\\s*+]*")) { // Java
-                if (line.matches("[@#.\$\\s*]*")) { // Groovy
+
+                if (line.matches("[@#.$\\s*+]*")) {
+
                     currentBuilder.addActorLine(line);
                 }
             }
@@ -709,6 +713,7 @@ public class WorldSetup {
                 chars.add(c);
             }
             this.actorPositions.add(chars);
+
             return this;
         }
 
@@ -765,15 +770,17 @@ public class WorldSetup {
          */
         public Builder addFromActor(Actor actor) {
             //TODO add die richtigen actor
-//            if (actor instanceof Kara) {
-//                setActorTypeAt(actor.getX(), actor.getY(), KARA, true);
+            if (actor instanceof MyCharacter) {
+                setActorTypeAt(actor.getX(), actor.getY(), KARA, true);
+            } else if (actor instanceof Stone) {
+                setActorTypeAt(actor.getX(), actor.getY(), STONE, true);
+            }  else if (actor instanceof LightBeings) {
+                setActorTypeAt(actor.getX(), actor.getY(), LEAF, true);
 //            } else if (actor instanceof Tree) {
 //                setActorTypeAt(actor.getX(), actor.getY(), TREE, true);
-//            } else if (actor instanceof Leaf) {
-//                setActorTypeAt(actor.getX(), actor.getY(), LEAF, true);
-//            } else if (actor instanceof Mushroom) {
-//                setActorTypeAt(actor.getX(), actor.getY(), MUSHROOM, true);
-//            }
+
+
+            }
 
             return this;
         }
@@ -789,7 +796,7 @@ public class WorldSetup {
          * Returns true if the two chars are a mushroom and a leaf.
          */
         private boolean isMushroomLeaf(char first, char second) {
-            return (first == MUSHROOM && second == KARA) || (first == KARA && second == MUSHROOM);
+            return (first == STONE && second == KARA) || (first == KARA && second == STONE);
         }
 
         /**
@@ -858,8 +865,8 @@ public class WorldSetup {
                 if (chosenFile.exists()) {
                     int option = EmptyWorld.DialogUtils.showConfirmDialogEdt(
                             null, "The file "
-                            + chosenFile
-                            + " exists already. Do you want to overwrite the existing file?",
+                                    + chosenFile
+                                    + " exists already. Do you want to overwrite the existing file?",
                             "File Exists", JOptionPane.YES_NO_OPTION);
                     if (option != JOptionPane.YES_OPTION) {
                         // abort
