@@ -21,12 +21,7 @@ class LightBeings extends Figure {
     public static final String BODY_FILE_ROSA = "lichtwesen_rosa_rund.png";
 
     public LightBeings() {
-        this(BODY_FILE_BLAU);
-
-    }
-
-    public LightBeings(String body) {
-        super(body);
+        super(new GreenfootImage(BODY_FILE_BLAU),4,4);
     }
 
     /**

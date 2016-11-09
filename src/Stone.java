@@ -10,22 +10,12 @@ import java.util.ArrayList;
  *
  * @author Marco Jakob (http://code.makery.ch)
  */
-public class Stone extends Actor {
+public class Stone extends Figure {
 
-    /**
-     * Create a Mushroom.
-     */
-    //TODO besser?
-    public GreenfootImage image = getImage();
-
+    public static final String BODY_FILE_ROSA = "lichtwesen_rosa_rund.png";
 
     public Stone() {
-        this(false);
-        image.scale(60,60);
-    }
-
-    public void resetImage() {
-        setImage(image);
+        super(new GreenfootImage(BODY_FILE_ROSA));
     }
 
     /**
