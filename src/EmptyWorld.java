@@ -120,12 +120,11 @@ public class EmptyWorld extends World {
         //        setPaintOrder(PAINT_ORDER)
         //TODO entscheide welchen default speed gesetzt werden soll
         Greenfoot.setSpeed(setup.getSpeed());
+        addObjectWithoutOffset(new SoundButton(true), 9, 7);
 
         createFieldBackground();
         // Initialize actors
         initActorsFromWorldSetup();
-
-
     }
 
     //New
@@ -262,69 +261,15 @@ public class EmptyWorld extends World {
                 addObjectWithoutOffset(tmp, actorPosition.getX(), actorPosition.getY());
         }
 
-
-        //TODO Direktion
     }
 
     /**
      * Prints the world setup to the console.
      */
-    //TODO toASCIIText() muss repariert werden
     public void printWorldSetupToConsole() {
         System.out.println(";-------------------------- START --------------------------");
-        // System.out.println(toASCIIText());
         System.out.println(";--------------------------- END ---------------------------\n");
     }
-    //TODO verstehen was diese Methode macht
-    ///**
-    // * Saves the world setup to a file that the user can choose.
-    // */
-    //    public void saveWorldSetupToFile() {
-    //        try {
-    //            WorldSetup.FileUtils.saveToFileWithDialog(toASCIIText());
-    //        } catch (IOException exception) {
-    //            exception.printStackTrace();
-    //        }
-    //    }
-    //
-    //    /**
-    //     * Creates an ASCII-representation of all the actors in the world.
-    //     *
-    //     * @return the world as ASCII text
-    //     */
-    //    @SuppressWarnings("unchecked")
-    //    protected String toASCIIText() {
-    //        return WorldSetup.createFromActors(getObjects(null), getWidth(), getHeight(),
-    //                WORLD_SETUP_TITLE_KEY).toASCIIText(true);
-    //    }
-    //
-    /**
-     * Retrieves the filename of the default image and adds the on-target
-     * postfix to the filename to load the on-target-image. If the on target
-     * image cannot be found, the default image is returned.
-     */
-    //TODO Funktionier nicht
-//        private static GreenfootImage findOnTargetImage(GreenfootImage defaultImage, String onTargetPostfix) {
-//            // Since a GreenfootImage only has a toString method we must parse it to
-//            // get the file name
-//            Pattern pattern = Pattern.compile("Image file name: (.+)(\\.+\\S{3,4})\\s+Image url");
-//            Matcher matcher = pattern.matcher(defaultImage.toString());
-//
-//            if (matcher.find()) {
-//                String fileName = matcher.group(1) + onTargetPostfix
-//                + matcher.group(2);
-//                try {
-//                    return new GreenfootImage(fileName);
-//                } catch (Exception e) {
-//                    System.out.println("Could not find the file: " + fileName
-//                            + " (the default file is used)");
-//                    return defaultImage;
-//                }
-//            } else {
-//                // Could not find the on target image --> use default
-//                return defaultImage;
-//            }
-//        }
 
     /**
      * Utility class for managing dialogs to ensure they are opened in the
