@@ -1,7 +1,6 @@
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import greenfoot.Actor;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -46,6 +45,8 @@ public class WorldSetupBetter {
 
     private String levelScreen;
 
+    private boolean mute;
+
 
     /**
      * Constructor to be used by the Builder.
@@ -53,6 +54,14 @@ public class WorldSetupBetter {
 
 
     public WorldSetupBetter() {
+    }
+
+    public boolean isMute() {
+        return mute;
+    }
+
+    public void setMute(boolean mute) {
+        this.mute = mute;
     }
 
     public int getWidth() {
@@ -162,29 +171,29 @@ public class WorldSetupBetter {
     @Override
     public String toString() {
         return "WorldSetupBetter{" +
-                "width=" + width +"\n"+
-                ", height=" + height +"\n"+
-                ", title='" + title + '\'' +"\n"+
-                ", speed=" + speed +"\n"+
-                ", randomeValue=" + randomeValue +"\n"+
-                ", cellPath=" + cellPath +"\n"+
-                ", isDark=" + isDark +"\n"+
-                ", offsetStartToX=" + offsetStartToX +"\n"+
-                ", offsetStartToY=" + offsetStartToY +"\n"+
-                ", offsetXToEnd=" + offsetXToEnd +"\n"+
-                ", offsetYToEnd=" + offsetYToEnd +"\n"+
-                ", actors=" + actors +"\n"+
+                "width=" + width + "\n" +
+                ", height=" + height + "\n" +
+                ", title='" + title + '\'' + "\n" +
+                ", speed=" + speed + "\n" +
+                ", randomeValue=" + randomeValue + "\n" +
+                ", cellPath=" + cellPath + "\n" +
+                ", isDark=" + isDark + "\n" +
+                ", offsetStartToX=" + offsetStartToX + "\n" +
+                ", offsetStartToY=" + offsetStartToY + "\n" +
+                ", offsetXToEnd=" + offsetXToEnd + "\n" +
+                ", offsetYToEnd=" + offsetYToEnd + "\n" +
+                ", actors=" + actors + "\n" +
                 ", levelScreen='" + levelScreen + '\'' +
                 '}';
     }
 
     public class ActorPosition {
 
-        private  String actor;
+        private String actor;
 
-        private  int x;
+        private int x;
 
-        private  int y;
+        private int y;
 
         public ActorPosition() {
 
@@ -228,13 +237,11 @@ public class WorldSetupBetter {
      * Tries to load the specified file (or files) either relative to the class,
      * relative to the package root or relative to the project root.
      *
-     * @param fileName
-     *            The filename of the world setup file, possibly relative to the
-     *            clazz. Wildcards (? or *) may be used.
-     * @param clazz
-     *            The class used to get the relative path to the file or
-     *            <code>null</code> if the file should be retrieved relative to
-     *            the jar root or project root.
+     * @param fileName The filename of the world setup file, possibly relative to the
+     *                 clazz. Wildcards (? or *) may be used.
+     * @param clazz    The class used to get the relative path to the file or
+     *                 <code>null</code> if the file should be retrieved relative to
+     *                 the jar root or project root.
      * @return the files or an empty list if none could be found.
      */
     public static File findMatchingFiles(String fileName, Class<?> clazz) {
@@ -279,10 +286,8 @@ public class WorldSetupBetter {
      * <li>Use * for zero or more unknown characters</li>
      * </ul>
      *
-     * @param dir
-     *            the directory
-     * @param patterns
-     *            the patterns that should be matched containing wild-cards.
+     * @param dir      the directory
+     * @param patterns the patterns that should be matched containing wild-cards.
      * @return
      */
     public static List<File> scan(File dir, String... patterns) {
@@ -327,12 +332,9 @@ public class WorldSetupBetter {
     /**
      * Read all lines from a file.
      *
-     * @param file
-     *            the file to read from
+     * @param file the file to read from
      * @return the lines from the file as a {@code List}.
-     *
-     * @throws IOException
-     *             if an I/O error occurs reading from the file.
+     * @throws IOException if an I/O error occurs reading from the file.
      */
     public static List<String> readAllLines(File file) throws IOException {
         return readAllLines(new FileInputStream(file));
@@ -341,12 +343,9 @@ public class WorldSetupBetter {
     /**
      * Read all lines from an InputStream.
      *
-     * @param stream
-     *            the stream to read from
+     * @param stream the stream to read from
      * @return the lines from the stream as a {@code List}.
-     *
-     * @throws IOException
-     *             if an I/O error occurs reading from the stream.
+     * @throws IOException if an I/O error occurs reading from the stream.
      */
     public static List<String> readAllLines(InputStream stream) throws IOException {
         List<String> result = new ArrayList<String>();
@@ -354,7 +353,7 @@ public class WorldSetupBetter {
         try {
             reader = new BufferedReader(new InputStreamReader(stream));
 
-            for (;;) {
+            for (; ; ) {
                 String line = reader.readLine();
                 if (line == null) {
                     break;
@@ -370,13 +369,46 @@ public class WorldSetupBetter {
     }
 
     public static WorldSetupBetter createWorldSetup(List<String> list) {
-        return createWorldSetup(list.stream().reduce("", (a, b) -> a +"\n" + b ));
+        return createWorldSetup(list.stream().reduce("", (a, b) -> a + "\n" + b));
     }
 
     public static WorldSetupBetter createWorldSetup(String s) {
         Gson gson = new Gson();
 
         return gson.fromJson(s, WorldSetupBetter.class);
+    }
+
+    public static void saveWorldSetup(WorldSetupBetter v) {
+        Gson gson = new Gson();
+        String content = gson.toJson(v);
+        File file = findMatchingFiles("WorldSetup.json", WorldSetupBetter.class);
+        try {
+            writeToFile(file, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Writes to the specified file.
+     *
+     * @param file    The file to write to
+     * @param content The content to write.
+     * @throws IOException if an I/O error occurs writing to the file.
+     */
+    public static void writeToFile(File file, String content) throws IOException {
+        FileWriter fstream = new FileWriter(file);
+        BufferedWriter out = new BufferedWriter(fstream);
+        try {
+            out.write(content);
+            out.flush();
+        } finally {
+            // Close the output stream
+            if (out != null) {
+                out.close();
+            }
+        }
     }
 
 

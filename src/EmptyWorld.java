@@ -102,7 +102,7 @@ public class EmptyWorld extends World {
                     "Subklasse von KaraWelt muss instanziiert werden (Rechtsklick auf die Welt, z.B. GameScreen, und new auswaehlen).</i></p>" +
                     "</html>";
 
-            EmptyWorld.DialogUtils.showMessageDialogEdt(null, message, "Warning",
+            DialogUtils.showMessageDialogEdt(null, message, "Warning",
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -278,7 +278,7 @@ public class EmptyWorld extends World {
     public static class DialogUtils {
 
         /**
-         * Calls {@link JOptionPane#showMessageDialog(java.awt.Component, Object, String, int)} and ensures
+         * Calls {@link JOptionPane#showMessageDialog(Component, Object, String, int)} and ensures
          * it is called on the Event Dispatch Thread.
          */
         public static void showMessageDialogEdt(final Component parentComponent,
@@ -483,6 +483,20 @@ public class EmptyWorld extends World {
             return result;
         }
 
+    }
+
+    public void muteSound(){
+        setup.setMute(true);
+        save();
+    }
+
+    public void unmuteSound(){
+        setup.setMute(false);
+        save();
+    }
+
+    public void save(){
+        WorldSetupBetter.saveWorldSetup(setup);
     }
 
     public class Cell {

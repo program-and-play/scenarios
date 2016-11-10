@@ -1,19 +1,32 @@
 {
-	"title": "Kara 09a Around Tree II",
-	"width": 8,
-	"height": 5,
-	"speed": 40,
-	"randomeValue": 1000,
-	"cellPath":["Lv2_tile1_hell_v2.png", "Lv2_tile2_hell_v2.png", "Lv2_tile3_hell_v2.png", "Lv2_tile4_hell_v2.png"],
-	"actors":   [{ "actor": "MyCharacter", "x": 0 , "y": 0},{ "actor": "LightBeings", "x": 2 , "y": 2}],
-	"isDark": true,
-    "offsetStartToX":1,
-
-    "offsetStartToY":2,
-
-    "offsetXToEnd":1,
-
-    "offsetYToEnd": 1,
-	"levelScreen": "rahmen_lv2.png"
-	
+  "width": 8,
+  "height": 5,
+  "title": "Kara 09a Around Tree II",
+  "speed": 40,
+  "randomeValue": 1000,
+  "cellPath": [
+    "Lv2_tile1_hell_v2.png",
+    "Lv2_tile2_hell_v2.png",
+    "Lv2_tile3_hell_v2.png",
+    "Lv2_tile4_hell_v2.png"
+  ],
+  "actors": [
+    {
+      "actor": "MyCharacter",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "actor": "LightBeings",
+      "x": 2,
+      "y": 2
+    }
+  ],
+  "isDark": true,
+  "offsetStartToX": 1,
+  "offsetStartToY": 2,
+  "offsetXToEnd": 1,
+  "offsetYToEnd": 1,
+  "levelScreen": "rahmen_lv2.png",
+  "mute": true
 }
