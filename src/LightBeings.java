@@ -59,11 +59,11 @@ class LightBeings extends Figure {
         this.resetImage();
     }
 
-    public  ArrayList<GreenfootImage> loadImageForAnimation(GreenfootImage bodyImage, int NumOfCellHorizontal) {
+    public ArrayList<GreenfootImage> loadImageForAnimation(GreenfootImage bodyImage, int numOfCellHorizontal) {
         //TODO hier ein richtigen Import von der Cellsize der World
         int PIXEL = 60;
         GreenfootImage loaded = bodyImage;
-        loaded.scale(PIXEL * NumOfCellHorizontal, PIXEL);
+        loaded.scale(PIXEL * numOfCellHorizontal, PIXEL);
         BufferedImage loadedBuf = loaded.getAwtImage();
 
             ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
