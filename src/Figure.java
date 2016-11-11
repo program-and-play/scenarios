@@ -32,17 +32,17 @@ class Figure extends Actor {
     private Direction currentDirection = Direction.RIGHT;
     private HashMap<Direction, ArrayList<GreenfootImage>> imageContainer;
 
-    public Figure(GreenfootImage image) {
+    protected Figure(GreenfootImage image) {
         imageContainer = loadImageForCharacter(image);
         resetImage();
     }
 
-    public Figure(GreenfootImage image, int sceneX, int sceneY) {
+    protected Figure(GreenfootImage image, int sceneX, int sceneY) {
         imageContainer = loadImageForCharacter(image, sceneX, sceneY);
         resetImage();
     }
 
-    public Figure() {
+    protected Figure() {
         imageContainer = loadImageForCharacter(getImage());
         resetImage();
     }
@@ -80,11 +80,11 @@ class Figure extends Actor {
 
         switch (direction) {
             case RIGHT:         // java
-                return x + steps >= getWorld().getWidth();
+                return x + steps >= getWorld().getWidthWithoutOffset();
 
             case DOWN:         // java
 
-                return y + steps >= getWorld().getHeight();
+                return y + steps >= getWorld().getHeightWithoutOffset();
 
             case LEFT:         // java
 
@@ -137,11 +137,6 @@ class Figure extends Actor {
         System.out.println("setLocationWithoutOffsetWithoutOffset");
     }
 
-    public void setLocation(int x, int y) {
-        super.setLocation(x, y);
-        getWorld().createFieldBackground();
-    }
-
     public HashMap<Direction, ArrayList<GreenfootImage>> loadImageForCharacter(GreenfootImage bodyImage, int NumOfCellHorizontal, int NumOfCellVertical) {
         //TODO hier ein richtigen Import von der Cellsize der World
         int PIXEL = 60;
@@ -167,6 +162,29 @@ class Figure extends Actor {
         }
 
         return animationMap;
+    }
+
+    public ArrayList<GreenfootImage> loadImageForAnimation(GreenfootImage bodyImage, int numOfCellHorizontal) {
+        //TODO hier ein richtigen Import von der Cellsize der World
+        int PIXEL = 60;
+        GreenfootImage loaded = bodyImage;
+        loaded.scale(PIXEL * numOfCellHorizontal, PIXEL);
+        BufferedImage loadedBuf = loaded.getAwtImage();
+
+        ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
+        for (int j = 0; j < loaded.getWidth(); j = j + PIXEL) {
+
+            BufferedImage bufImage = loadedBuf.getSubimage(j, 0, PIXEL, PIXEL);
+            GreenfootImage gImage = new GreenfootImage(bufImage.getWidth(), bufImage.getHeight());
+            BufferedImage gBufImg = gImage.getAwtImage();
+            Graphics2D graphics = (Graphics2D) gBufImg.getGraphics();
+            graphics.drawImage(bufImage, null, 0, 0);
+
+            animation.add(gImage);
+        }
+
+
+        return animation;
     }
 
     public HashMap<Direction, ArrayList<GreenfootImage>> loadImageForCharacter(GreenfootImage bodyImage) {
@@ -221,8 +239,8 @@ class Figure extends Actor {
     }
 
 //TODO wird in LightBeings gebraucht, ob so gut?
-    public void changeImage(String body) {
-        imageContainer = loadImageForCharacter(new GreenfootImage(body), 4, 4);
+    public void changeImage(GreenfootImage image, int sceneX, int sceneY) {
+        imageContainer = loadImageForCharacter(image, sceneX, sceneY);
         setImage(imageContainer.get(currentDirection).get(0));
     }
 

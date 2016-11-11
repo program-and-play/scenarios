@@ -11,7 +11,9 @@ import java.util.List;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class SubFigure extends Figure {
+public class SubFigure extends Figure {
+
+
 
     private static GreenfootImage createImage(String body, String clothes, String stick) {
         GreenfootImage bodyImage = new GreenfootImage(body);
@@ -26,15 +28,14 @@ public abstract class SubFigure extends Figure {
     public static final String STICK_FILE = "character_stab.png";
     public static final String CLOTHES_FILE = "character_kleidung.png";
 
-    public SubFigure() {
+    protected SubFigure() {
         this(BODY_FILE, STICK_FILE, CLOTHES_FILE);
     }
 
-    public SubFigure(String body, String clothes, String stick) {
+    protected SubFigure(String body, String clothes, String stick) {
         super(createImage(body, clothes, stick),4,4);
     }
 
-    //TODO TO SUBFIGURE
     public void move() {
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
             //TODO warnung umschreiben
@@ -124,7 +125,7 @@ public abstract class SubFigure extends Figure {
                 }
                 for (Figure figure : actors) {
                     figure.resetImage();
-                    figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getWidth()), figure.getY());
+                    figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getWidthWithoutOffset()), figure.getY());
                 }
                 break;
 
@@ -140,7 +141,7 @@ public abstract class SubFigure extends Figure {
                 for (Figure figure : actors) {
                     figure.resetImage();
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() + 1), getWorld().getHeight()));
+                            modulo((figure.getY() + 1), getWorld().getHeightWithoutOffset()));
                 }
                 break;
 
@@ -148,7 +149,7 @@ public abstract class SubFigure extends Figure {
                 k = 120;
                 for (Figure figure : actors) {
                     figure.setLocationWithoutOffset(
-                            modulo((figure.getX() - 1), getWorld().getWidth()),
+                            modulo((figure.getX() - 1), getWorld().getWidthWithoutOffset()),
                             figure.getY());
                 }
                 for (int j = 1; j <= 6; j++) {
@@ -168,7 +169,7 @@ public abstract class SubFigure extends Figure {
                 k = 120;
                 for (Figure figure : actors) {
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() - 1), getWorld().getHeight()));
+                            modulo((figure.getY() - 1), getWorld().getHeightWithoutOffset()));
                 }
                 for (int j = 1; j <= 6; j++) {
                     //TODO cell size besser bekommen
@@ -189,7 +190,6 @@ public abstract class SubFigure extends Figure {
     }
 
 
-    //TODO TO SUBFIGURE
 
     /**
      * Kara turns left by 90 degrees <br>
@@ -200,7 +200,6 @@ public abstract class SubFigure extends Figure {
         resetImage();
         Greenfoot.delay(1);
     }
-    //TODO TO SUBFIGURE
 
     /**
      * Kara turns right by 90 degrees <br>
@@ -212,7 +211,6 @@ public abstract class SubFigure extends Figure {
         Greenfoot.delay(1);
     }
 
-    //TODO TO SUBFIGURE
 
     /**
      * A special modulo operation that never returns a negative number. This is
@@ -246,19 +244,19 @@ public abstract class SubFigure extends Figure {
 
         switch (getCurrentDirection()) {
             case RIGHT:         // java
-                x = modulo((x + steps), getWorld().getWidth());
+                x = modulo((x + steps), getWorld().getWidthWithoutOffset());
                 break;
 
             case DOWN:         // java
-                y = modulo((y + steps), getWorld().getHeight());
+                y = modulo((y + steps), getWorld().getHeightWithoutOffset());
                 break;
 
             case LEFT:         // java
-                x = modulo((x - steps), getWorld().getWidth());
+                x = modulo((x - steps), getWorld().getWidthWithoutOffset());
                 break;
 
             case UP:         // java
-                y = modulo((y - steps), getWorld().getHeight());
+                y = modulo((y - steps), getWorld().getHeightWithoutOffset());
                 break;
 
             default: // Not a valid direction
@@ -280,7 +278,7 @@ public abstract class SubFigure extends Figure {
     }
 
     public void createLightBeings(int x, int y) {
-        if (getWorld().getWidth() < x || getWorld().getHeight() < y || x < 0 || y < 0) {
+        if (getWorld().getWidthWithoutOffset() < x || getWorld().getHeightWithoutOffset() < y || x < 0 || y < 0) {
             //TODO einen besseren text
             showWarning(
                     "Kara can't move because he can't push the mushroom!",
