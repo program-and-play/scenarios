@@ -5,6 +5,7 @@ import greenfoot.World;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -187,12 +188,15 @@ public class EmptyWorld extends World {
         return worldImage;
     }
 
-    //New
+    /**
+     * Draw the background
+     */
     public GreenfootImage createBackground(Cell[] backgroundArray) {
         GreenfootImage background = new GreenfootImage(getWidth() * CELL_SIZE, getHeight() * CELL_SIZE);
 
         Random random = new Random(randomValue);
         //TODO hier wirklich von worldSetup statt die werte von Emptyworld zu bekommen ist nicht so gut
+        // paint the complete background
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
                 if (worldIsDark)
@@ -202,17 +206,35 @@ public class EmptyWorld extends World {
             }
         }
 
+        // change the background if light beings are nearby
         if (worldIsDark) {
+            GreenfootImage baseMask = new GreenfootImage("light-mask.png");
+            baseMask.scale(CELL_SIZE, CELL_SIZE);
+            BufferedImage mask = baseMask.getAwtImage();
             for (LightBeings obj : getObjects(LightBeings.class)) {
-                for (int i = obj.getX() - 1; i <= obj.getX() + 1; i++) {
-                    for (int j = obj.getY() - 1; j <= obj.getY() + 1; j++) {
-                        background.drawImage(backgroundArray[random.nextInt(backgroundArray.length - 1)].getLight(), i * CELL_SIZE, j * CELL_SIZE);
-                    }
-                }
+                GreenfootImage cellImage = backgroundArray[random.nextInt(backgroundArray.length - 1)].getLight();
+                applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
+                background.drawImage(cellImage, obj.getX() * CELL_SIZE, obj.getY() * CELL_SIZE);
             }
         }
 
         return background;
+    }
+
+    public void applyGrayscaleMaskToAlpha(BufferedImage image, BufferedImage mask) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        int[] imagePixels = image.getRGB(0, 0, width, height, null, 0, width);
+        int[] maskPixels = mask.getRGB(0, 0, width, height, null, 0, width);
+
+        for (int i = 0; i < imagePixels.length; i++) {
+            int color = imagePixels[i] & 0x00ffffff; // Mask preexisting alpha
+            int alpha = maskPixels[i] << 24; // Shift blue to alpha
+            imagePixels[i] = color | alpha;
+        }
+
+        image.setRGB(0, 0, width, height, imagePixels, 0, width);
     }
 
 
