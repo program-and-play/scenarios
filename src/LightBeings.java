@@ -16,28 +16,32 @@ import java.util.Random;
 
 
 class LightBeings extends Figure {
-
+    private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
+            "lichtwesen_neu_lila.png", "lichtwesen_neu_rosa.png", "lichtwesen_neu_rot.png","lichtwesen_neu_blau.png"};
     private ArrayList<GreenfootImage> bodyImages;
     private int colorPointer;
-    protected LightBeings() {
-        super(new GreenfootImage("lichtwesen_blau_rund.png"),4,4);
 
+    protected LightBeings() {
+        super(new GreenfootImage("lichtwesen_neu_blau.png"));
         bodyImages = new ArrayList<GreenfootImage>();
-        bodyImages.add(new GreenfootImage("lichtwesen_blau_rund.png"));
-        bodyImages.add(new GreenfootImage("lichtwesen_gelb_rund.png"));
-        bodyImages.add(new GreenfootImage("lichtwesen_rosa_rund.png"));
+        for (int i = 0; i < path.length; i++) {
+            GreenfootImage tmp = new GreenfootImage(path[i]);
+            //TODO muss besser gehen die groesse der Pixel zu bekommen
+            tmp.scale(60, 60);
+            bodyImages.add(tmp);
+        }
         colorPointer = 0;
     }
 
     private ArrayList<GreenfootImage> getAnimationContainer() {
-        return loadImageForAnimation(new GreenfootImage("lichtwesen_beschwören.png"),6);
+        return loadImageForAnimation(new GreenfootImage("lichtwesen_beschwören.png"), 6);
     }
 
-    @Override
-    public void setLocation(int x, int y) {
-        super.setLocation(x, y);
-        //getWorld().createFieldBackground();
-    }
+//    @Override
+//    public void setLocation(int x, int y) {
+//        super.setLocation(x, y);
+//        //getWorld().createFieldBackground();
+//    }
 
     protected void makeAnimation() {
         for (GreenfootImage img : getAnimationContainer()) {
@@ -47,26 +51,44 @@ class LightBeings extends Figure {
         this.resetImage();
     }
 
-    public void leuchteRot(){
-        colorPointer = 2;
-        changeImage(bodyImages.get(colorPointer),4,4);
-
-    }
-
-    public void leuteLila(){
-        colorPointer = 1;
-        changeImage(bodyImages.get(colorPointer),4,4);
-    }
-
-    public void leuteBeigeCappuchino(){
+    public void leuteBeigeCappuchino() {
         colorPointer = 0;
-        changeImage(bodyImages.get(colorPointer),4,4);
+        setImage(bodyImages.get(colorPointer));
     }
 
-    public void wechselFarbe(){
-        if(colorPointer >= bodyImages.size()-1)
+    public void leuchteGelb() {
+        colorPointer = 1;
+        setImage(bodyImages.get(colorPointer));
+
+    }
+
+    public void leuteLila() {
+        colorPointer = 2;
+        setImage(bodyImages.get(colorPointer));
+    }
+
+    public void leuteRosa() {
+        colorPointer = 3;
+        setImage(bodyImages.get(colorPointer));
+    }
+
+    public void leuchteRot() {
+        colorPointer = 4;
+        setImage(bodyImages.get(colorPointer));
+
+    }
+
+    public void leuchteBlau() {
+        colorPointer = 5;
+        setImage(bodyImages.get(colorPointer));
+
+    }
+
+
+    public void wechselFarbe() {
+        if (colorPointer >= bodyImages.size() - 1)
             colorPointer = -1;
-        changeImage(bodyImages.get(++colorPointer),4,4);
+        setImage(bodyImages.get(++colorPointer));
     }
 
 }

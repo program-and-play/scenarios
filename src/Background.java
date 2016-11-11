@@ -11,7 +11,7 @@ import java.util.Random;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Background extends Actor {
+public class Background {
 
     // Levelscreen
     // Levelworld
