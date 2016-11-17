@@ -5,10 +5,10 @@
   "speed": 40,
   "randomeValue": 1000,
   "cellPath": [
-    "Lv2_tile1_hell_v2.png",
-    "Lv2_tile2_hell_v2.png",
-    "Lv2_tile3_hell_v2.png",
-    "Lv2_tile4_hell_v2.png"
+    "Lv2_tile1_dunkel_v2.png",
+    "Lv2_tile2_dunkel_v2.png",
+    "Lv2_tile3_dunkel_v2.png",
+    "Lv2_tile4_dunkel_v2.png"
   ],
   "actors": [
     {

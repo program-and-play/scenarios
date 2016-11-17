@@ -16,42 +16,34 @@ import java.util.Random;
 
 
 class LightBeings extends Figure {
-    public static final String BODY_FILE_BLAU = "lichtwesen_blau_rund.png";
-    public static final String BODY_FILE_GELB = "lichtwesen_gelb_rund.png";
-    public static final String BODY_FILE_ROSA = "lichtwesen_rosa_rund.png";
+    private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
+            "lichtwesen_neu_lila.png", "lichtwesen_neu_rosa.png", "lichtwesen_neu_rot.png","lichtwesen_neu_blau.png"};
+    private ArrayList<GreenfootImage> bodyImages;
+    private int colorPointer;
 
-    public LightBeings() {
-        super(new GreenfootImage(BODY_FILE_BLAU),4,4);
-    }
-
-    /**
-     * Act - do whatever the LightBeings wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() {
-
-    }
-
-    public ArrayList<GreenfootImage> getAnimationContainer() {
-        return loadImageForAnimation(new GreenfootImage("lichtwesen_beschwören.png"),6);
-    }
-
-    public void changeColor(String color) {
-        switch (color) {
-            case "BLUE":
-                changeImage(BODY_FILE_BLAU);
-                break;
-            case "YELLOW":
-                changeImage(BODY_FILE_GELB);
-                break;
-            case "RED":
-                changeImage(BODY_FILE_ROSA);
-                break;
+    protected LightBeings() {
+        super(new GreenfootImage("lichtwesen_neu_blau.png"));
+        bodyImages = new ArrayList<GreenfootImage>();
+        for (int i = 0; i < path.length; i++) {
+            GreenfootImage tmp = new GreenfootImage(path[i]);
+            //TODO muss besser gehen die groesse der Pixel zu bekommen
+            tmp.scale(60, 60);
+            bodyImages.add(tmp);
         }
-
+        colorPointer = 0;
     }
 
-    public void makeAnimation() {
+    private ArrayList<GreenfootImage> getAnimationContainer() {
+        return loadImageForAnimation(new GreenfootImage("lichtwesen_beschwören.png"), 6);
+    }
+
+//    @Override
+//    public void setLocation(int x, int y) {
+//        super.setLocation(x, y);
+//        //getWorld().createFieldBackground();
+//    }
+
+    protected void makeAnimation() {
         for (GreenfootImage img : getAnimationContainer()) {
             setImage(img);
             Greenfoot.delay(2);
@@ -59,29 +51,44 @@ class LightBeings extends Figure {
         this.resetImage();
     }
 
-    public ArrayList<GreenfootImage> loadImageForAnimation(GreenfootImage bodyImage, int numOfCellHorizontal) {
-        //TODO hier ein richtigen Import von der Cellsize der World
-        int PIXEL = 60;
-        GreenfootImage loaded = bodyImage;
-        loaded.scale(PIXEL * numOfCellHorizontal, PIXEL);
-        BufferedImage loadedBuf = loaded.getAwtImage();
+    public void leuteBeigeCappuchino() {
+        colorPointer = 0;
+        setImage(bodyImages.get(colorPointer));
+    }
 
-            ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
-            for (int j = 0; j < loaded.getWidth(); j = j + PIXEL) {
+    public void leuchteGelb() {
+        colorPointer = 1;
+        setImage(bodyImages.get(colorPointer));
 
-                BufferedImage bufImage = loadedBuf.getSubimage(j, 0, PIXEL, PIXEL);
-                GreenfootImage gImage = new GreenfootImage(bufImage.getWidth(), bufImage.getHeight());
-                BufferedImage gBufImg = gImage.getAwtImage();
-                Graphics2D graphics = (Graphics2D) gBufImg.getGraphics();
-                graphics.drawImage(bufImage, null, 0, 0);
+    }
 
-                animation.add(gImage);
-            }
+    public void leuteLila() {
+        colorPointer = 2;
+        setImage(bodyImages.get(colorPointer));
+    }
 
+    public void leuteRosa() {
+        colorPointer = 3;
+        setImage(bodyImages.get(colorPointer));
+    }
 
-        return animation;
+    public void leuchteRot() {
+        colorPointer = 4;
+        setImage(bodyImages.get(colorPointer));
+
+    }
+
+    public void leuchteBlau() {
+        colorPointer = 5;
+        setImage(bodyImages.get(colorPointer));
+
     }
 
 
+    public void wechselFarbe() {
+        if (colorPointer >= bodyImages.size() - 1)
+            colorPointer = -1;
+        setImage(bodyImages.get(++colorPointer));
+    }
 
 }

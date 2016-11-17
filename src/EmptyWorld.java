@@ -61,12 +61,7 @@ public class EmptyWorld extends World {
 
     private int offsetYToEnd;
 
-
-    //    public static final Class<?>[] PAINT_ORDER = {
-    //        //TODO Hier fehlt die richtige Paintorder, konstrukt funktioniert nicht  Tipp: benutze die [] klammern dafür
-    //        MyCharacter.class
-    //    };
-    //
+    private Background background;
 
     private static WorldSetupBetter setup;
 
@@ -108,22 +103,22 @@ public class EmptyWorld extends World {
             return;
         }
 
-        GROUNDPATH = setup.getCellPath();
-        worldIsDark = setup.isDark();
-        randomValue = setup.getRandomeValue();
+
         offsetStartToX = setup.getOffsetStartToX();
         offsetStartToY = setup.getOffsetStartToY();
         offsetXToEnd = setup.getOffsetXToEnd();
         offsetYToEnd = setup.getOffsetYToEnd();
-        levelScreen = new GreenfootImage(setup.getLevelScreen());
+
 
         //  TODO Paintorder reparieren
         //        setPaintOrder(PAINT_ORDER)
+
         //TODO entscheide welchen default speed gesetzt werden soll
         Greenfoot.setSpeed(setup.getSpeed());
-        addObjectWithoutOffset(new SoundButton(true), 9, 7);
+        addObject(new SoundButton(true), getWidth(), getHeight());
 
-        createFieldBackground();
+        background = new Background(setup,CELL_SIZE);
+        setBackground(background.getBackground());
         // Initialize actors
         initActorsFromWorldSetup();
     }
@@ -132,27 +127,30 @@ public class EmptyWorld extends World {
     @Override
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
-        createFieldBackground();
-        System.out.println("addObject");
+        if(object instanceof LightBeings) {
+            background.updateBackground(getObjects(LightBeings.class));
+            setBackground(background.getBackground());
+        }
     }
 
     public void addObjectWithoutOffset(Actor object, int x, int y) {
-        super.addObject(object, x + offsetStartToX, y + offsetStartToY);
-        System.out.println("addObject");
+        addObject(object, x + offsetStartToX, y + offsetStartToY);
     }
+
     @Override
     public void removeObject(Actor object){
         super.removeObject(object);
-        createFieldBackground();
+        if(worldIsDark && object instanceof LightBeings) {
+            background.updateBackground(getObjects(LightBeings.class));
+            setBackground(background.getBackground());
+        }
     }
 
-    @Override
-    public int getWidth() {
+    public int getWidthWithoutOffset() {
         return super.getWidth() - offsetStartToX - offsetXToEnd;
     }
 
-    @Override
-    public int getHeight() {
+    public int getHeightWithoutOffset() {
         return super.getHeight() - offsetStartToY - offsetYToEnd;
     }
 
@@ -172,95 +170,6 @@ public class EmptyWorld extends World {
         return offsetYToEnd;
     }
 
-    public Cell[] loadImageGround(ArrayList<String> path) {
-        Cell[] worldImage = new Cell[path.size()];
-
-        for (int i = 0; i < path.size(); i++) {
-            Cell tmp;
-            if (path.get(i).contains("hell"))
-                tmp = new Cell("images/" + path.get(i), "images/" + path.get(i).replace("hell", "dunkel"));
-            else
-                tmp = new Cell("images/" + path.get(i));
-
-
-            worldImage[i] = tmp.scale(CELL_SIZE, CELL_SIZE);
-        }
-        return worldImage;
-    }
-
-    /**
-     * Draw the background
-     */
-    public GreenfootImage createBackground(Cell[] backgroundArray) {
-        GreenfootImage background = new GreenfootImage(getWidth() * CELL_SIZE, getHeight() * CELL_SIZE);
-
-        Random random = new Random(randomValue);
-        //TODO hier wirklich von worldSetup statt die werte von Emptyworld zu bekommen ist nicht so gut
-        // paint the complete background
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                if (worldIsDark)
-                    background.drawImage(backgroundArray[random.nextInt(backgroundArray.length - 1)].getDark(), j * CELL_SIZE, i * CELL_SIZE);
-                else
-                    background.drawImage(backgroundArray[random.nextInt(backgroundArray.length - 1)].getLight(), j * CELL_SIZE, i * CELL_SIZE);
-            }
-        }
-
-        // change the background if light beings are nearby
-        if (worldIsDark) {
-            GreenfootImage baseMask = new GreenfootImage("light-mask.png");
-            baseMask.scale(CELL_SIZE, CELL_SIZE);
-            BufferedImage mask = baseMask.getAwtImage();
-            for (LightBeings obj : getObjects(LightBeings.class)) {
-                GreenfootImage cellImage = backgroundArray[random.nextInt(backgroundArray.length - 1)].getLight();
-                applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
-                background.drawImage(cellImage, obj.getX() * CELL_SIZE, obj.getY() * CELL_SIZE);
-            }
-        }
-
-        return background;
-    }
-
-    public void applyGrayscaleMaskToAlpha(BufferedImage image, BufferedImage mask) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        int[] imagePixels = image.getRGB(0, 0, width, height, null, 0, width);
-        int[] maskPixels = mask.getRGB(0, 0, width, height, null, 0, width);
-
-        for (int i = 0; i < imagePixels.length; i++) {
-            int color = imagePixels[i] & 0x00ffffff; // Mask preexisting alpha
-            int alpha = maskPixels[i] << 24; // Shift blue to alpha
-            imagePixels[i] = color | alpha;
-        }
-
-        image.setRGB(0, 0, width, height, imagePixels, 0, width);
-    }
-
-
-    /**
-     * Initializes the background tiles with the field icon.
-     */
-    public void createFieldBackground() {
-        int realWidth = getWidth() + getOffsetXToEnd() + getOffsetStartToX();
-        int realHeight = getHeight() + getOffsetYToEnd() + getOffsetStartToY();
-        GreenfootImage tmp = new GreenfootImage(realWidth * getCellSize(), realHeight *getCellSize());
-
-        levelScreen.scale(realWidth * getCellSize(), realHeight *getCellSize());
-        tmp.drawImage(levelScreen, 0, 0);
-        tmp.drawImage(createBackground(loadImageGround(GROUNDPATH)),getOffsetStartToX() * getCellSize(), getOffsetStartToY()*getCellSize());
-
-        setBackground(tmp);
-    }
-
-    /**
-     * Removes the background tiles.
-     */
-    protected void clearFieldBackground() {
-        setBackground((GreenfootImage) null);
-    }
-
-
     /**
      * Initializes the actors based on actor information in the specified
      * {@link WorldSetup}.
@@ -270,7 +179,7 @@ public class EmptyWorld extends World {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
                 case "MyCharacter":
-                    tmp = new MyCharacter();
+                    tmp = MyCharacter.getInstance();
                     break;
                 case "Stone":
                     tmp = new Stone();
@@ -291,6 +200,21 @@ public class EmptyWorld extends World {
     public void printWorldSetupToConsole() {
         System.out.println(";-------------------------- START --------------------------");
         System.out.println(";--------------------------- END ---------------------------\n");
+    }
+
+
+    public void muteSound(){
+        setup.setMute(true);
+        save();
+    }
+
+    public void unmuteSound(){
+        setup.setMute(false);
+        save();
+    }
+
+    public void save(){
+        WorldSetupBetter.saveWorldSetup(setup);
     }
 
     /**
@@ -507,50 +431,4 @@ public class EmptyWorld extends World {
 
     }
 
-    public void muteSound(){
-        setup.setMute(true);
-        save();
-    }
-
-    public void unmuteSound(){
-        setup.setMute(false);
-        save();
-    }
-
-    public void save(){
-        WorldSetupBetter.saveWorldSetup(setup);
-    }
-
-    public class Cell {
-        private GreenfootImage light;
-        private GreenfootImage dark;
-
-        public Cell(String lightString, String darkString) {
-            this.dark = new GreenfootImage(darkString);
-            this.light = new GreenfootImage(lightString);
-        }
-
-        public Cell(String lightString) {
-            this.dark = new GreenfootImage(lightString);
-            this.light = this.dark;
-        }
-
-        public GreenfootImage getLight() {
-            return light;
-        }
-
-        public GreenfootImage getDark() {
-            return dark;
-        }
-
-        public Cell scale(int width, int height) {
-            light.scale(width, height);
-            dark.scale(width, height);
-            return this;
-        }
-
-        public String toString() {
-            return "Light: " + light.toString() + " Dark: " + dark.toString() + "\n";
-        }
-    }
 }
