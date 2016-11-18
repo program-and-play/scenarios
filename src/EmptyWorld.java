@@ -32,6 +32,8 @@ public class EmptyWorld extends World {
 
     private GreenfootImage levelScreen;
 
+    private Playground playground;
+
     // Size of one cell
     public static final int CELL_SIZE = 60;
 
@@ -108,6 +110,8 @@ public class EmptyWorld extends World {
         offsetStartToY = setup.getOffsetStartToY();
         offsetXToEnd = setup.getOffsetXToEnd();
         offsetYToEnd = setup.getOffsetYToEnd();
+
+        playground = new Playground(this);
 
 
         //  TODO Paintorder reparieren
@@ -215,6 +219,10 @@ public class EmptyWorld extends World {
 
     public void save(){
         WorldSetupBetter.saveWorldSetup(setup);
+    }
+
+    public Playground getPlayground() {
+        return playground;
     }
 
     /**
