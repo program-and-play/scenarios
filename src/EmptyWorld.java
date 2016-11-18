@@ -5,6 +5,7 @@ import greenfoot.World;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -61,13 +62,6 @@ public class EmptyWorld extends World {
     private int offsetYToEnd;
 
     private Background background;
-
-
-    //    public static final Class<?>[] PAINT_ORDER = {
-    //        //TODO Hier fehlt die richtige Paintorder, konstrukt funktioniert nicht  Tipp: benutze die [] klammern dafür
-    //        MyCharacter.class
-    //    };
-    //
 
     private static WorldSetupBetter setup;
 
@@ -133,7 +127,7 @@ public class EmptyWorld extends World {
     @Override
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
-        if(worldIsDark && object instanceof LightBeings) {
+        if(object instanceof LightBeings) {
             background.updateBackground(getObjects(LightBeings.class));
             setBackground(background.getBackground());
         }
