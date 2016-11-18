@@ -109,12 +109,16 @@ public class Background {
         // levelscreen + gameWorld + shadow
         background = new GreenfootImage(nettoWidth * CELL_SIZE , nettoHeight * CELL_SIZE);
         background.drawImage(levelScreen,0,0);
-        background.drawImage(gameWorld, offsetStartToX* CELL_SIZE, offsetStartToY* CELL_SIZE);
+        background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY* CELL_SIZE);
         if(isDark) {
             for (LightBeings obj : list) {
                 GreenfootImage cellImage = lightCellList.get(random.nextInt(cellList.size() - 1));
                 applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
-                background.drawImage(cellImage, obj.getX() * CELL_SIZE, obj.getY() * CELL_SIZE);
+                background.drawImage(
+                    cellImage,
+                    (offsetStartToX + obj.getX()) * CELL_SIZE,
+                    (offsetStartToY + obj.getY()) * CELL_SIZE
+                );
             }
         }
         return background;
