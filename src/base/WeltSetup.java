@@ -381,7 +381,7 @@ public class WeltSetup {
     public static void saveWorldSetup(WeltSetup v) {
         Gson gson = new Gson();
         String content = gson.toJson(v);
-        File file = findMatchingFiles("WorldSetup.json", WeltSetup.class);
+        File file = findMatchingFiles("WeltSetup.json", WeltSetup.class);
         try {
             writeToFile(file, content);
         } catch (IOException e) {

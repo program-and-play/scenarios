@@ -26,7 +26,7 @@ public class LeereWelt extends World {
 
     private boolean worldIsDark;
 
-    private static final String WORLD_SETUP_FILE = "WorldSetup.json";
+    private static final String WORLD_SETUP_FILE = "WeltSetup.json";
 
     private ArrayList<String> GROUNDPATH;
 
