@@ -5,26 +5,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Write a description of class MyCharacter here.
+ * Write a description of class Zauberer here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class MyCharacter extends SubFigure {
-    private static MyCharacter instance;
+public class Zauberer extends SubFigure {
+    private static Zauberer instance;
 
-    protected static MyCharacter getInstance () {
-        if (MyCharacter.instance == null) {
-            MyCharacter.instance = new MyCharacter ();
+    protected static Zauberer getInstance () {
+        if (Zauberer.instance == null) {
+            Zauberer.instance = new Zauberer ();
         }
-        return MyCharacter.instance;
+        return Zauberer.instance;
     }
     /**
-     * Act - do whatever the MyCharacter wants to do. This method is called whenever
+     * Act - do whatever the Zauberer wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
 
-    private MyCharacter(){
+    private Zauberer(){
         super();
     }
 

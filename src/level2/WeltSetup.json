@@ -1,6 +1,6 @@
 {
-  "width": 8,
-  "height": 5,
+  "width": 15,
+  "height": 8,
   "title": "Kara 09a Around Tree II",
   "speed": 40,
   "randomeValue": 1000,
@@ -12,20 +12,30 @@
   ],
   "actors": [
     {
-      "actor": "MyCharacter",
+      "actor": "Zauberer",
       "x": 0,
       "y": 0
     },
     {
-      "actor": "LightBeings",
+      "actor": "Lichtwesen",
       "x": 2,
       "y": 2
+    },
+    {
+      "actor": "Lichtwesen",
+      "x": 10,
+      "y": 6
+    },
+    {
+      "actor": "Lichtwesen",
+      "x": 1,
+      "y": 5
     }
   ],
   "isDark": true,
-  "offsetStartToX": 1,
+  "offsetStartToX": 2,
   "offsetStartToY": 2,
-  "offsetXToEnd": 1,
+  "offsetXToEnd": 2,
   "offsetYToEnd": 1,
   "levelScreen": "rahmen_lv2.png",
   "mute": true

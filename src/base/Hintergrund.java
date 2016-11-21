@@ -7,12 +7,12 @@ import java.util.Random;
 import java.awt.image.*;
 
 /**
- * Write a description of class Background here.
+ * Write a description of class Hintergrund here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Background {
+public class Hintergrund {
 
     // Levelscreen
     // Levelworld
@@ -35,11 +35,11 @@ public class Background {
     private GreenfootImage background;
     private final int CELL_SIZE;
     private boolean isDark;
-    private WorldSetupBetter setup;
+    private WeltSetup setup;
     private BufferedImage mask;
 
 
-    public Background(WorldSetupBetter setup, int CELL_SIZE) {
+    public Hintergrund(WeltSetup setup, int CELL_SIZE) {
         this.CELL_SIZE = CELL_SIZE;
         this.setup = setup;
 
@@ -104,14 +104,14 @@ public class Background {
         return tmpGameWorld;
     }
 
-    public GreenfootImage updateBackground(List<LightBeings> list) {
+    public GreenfootImage updateBackground(List<Lichtwesen> list) {
         Random random = new Random();
         // levelscreen + gameWorld + shadow
         background = new GreenfootImage(nettoWidth * CELL_SIZE , nettoHeight * CELL_SIZE);
         background.drawImage(levelScreen,0,0);
         background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY* CELL_SIZE);
         if(isDark) {
-            for (LightBeings obj : list) {
+            for (Lichtwesen obj : list) {
                 GreenfootImage cellImage = lightCellList.get(random.nextInt(cellList.size() - 1));
                 applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
                 background.drawImage(

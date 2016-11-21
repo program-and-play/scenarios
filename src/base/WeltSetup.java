@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Write a description of class WorldSetupBetter here.
+ * Write a description of class WeltSetup here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class WorldSetupBetter {
+public class WeltSetup {
     /**
      * The world width
      */
@@ -53,7 +53,7 @@ public class WorldSetupBetter {
      */
 
 
-    public WorldSetupBetter() {
+    public WeltSetup() {
     }
 
     public boolean isMute() {
@@ -170,7 +170,7 @@ public class WorldSetupBetter {
 
     @Override
     public String toString() {
-        return "WorldSetupBetter{" +
+        return "WeltSetup{" +
                 "width=" + width + "\n" +
                 ", height=" + height + "\n" +
                 ", title='" + title + '\'' + "\n" +
@@ -249,7 +249,7 @@ public class WorldSetupBetter {
             // Option 1: try to get file relative to class
             if (clazz != null) {
                 File dir = new File(clazz.getResource(".").toURI());
-                List<File> files = WorldSetupBetter.scan(dir, fileName);
+                List<File> files = WeltSetup.scan(dir, fileName);
                 if (!files.isEmpty()) {
                     return files.get(0);
                 }
@@ -257,14 +257,14 @@ public class WorldSetupBetter {
 
             // Option 2: try to get file relative to package root (may be inside jar)
             File dir2 = new File(Thread.currentThread().getContextClassLoader().getResource(".").toURI());
-            List<File> files2 = WorldSetupBetter.scan(dir2, fileName);
+            List<File> files2 = WeltSetup.scan(dir2, fileName);
             if (!files2.isEmpty()) {
                 return files2.get(0);
             }
 
             // Option 3: try to get file relative to project root (outside of jar)
             File dir3 = new File(".");
-            List<File> files3 = WorldSetupBetter.scan(dir3, fileName);
+            List<File> files3 = WeltSetup.scan(dir3, fileName);
             if (!files3.isEmpty()) {
                 // Note: only get the first match
                 return files3.get(0);
@@ -368,20 +368,20 @@ public class WorldSetupBetter {
         return result;
     }
 
-    public static WorldSetupBetter createWorldSetup(List<String> list) {
+    public static WeltSetup createWorldSetup(List<String> list) {
         return createWorldSetup(list.stream().reduce("", (a, b) -> a + "\n" + b));
     }
 
-    public static WorldSetupBetter createWorldSetup(String s) {
+    public static WeltSetup createWorldSetup(String s) {
         Gson gson = new Gson();
 
-        return gson.fromJson(s, WorldSetupBetter.class);
+        return gson.fromJson(s, WeltSetup.class);
     }
 
-    public static void saveWorldSetup(WorldSetupBetter v) {
+    public static void saveWorldSetup(WeltSetup v) {
         Gson gson = new Gson();
         String content = gson.toJson(v);
-        File file = findMatchingFiles("WorldSetup.json", WorldSetupBetter.class);
+        File file = findMatchingFiles("WeltSetup.json", WeltSetup.class);
         try {
             writeToFile(file, content);
         } catch (IOException e) {

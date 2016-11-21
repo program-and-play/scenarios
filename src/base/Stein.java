@@ -10,11 +10,11 @@ import java.util.ArrayList;
  *
  * @author Marco Jakob (http://code.makery.ch)
  */
-public class Stone extends Figure {
+public class Stein extends Figur {
 
     public static final String BODY_FILE_ROSA = "lichtwesen_rosa_rund.png";
 
-    public Stone() {
+    public Stein() {
         super(new GreenfootImage(BODY_FILE_ROSA));
     }
 
@@ -24,7 +24,7 @@ public class Stone extends Figure {
      * @param onTarget
      *            if true, the on-target-image is used.
      */
-    public Stone(boolean onTarget) {
+    public Stein(boolean onTarget) {
         if (onTarget) {
             showOnTargetImage();
         }
@@ -35,7 +35,7 @@ public class Stone extends Figure {
      * otherwise the default image is shown.
      */
     public void updateImage() {
-        if (getOneObjectAtOffset(0, 0, Stone.class) != null) {
+        if (getOneObjectAtOffset(0, 0, Stein.class) != null) {
             showOnTargetImage();
         } else {
             showDefaultImage();
@@ -46,7 +46,7 @@ public class Stone extends Figure {
      * Shows the default image.
      */
     private void showDefaultImage() {
-        setImage(EmptyWorld.ICON_STONE);
+        setImage(LeereWelt.ICON_STONE);
     }
 
     /**
@@ -54,7 +54,7 @@ public class Stone extends Figure {
      */
     private void showOnTargetImage() {
         //TODO hier muss was gemacht werden
-//        setImage(EmptyWorld.ICON_STONE_ON_TARGET);
+//        setImage(LeereWelt.ICON_STONE_ON_TARGET);
     }
 
     /**
@@ -62,8 +62,8 @@ public class Stone extends Figure {
      * checks whether it is ok to put it there.
      */
     protected void addedToWorld(World world) {
-        if (getOneObjectAtOffset(0, 0, MyCharacter.class) != null
-                || getOneObjectAtOffset(0, 0, Stone.class) != null
+        if (getOneObjectAtOffset(0, 0, Zauberer.class) != null
+                || getOneObjectAtOffset(0, 0, Stein.class) != null
                 /*|| getOneObjectAtOffset(0, 0, Tree.class) != null*/) {
             // There is something in the way, remove it again
             world.removeObject(this);
@@ -77,8 +77,8 @@ public class Stone extends Figure {
      * Mushroom on a Kara, Tree, or another Mushroom.
      */
     public void setLocation(int x, int y) {
-        if (getWorld().getObjectsAt(x, y, MyCharacter.class).isEmpty()
-                && getWorld().getObjectsAt(x, y, Stone.class).isEmpty()
+        if (getWorld().getObjectsAt(x, y, Zauberer.class).isEmpty()
+                && getWorld().getObjectsAt(x, y, Stein.class).isEmpty()
                /* && getWorld().getObjectsAt(x, y, Tree.class).isEmpty()*/) {
             // Nothing is in the way, we can set the location
             super.setLocation(x, y);
@@ -91,8 +91,8 @@ public class Stone extends Figure {
         System.out.println("setLocationWithoutOffsetWithoutOffset");
     }
 
-    public EmptyWorld getWorld(){
-        return (EmptyWorld) super.getWorld();
+    public LeereWelt getWorld(){
+        return (LeereWelt) super.getWorld();
     }
 
 
