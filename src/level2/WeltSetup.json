@@ -12,22 +12,22 @@
   ],
   "actors": [
     {
-      "actor": "MyCharacter",
+      "actor": "Zauberer",
       "x": 0,
       "y": 0
     },
     {
-      "actor": "LightBeings",
+      "actor": "Lichtwesen",
       "x": 2,
       "y": 2
     },
     {
-      "actor": "LightBeings",
+      "actor": "Lichtwesen",
       "x": 10,
       "y": 6
     },
     {
-      "actor": "LightBeings",
+      "actor": "Lichtwesen",
       "x": 1,
       "y": 5
     }

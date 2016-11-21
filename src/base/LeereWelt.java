@@ -1,4 +1,4 @@
-    import greenfoot.Actor;
+import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 import greenfoot.World;
@@ -17,12 +17,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 /**
- * Write a description of class EmptyWorld here.
+ * Write a description of class LeereWelt here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class EmptyWorld extends World {
+public class LeereWelt extends World {
 
     private boolean worldIsDark;
 
@@ -32,7 +32,7 @@ public class EmptyWorld extends World {
 
     private GreenfootImage levelScreen;
 
-    private Playground playground;
+    private Spielfeld playground;
 
     // Size of one cell
     public static final int CELL_SIZE = 60;
@@ -40,9 +40,9 @@ public class EmptyWorld extends World {
     //TODO die richtigen Anzeigebilder für die class in dem Anzeigebaum von Greenfoot integrieren.
 
     // all actor icons (this is a trick to get the default image that was chosen for actors)
-    public static final GreenfootImage ICON_CHARACTER = new Figure().getImage();
-    public static final GreenfootImage ICON_LEAF = new LightBeings().getImage();
-    public static final GreenfootImage ICON_STONE = new Stone().getImage();
+    public static final GreenfootImage ICON_CHARACTER = new Figur().getImage();
+    public static final GreenfootImage ICON_LEAF = new Lichtwesen().getImage();
+    public static final GreenfootImage ICON_STONE = new Stein().getImage();
     //TODO funktioniert nicht
     //   public static final GreenfootImage ICON_STONE_ON_TARGET = findOnTargetImage(ICON_STONE, "_on_target");
 
@@ -63,19 +63,19 @@ public class EmptyWorld extends World {
 
     private int offsetYToEnd;
 
-    private Background background;
+    private Hintergrund background;
 
-    private static WorldSetupBetter setup;
+    private static WeltSetup setup;
 
     static {
         // This code is executed when the class is loaded,
         // BEFORE the constructor is called
         //TODO das muss besser ausgelagert werden
         try {
-            File file = WorldSetupBetter.findMatchingFiles(WORLD_SETUP_FILE, EmptyWorld.class);
+            File file = WeltSetup.findMatchingFiles(WORLD_SETUP_FILE, LeereWelt.class);
             if (file != null) {
-                List<String> tmp = WorldSetupBetter.readAllLines(file);
-                setup = WorldSetupBetter.createWorldSetup(tmp);
+                List<String> tmp = WeltSetup.readAllLines(file);
+                setup = WeltSetup.createWorldSetup(tmp);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class EmptyWorld extends World {
     /**
      * Creates a world for Kara.
      */
-    public EmptyWorld() {
+    public LeereWelt() {
         // Create the new world
         super(setup != null ? (setup.getWidth() + setup.getOffsetStartToX() + setup.getOffsetXToEnd()) : 10,
                 setup != null ? (setup.getHeight() + setup.getOffsetStartToY() + setup.getOffsetYToEnd()) : 10, CELL_SIZE);
@@ -111,7 +111,7 @@ public class EmptyWorld extends World {
         offsetXToEnd = setup.getOffsetXToEnd();
         offsetYToEnd = setup.getOffsetYToEnd();
 
-        playground = new Playground(this);
+        playground = new Spielfeld(this);
 
 
         //  TODO Paintorder reparieren
@@ -121,7 +121,7 @@ public class EmptyWorld extends World {
         Greenfoot.setSpeed(setup.getSpeed());
         addObject(new SoundButton(true), getWidth(), getHeight());
 
-        background = new Background(setup,CELL_SIZE);
+        background = new Hintergrund(setup,CELL_SIZE);
         setBackground(background.getBackground());
         // Initialize actors
         initActorsFromWorldSetup();
@@ -131,8 +131,8 @@ public class EmptyWorld extends World {
     @Override
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
-        if(object instanceof LightBeings) {
-            background.updateBackground(getObjects(LightBeings.class));
+        if(object instanceof Lichtwesen) {
+            background.updateBackground(getObjects(Lichtwesen.class));
             setBackground(background.getBackground());
         }
     }
@@ -144,8 +144,8 @@ public class EmptyWorld extends World {
     @Override
     public void removeObject(Actor object){
         super.removeObject(object);
-        if(worldIsDark && object instanceof LightBeings) {
-            background.updateBackground(getObjects(LightBeings.class));
+        if(worldIsDark && object instanceof Lichtwesen) {
+            background.updateBackground(getObjects(Lichtwesen.class));
             setBackground(background.getBackground());
         }
     }
@@ -179,17 +179,17 @@ public class EmptyWorld extends World {
      * {@link WorldSetup}.
      */
     protected void initActorsFromWorldSetup() {
-        for (WorldSetupBetter.ActorPosition actorPosition : setup.getActors()) {
+        for (WeltSetup.ActorPosition actorPosition : setup.getActors()) {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
-                case "MyCharacter":
-                    tmp = MyCharacter.getInstance();
+                case "Zauberer":
+                    tmp = Zauberer.getInstance();
                     break;
-                case "Stone":
-                    tmp = new Stone();
+                case "Stein":
+                    tmp = new Stein();
                     break;
-                case "LightBeings":
-                    tmp = new LightBeings();
+                case "Lichtwesen":
+                    tmp = new Lichtwesen();
                     break;
             }
             if (tmp != null)
@@ -218,10 +218,10 @@ public class EmptyWorld extends World {
     }
 
     public void save(){
-        WorldSetupBetter.saveWorldSetup(setup);
+        WeltSetup.saveWorldSetup(setup);
     }
 
-    public Playground getPlayground() {
+    public Spielfeld getPlayground() {
         return playground;
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class SubFigure extends Figure {
+public class SubFigure extends Figur {
 
 
 
@@ -52,12 +52,12 @@ public class SubFigure extends Figure {
         //        }
         //TODO Ein Push objekt bewegen
         // Check for a stone
-        Stone mushroomFront = (Stone) getObjectInFront(getCurrentDirection(), 1, Stone.class);
+        Stein mushroomFront = (Stein) getObjectInFront(getCurrentDirection(), 1, Stein.class);
         if (mushroomFront != null) {
             // Check if the mushroom could be pushed to the next field
             if (!theWorldsEnd(getCurrentDirection(), 1, mushroomFront)
-                    && getObjectInFront(getCurrentDirection(), 2, Stone.class) == null
-            /*getObjectInFront(getRotation(), EmptyWorld.FACTOR*2, Tree.class) == null*/
+                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null
+            /*getObjectInFront(getRotation(), LeereWelt.FACTOR*2, Tree.class) == null*/
                     ) {
                 // Push the mushroom
                 moveActors(this, mushroomFront, getCurrentDirection());
@@ -85,8 +85,8 @@ public class SubFigure extends Figure {
      * @param actor     the actors to be moved
      * @param direction the direction to move
      */
-    private void moveActors(Figure actor, Direction direction) {
-        moveActors(new ArrayList<Figure>() {{
+    private void moveActors(Figur actor, Direction direction) {
+        moveActors(new ArrayList<Figur>() {{
             add(actor);
         }}, direction);
     }
@@ -97,8 +97,8 @@ public class SubFigure extends Figure {
      * @param actor     the actors to be moved
      * @param direction the direction to move
      */
-    private void moveActors(Figure actor, Figure figure, Direction direction) {
-        moveActors(new ArrayList<Figure>() {{
+    private void moveActors(Figur actor, Figur figure, Direction direction) {
+        moveActors(new ArrayList<Figur>() {{
             add(actor);
             add(figure);
         }}, direction);
@@ -110,7 +110,7 @@ public class SubFigure extends Figure {
      * @param actors    the actors to be moved
      * @param direction the direction to move
      */
-    private void moveActors(ArrayList<Figure> actors, Direction direction) {
+    private void moveActors(ArrayList<Figur> actors, Direction direction) {
         int cell = 60;
         int k = 0;
         switch (direction) {
@@ -118,12 +118,12 @@ public class SubFigure extends Figure {
                 for (int j = 1; j <= 6; j++) {
                     //TODO cell size besser bekommen
                     k = k + 20;
-                    for (Figure figure : actors) {
+                    for (Figur figure : actors) {
                         changeAnimationImage(figure, k, direction);
                     }
                     Greenfoot.delay(2);
                 }
-                for (Figure figure : actors) {
+                for (Figur figure : actors) {
                     figure.resetImage();
                     figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getWidthWithoutOffset()), figure.getY());
                 }
@@ -133,12 +133,12 @@ public class SubFigure extends Figure {
                 for (int j = 1; j <= 6; j++) {
                     //TODO cell size besser bekommen
                     k = k + 20;
-                    for (Figure figure : actors) {
+                    for (Figur figure : actors) {
                         changeAnimationImage(figure, k, direction);
                     }
                     Greenfoot.delay(2);
                 }
-                for (Figure figure : actors) {
+                for (Figur figure : actors) {
                     figure.resetImage();
                     figure.setLocationWithoutOffset(figure.getX(),
                             modulo((figure.getY() + 1), getWorld().getHeightWithoutOffset()));
@@ -147,7 +147,7 @@ public class SubFigure extends Figure {
 
             case LEFT:
                 k = 120;
-                for (Figure figure : actors) {
+                for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(
                             modulo((figure.getX() - 1), getWorld().getWidthWithoutOffset()),
                             figure.getY());
@@ -155,31 +155,31 @@ public class SubFigure extends Figure {
                 for (int j = 1; j <= 6; j++) {
                     //TODO cell size besser bekommen
                     k = k - 20;
-                    for (Figure figure : actors) {
+                    for (Figur figure : actors) {
                         changeAnimationImage(figure, k, direction);
                     }
                     Greenfoot.delay(2);
                 }
-                for (Figure figure : actors) {
+                for (Figur figure : actors) {
                     figure.resetImage();
                 }
                 break;
 
             case UP:
                 k = 120;
-                for (Figure figure : actors) {
+                for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(figure.getX(),
                             modulo((figure.getY() - 1), getWorld().getHeightWithoutOffset()));
                 }
                 for (int j = 1; j <= 6; j++) {
                     //TODO cell size besser bekommen
                     k = k - 20;
-                    for (Figure figure : actors) {
+                    for (Figur figure : actors) {
                         changeAnimationImage(figure, k, direction);
                     }
                     Greenfoot.delay(2);
                 }
-                for (Figure figure : actors) {
+                for (Figur figure : actors) {
                     figure.resetImage();
                 }
                 break;
@@ -300,7 +300,7 @@ public class SubFigure extends Figure {
             Greenfoot.delay(2);
         }
         resetImage();
-        LightBeings tmp = new LightBeings();
+        Lichtwesen tmp = new Lichtwesen();
         getWorld().addObject(tmp, x, y);
         tmp.makeAnimation();
     }

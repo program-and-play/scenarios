@@ -21,7 +21,7 @@ import java.util.HashMap;
  *
  * @author Marco Jakob (http://code.makery.ch)
  */
-class Figure extends Actor {
+class Figur extends Actor {
 
     public static final String BODY_FILE = "character_body.png";
     public static final String STICK_FILE = "character_stab.png";
@@ -32,17 +32,17 @@ class Figure extends Actor {
     private Direction currentDirection = Direction.RIGHT;
     private HashMap<Direction, ArrayList<GreenfootImage>> imageContainer;
 
-    protected Figure(GreenfootImage image) {
+    protected Figur(GreenfootImage image) {
         imageContainer = loadImageForCharacter(image);
         resetImage();
     }
 
-    protected Figure(GreenfootImage image, int sceneX, int sceneY) {
+    protected Figur(GreenfootImage image, int sceneX, int sceneY) {
         imageContainer = loadImageForCharacter(image, sceneX, sceneY);
         resetImage();
     }
 
-    protected Figure() {
+    protected Figur() {
         imageContainer = loadImageForCharacter(getImage());
         resetImage();
     }
@@ -55,8 +55,8 @@ class Figure extends Actor {
         currentDirection = direction;
     }
 
-    public EmptyWorld getWorld() {
-        return (EmptyWorld) super.getWorld();
+    public LeereWelt getWorld() {
+        return (LeereWelt) super.getWorld();
     }
 
     @Override
@@ -116,7 +116,7 @@ class Figure extends Actor {
     protected void showWarning(String englishMessage, String germanMessage) {
         String message = "<html>" + englishMessage + "<p><i>" + germanMessage + "</i></html>";
         Object[] options = {"OK", "Exit Program"};
-        int choice = EmptyWorld.DialogUtils.showOptionDialogEdt(null, message, "Warning",
+        int choice = LeereWelt.DialogUtils.showOptionDialogEdt(null, message, "Warning",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
                 options, options[0]);
 
@@ -201,7 +201,7 @@ class Figure extends Actor {
         return animationMap;
     }
 
-    public void changeAnimationImage(Figure actor, int offset, Direction direction){
+    public void changeAnimationImage(Figur actor, int offset, Direction direction){
         GreenfootImage tmp;
         if(imagePointer >= getImageContainer().get(direction).size()-1)
             imagePointer = 0;
@@ -238,7 +238,7 @@ class Figure extends Actor {
         setImage(imageContainer.get(currentDirection).get(0));
     }
 
-//TODO wird in LightBeings gebraucht, ob so gut?
+//TODO wird in Lichtwesen gebraucht, ob so gut?
     public void changeImage(GreenfootImage image, int sceneX, int sceneY) {
         imageContainer = loadImageForCharacter(image, sceneX, sceneY);
         setImage(imageContainer.get(currentDirection).get(0));

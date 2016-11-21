@@ -8,20 +8,18 @@ import java.util.Random;
 
 
 /**
- * Write a description of class LightBeings here.
+ * Write a description of class Lichtwesen here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-
-
-class LightBeings extends Figure {
+class Lichtwesen extends Figur {
     private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
             "lichtwesen_neu_lila.png", "lichtwesen_neu_rosa.png", "lichtwesen_neu_rot.png","lichtwesen_neu_blau.png"};
     private ArrayList<GreenfootImage> bodyImages;
     private int colorPointer;
 
-    protected LightBeings() {
+    protected Lichtwesen() {
         super(new GreenfootImage("lichtwesen_neu_blau.png"));
         bodyImages = new ArrayList<GreenfootImage>();
         for (int i = 0; i < path.length; i++) {

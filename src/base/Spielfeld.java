@@ -6,11 +6,11 @@ import java.lang.*;
 /**
  * The playground class encapsulates actions which work directly on the playground.
  */
-public class Playground {
+public class Spielfeld {
 
-	private EmptyWorld world;
+	private LeereWelt world;
 
-	public Playground(EmptyWorld world) {
+	public Spielfeld(LeereWelt world) {
 		this.world = world;
 	}
 
