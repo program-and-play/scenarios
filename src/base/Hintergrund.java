@@ -7,10 +7,7 @@ import java.util.Random;
 import java.awt.image.*;
 
 /**
- * Write a description of class Hintergrund here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Der Hintergrund des Spiels.
  */
 public class Hintergrund {
 

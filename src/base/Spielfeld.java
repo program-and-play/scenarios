@@ -22,7 +22,7 @@ public class Spielfeld {
         welt.removeObject(object);
     }
 
-    public List<Actor> gibObjekteAn(int x, int y, Class cls) {
+    public List<Actor> gibObjekteAuf(int x, int y, Class cls) {
     	return welt.getObjectsAt(welt.getOffsetStartToX() + x, welt.getOffsetStartToY() + y, cls);
     }
 
