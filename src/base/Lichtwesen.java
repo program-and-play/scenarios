@@ -8,10 +8,7 @@ import java.util.Random;
 
 
 /**
- * Write a description of class Lichtwesen here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * 
  */
 class Lichtwesen extends Figur {
     private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
@@ -81,7 +78,6 @@ class Lichtwesen extends Figur {
         setImage(bodyImages.get(colorPointer));
 
     }
-
 
     public void wechselFarbe() {
         if (colorPointer >= bodyImages.size() - 1)

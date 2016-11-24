@@ -4,26 +4,26 @@ import java.util.*;
 import java.lang.*;
 
 /**
- * The playground class encapsulates actions which work directly on the playground.
+ * Spielfeldklasse kapselt die Funktionalität des Spielfeldes von der Logik der Welt.
  */
 public class Spielfeld {
 
-	private LeereWelt world;
+	private LeereWelt welt;
 
-	public Spielfeld(LeereWelt world) {
-		this.world = world;
+	public Spielfeld(LeereWelt welt) {
+		this.welt = welt;
 	}
 
-	public void addObject(Actor object, int x, int y) {
-        world.addObjectWithoutOffset(object, x, y);
+	public void objektHinzufuegen(Actor object, int x, int y) {
+        welt.addObjectWithoutOffset(object, x, y);
     }
 
-    public void removeObject(Actor object){
-        world.removeObject(object);
+    public void objektEntfernen(Actor object){
+        welt.removeObject(object);
     }
 
-    public List<Actor> getObjectsAt(int x, int y, Class cls) {
-    	return world.getObjectsAt(world.getOffsetStartToX() + x, world.getOffsetStartToY() + y, cls);
+    public List<Actor> gibObjekteAuf(int x, int y, Class cls) {
+    	return welt.getObjectsAt(welt.getOffsetStartToX() + x, welt.getOffsetStartToY() + y, cls);
     }
 
 }
