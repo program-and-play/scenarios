@@ -1,4 +1,12 @@
 language: ruby
 
 script:
-  - bin/rake
+  - rake
+
+deploy:
+  provider: releases
+  api_key: "$GITHUB_TOKEN"
+  file: "scenarios.zip"
+  skip_cleanup: true
+  on:
+    tags: true
