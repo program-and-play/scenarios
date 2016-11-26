@@ -1,3 +1,7 @@
+ 
+
+ 
+
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 
@@ -125,7 +129,7 @@ public class SubFigure extends Figur {
                 }
                 for (Figur figure : actors) {
                     figure.resetImage();
-                    figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getWidthWithoutOffset()), figure.getY());
+                    figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getSetup().getWidth()), figure.getY());
                 }
                 break;
 
@@ -141,7 +145,7 @@ public class SubFigure extends Figur {
                 for (Figur figure : actors) {
                     figure.resetImage();
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() + 1), getWorld().getHeightWithoutOffset()));
+                            modulo((figure.getY() + 1), getWorld().getSetup().getHeight()));
                 }
                 break;
 
@@ -149,7 +153,7 @@ public class SubFigure extends Figur {
                 k = 120;
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(
-                            modulo((figure.getX() - 1), getWorld().getWidthWithoutOffset()),
+                            modulo((figure.getX() - 1), getWorld().getSetup().getWidth()),
                             figure.getY());
                 }
                 for (int j = 1; j <= 6; j++) {
@@ -169,7 +173,7 @@ public class SubFigure extends Figur {
                 k = 120;
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() - 1), getWorld().getHeightWithoutOffset()));
+                            modulo((figure.getY() - 1), getWorld().getSetup().getHeight()));
                 }
                 for (int j = 1; j <= 6; j++) {
                     //TODO cell size besser bekommen
@@ -244,19 +248,19 @@ public class SubFigure extends Figur {
 
         switch (getCurrentDirection()) {
             case RIGHT:         // java
-                x = modulo((x + steps), getWorld().getWidthWithoutOffset());
+                x = modulo((x + steps), getWorld().getSetup().getWidth());
                 break;
 
             case DOWN:         // java
-                y = modulo((y + steps), getWorld().getHeightWithoutOffset());
+                y = modulo((y + steps), getWorld().getSetup().getHeight());
                 break;
 
             case LEFT:         // java
-                x = modulo((x - steps), getWorld().getWidthWithoutOffset());
+                x = modulo((x - steps), getWorld().getSetup().getWidth());
                 break;
 
             case UP:         // java
-                y = modulo((y - steps), getWorld().getHeightWithoutOffset());
+                y = modulo((y - steps), getWorld().getSetup().getHeight());
                 break;
 
             default: // Not a valid direction
@@ -278,7 +282,7 @@ public class SubFigure extends Figur {
     }
 
     public void createLightBeings(int x, int y) {
-        if (getWorld().getWidthWithoutOffset() < x || getWorld().getHeightWithoutOffset() < y || x < 0 || y < 0) {
+        if (getWorld().getSetup().getHeight() < x || getWorld().getSetup().getWidth() < y || x < 0 || y < 0) {
             //TODO einen besseren text
             showWarning(
                     "Kara can't move because he can't push the mushroom!",

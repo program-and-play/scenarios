@@ -1,6 +1,7 @@
+package util;
+
 import com.google.gson.Gson;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -167,6 +168,18 @@ public class WeltSetup {
     public void setLevelScreen(String levelScreen) {
         this.levelScreen = levelScreen;
     }
+
+   // windowWidth = offsetStartToX + width + offsetXToEnd;
+    // nettoHeight = offsetStartToY + height + offsetYToEnd;
+
+    public int getOuterWidth(){
+        return offsetStartToX + width + offsetXToEnd;
+    }
+
+    public int getOuterHeight(){
+        return offsetStartToY + height + offsetYToEnd;
+    }
+
 
     @Override
     public String toString() {

@@ -1,3 +1,7 @@
+ 
+
+ 
+
 
 import greenfoot.*;
 
@@ -38,16 +42,16 @@ public class Stein extends Figur {
         if (getOneObjectAtOffset(0, 0, Stein.class) != null) {
             showOnTargetImage();
         } else {
-            showDefaultImage();
+           // showDefaultImage();
         }
     }
 
     /**
      * Shows the default image.
      */
-    private void showDefaultImage() {
-        setImage(LeereWelt.ICON_STONE);
-    }
+    //private void showDefaultImage() {
+    //    setImage(LeereWelt.ICON_STONE);
+    //}
 
     /**
      * Shows the on-target-image.
@@ -87,7 +91,7 @@ public class Stein extends Figur {
     }
 
     public void setLocationWithoutOffset(int x, int y) {
-        super.setLocation(x + getWorld().getOffsetStartToX(), y +getWorld().getOffsetStartToY());
+        super.setLocation(x + getWorld().getSetup().getOffsetStartToX(), y +getWorld().getSetup().getOffsetStartToY());
         System.out.println("setLocationWithoutOffsetWithoutOffset");
     }
 
