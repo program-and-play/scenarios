@@ -18,5 +18,13 @@ public class Steinbeisser extends SubFigure
     public void act() 
     {
         // Add your action code here.
-    }    
+    }
+
+    public void eatStone(){
+        //Direction direction
+        // SubFigure this
+        // Figur stone
+
+        //TODO
+    }
 }

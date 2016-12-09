@@ -5,6 +5,7 @@ import greenfoot.*;
 import util.*;
 
 import javax.swing.*;
+import java.util.List;
 
 /**
  * Basisklasse der Welt.
@@ -70,6 +71,8 @@ public class LeereWelt extends World {
             setBackground(background.getBackground());
         }
     }
+
+
 
     protected WeltSetup getSetup() {
         return setup;

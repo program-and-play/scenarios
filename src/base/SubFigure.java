@@ -55,13 +55,14 @@ public class SubFigure extends Figur {
 
             // Check if the mushroom could be pushed to the next field
             if (!theWorldsEnd(getCurrentDirection(), 1, stone)
-                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null
+                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null &&
+                    typ == FigureTyp.Steinbeisser
             /*getObjectInFront(getRotation(), LeereWelt.FACTOR*2, Tree.class) == null*/
                     ) {
-                // Push the mushroom
+
+
                 moveActors(getCurrentDirection(), this, stone);
-//                // Check if the mushroom is now on a leaf
-//                mushroomFront.updateImage();
+
             } else {
                 // Could not push the mushroom
                 //TODO updaten den text
@@ -163,6 +164,8 @@ public class SubFigure extends Figur {
                 break;
         }
     }
+
+
 
 
 

@@ -28,13 +28,10 @@ import java.util.HashMap;
  */
 class Figur extends Actor {
 
-    public static final String BODY_FILE = "character_body.png";
-    public static final String STICK_FILE = "character_stab.png";
-    public static final String CLOTHES_FILE = "character_kleidung.png";
-
     private int imagePointer;
 
     private Direction currentDirection = Direction.RIGHT;
+
     private HashMap<Direction, ArrayList<GreenfootImage>> imageContainer;
 
     protected Figur(GreenfootImage image) {
