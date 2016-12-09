@@ -1,6 +1,6 @@
 import greenfoot.*;
+import util.WeltSetup;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,13 +18,11 @@ public class Hintergrund {
     private int width;
     private int height;
 
-    private int nettoWidth;
-    private int nettoHeight;
-
+    private int outerWidth;
+    private int outerHeight;
     private int offsetStartToX;
     private int offsetStartToY;
-    private int offsetXToEnd;
-    private int offsetYToEnd;
+
     private GreenfootImage levelScreen;
     private ArrayList<GreenfootImage> cellList;
     private ArrayList<GreenfootImage> lightCellList;
@@ -42,12 +40,12 @@ public class Hintergrund {
 
         height = setup.getHeight();
         width = setup.getWidth();
+
+
         offsetStartToX = setup.getOffsetStartToX();
         offsetStartToY = setup.getOffsetStartToY();
-        offsetXToEnd = setup.getOffsetXToEnd();
-        offsetYToEnd = setup.getOffsetYToEnd();
-        nettoWidth = offsetStartToX + width + offsetXToEnd;
-        nettoHeight = offsetStartToY + height + offsetYToEnd;
+        outerWidth = setup.getOuterWidth();
+        outerHeight = setup.getOuterHeight();
         isDark = setup.isDark();
 
         GreenfootImage baseMask = new GreenfootImage("light-mask.png");
@@ -55,7 +53,7 @@ public class Hintergrund {
         mask = baseMask.getAwtImage();
 
         cellList = initialCellList();
-        if(isDark) {
+        if (isDark) {
             lightCellList = initialLightCellList();
         }
         levelScreen = createLevelScreen();
@@ -64,29 +62,29 @@ public class Hintergrund {
         background = createBackground();
     }
 
-    private ArrayList<GreenfootImage> initialCellList(){
+    private ArrayList<GreenfootImage> initialCellList() {
         ArrayList<GreenfootImage> tmpList = new ArrayList<GreenfootImage>();
         for (String path : setup.getCellPath()) {
             GreenfootImage tmpImage = new GreenfootImage(path);
-            tmpImage.scale(CELL_SIZE,CELL_SIZE);
+            tmpImage.scale(CELL_SIZE, CELL_SIZE);
             tmpList.add(tmpImage);
         }
         return tmpList;
     }
 
-    private ArrayList<GreenfootImage> initialLightCellList(){
+    private ArrayList<GreenfootImage> initialLightCellList() {
         ArrayList<GreenfootImage> tmpList = new ArrayList<GreenfootImage>();
         for (String path : setup.getCellPath()) {
             GreenfootImage tmpImage = new GreenfootImage(path.replace("dunkel", "hell"));
-            tmpImage.scale(CELL_SIZE,CELL_SIZE);
+            tmpImage.scale(CELL_SIZE, CELL_SIZE);
             tmpList.add(tmpImage);
         }
         return tmpList;
     }
 
-    private GreenfootImage createLevelScreen(){
+    private GreenfootImage createLevelScreen() {
         GreenfootImage tmpLevelScreen = new GreenfootImage(setup.getLevelScreen());
-        tmpLevelScreen.scale(nettoWidth * CELL_SIZE, nettoHeight * CELL_SIZE);
+        tmpLevelScreen.scale(outerWidth * CELL_SIZE, outerHeight * CELL_SIZE);
         return tmpLevelScreen;
     }
 
@@ -104,17 +102,18 @@ public class Hintergrund {
     public GreenfootImage updateBackground(List<Lichtwesen> list) {
         Random random = new Random();
         // levelscreen + gameWorld + shadow
-        background = new GreenfootImage(nettoWidth * CELL_SIZE , nettoHeight * CELL_SIZE);
-        background.drawImage(levelScreen,0,0);
-        background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY* CELL_SIZE);
-        if(isDark) {
+        background = new GreenfootImage(outerWidth * CELL_SIZE, outerHeight * CELL_SIZE);
+        background.drawImage(levelScreen, 0, 0);
+        background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY * CELL_SIZE);
+        if (isDark) {
+            System.out.println("Hier");
             for (Lichtwesen obj : list) {
                 GreenfootImage cellImage = lightCellList.get(random.nextInt(cellList.size() - 1));
                 applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
                 background.drawImage(
-                    cellImage,
-                    (offsetStartToX + obj.getX()) * CELL_SIZE,
-                    (offsetStartToY + obj.getY()) * CELL_SIZE
+                        cellImage,
+                        (offsetStartToX + obj.getX()) * CELL_SIZE,
+                        (offsetStartToY + obj.getY()) * CELL_SIZE
                 );
             }
         }
@@ -127,9 +126,9 @@ public class Hintergrund {
 
     private GreenfootImage createBackground() {
         // levelscreen + gameWorld
-        GreenfootImage tmpBackground = new GreenfootImage(nettoWidth * CELL_SIZE , nettoHeight * CELL_SIZE);
-        tmpBackground.drawImage(levelScreen,0,0);
-        tmpBackground.drawImage(gameWorld, offsetStartToX* CELL_SIZE, offsetStartToY* CELL_SIZE);
+        GreenfootImage tmpBackground = new GreenfootImage(outerWidth * CELL_SIZE, outerHeight * CELL_SIZE);
+        tmpBackground.drawImage(levelScreen, 0, 0);
+        tmpBackground.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY * CELL_SIZE);
         return tmpBackground;
     }
 

@@ -1,8 +1,24 @@
+package util;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
 /**
  * Utility class for managing dialogs to ensure they are opened in the
  * Event Dispatch Thread.
  */
-public static class DialogUtils {
+public class DialogUtils {
+
+    public static String setupNullMessage =  "<html>" +
+            "<p>Could not initialize world. Either specify a valid world setup file in KaraWorld or instantiate <br>" +
+            "a subclass of KaraWorld (right-click on world, e.g. GameScreen, and choose new). </p><br><p><i>" +
+            "Konnte keine Welt laden. Entweder muss eine gueltige world setup Datei in KaraWorld definiert werden oder eine <br>" +
+            "Subklasse von KaraWelt muss instanziiert werden (Rechtsklick auf die Welt, z.B. GameScreen, und new auswaehlen).</i></p>" +
+            "</html>";
 
     /**
      * Calls {@link JOptionPane#showMessageDialog(Component, Object, String, int)} and ensures

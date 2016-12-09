@@ -1,3 +1,4 @@
+
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 
@@ -13,27 +14,23 @@ import java.util.List;
  */
 public class SubFigure extends Figur {
 
+    private FigureTyp typ;
 
+    protected static GreenfootImage createImage(String... path){//,String body, String clothes, String stick) {
+        if(path.length < 1)
+            throw new IllegalArgumentException( "Error: ..." );
 
-    private static GreenfootImage createImage(String body, String clothes, String stick) {
-        GreenfootImage bodyImage = new GreenfootImage(body);
-        GreenfootImage clothesImage = new GreenfootImage(clothes);
-        GreenfootImage stickImage = new GreenfootImage(stick);
-        bodyImage.drawImage(clothesImage, 0, 0);
-        bodyImage.drawImage(stickImage, 0, 0);
+        GreenfootImage bodyImage = new GreenfootImage(path[0]);
+        for ( String x :path ){
+            bodyImage.drawImage(new GreenfootImage(x), 0, 0);
+        }
         return bodyImage;
     }
 
-    public static final String BODY_FILE = "character_body.png";
-    public static final String STICK_FILE = "character_stab.png";
-    public static final String CLOTHES_FILE = "character_kleidung.png";
 
-    protected SubFigure() {
-        this(BODY_FILE, STICK_FILE, CLOTHES_FILE);
-    }
+    protected SubFigure(FigureTyp typ) {
+        super(createImage(typ.path),4,4);
 
-    protected SubFigure(String body, String clothes, String stick) {
-        super(createImage(body, clothes, stick),4,4);
     }
 
     public void move() {
@@ -52,17 +49,20 @@ public class SubFigure extends Figur {
         //        }
         //TODO Ein Push objekt bewegen
         // Check for a stone
-        Stein mushroomFront = (Stein) getObjectInFront(getCurrentDirection(), 1, Stein.class);
-        if (mushroomFront != null) {
+        Stein stone = (Stein) getObjectInFront(getCurrentDirection(), 1, Stein.class);
+        System.out.println(stone);
+        if (stone != null) {
+
             // Check if the mushroom could be pushed to the next field
-            if (!theWorldsEnd(getCurrentDirection(), 1, mushroomFront)
-                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null
+            if (!theWorldsEnd(getCurrentDirection(), 1, stone)
+                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null &&
+                    typ == FigureTyp.Steinbeisser
             /*getObjectInFront(getRotation(), LeereWelt.FACTOR*2, Tree.class) == null*/
                     ) {
-                // Push the mushroom
-                moveActors(this, mushroomFront, getCurrentDirection());
-//                // Check if the mushroom is now on a leaf
-//                mushroomFront.updateImage();
+
+
+                moveActors(getCurrentDirection(), this, stone);
+
             } else {
                 // Could not push the mushroom
                 //TODO updaten den text
@@ -74,35 +74,11 @@ public class SubFigure extends Figur {
         } else {
 
             // Kara can move
-            moveActors(this, getCurrentDirection());
+            moveActors(getCurrentDirection(),this);
         }
         Greenfoot.delay(1);
     }
 
-    /**
-     * Moves the actor one step in the specified direction and animation his movements.
-     *
-     * @param actor     the actors to be moved
-     * @param direction the direction to move
-     */
-    private void moveActors(Figur actor, Direction direction) {
-        moveActors(new ArrayList<Figur>() {{
-            add(actor);
-        }}, direction);
-    }
-
-    /**
-     * Moves the actor one step in the specified direction and animation his movements.
-     *
-     * @param actor     the actors to be moved
-     * @param direction the direction to move
-     */
-    private void moveActors(Figur actor, Figur figure, Direction direction) {
-        moveActors(new ArrayList<Figur>() {{
-            add(actor);
-            add(figure);
-        }}, direction);
-    }
 
     /**
      * Moves the actor one step in the specified direction and animation his movements.
@@ -110,7 +86,7 @@ public class SubFigure extends Figur {
      * @param actors    the actors to be moved
      * @param direction the direction to move
      */
-    private void moveActors(ArrayList<Figur> actors, Direction direction) {
+    private void moveActors( Direction direction, Figur... actors) {
         int cell = 60;
         int k = 0;
         switch (direction) {
@@ -125,7 +101,7 @@ public class SubFigure extends Figur {
                 }
                 for (Figur figure : actors) {
                     figure.resetImage();
-                    figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getWidthWithoutOffset()), figure.getY());
+                    figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getSetup().getWidth()), figure.getY());
                 }
                 break;
 
@@ -141,7 +117,7 @@ public class SubFigure extends Figur {
                 for (Figur figure : actors) {
                     figure.resetImage();
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() + 1), getWorld().getHeightWithoutOffset()));
+                            modulo((figure.getY() + 1), getWorld().getSetup().getHeight()));
                 }
                 break;
 
@@ -149,7 +125,7 @@ public class SubFigure extends Figur {
                 k = 120;
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(
-                            modulo((figure.getX() - 1), getWorld().getWidthWithoutOffset()),
+                            modulo((figure.getX() - 1), getWorld().getSetup().getWidth()),
                             figure.getY());
                 }
                 for (int j = 1; j <= 6; j++) {
@@ -169,7 +145,7 @@ public class SubFigure extends Figur {
                 k = 120;
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() - 1), getWorld().getHeightWithoutOffset()));
+                            modulo((figure.getY() - 1), getWorld().getSetup().getHeight()));
                 }
                 for (int j = 1; j <= 6; j++) {
                     //TODO cell size besser bekommen
@@ -188,6 +164,8 @@ public class SubFigure extends Figur {
                 break;
         }
     }
+
+
 
 
 
@@ -244,19 +222,19 @@ public class SubFigure extends Figur {
 
         switch (getCurrentDirection()) {
             case RIGHT:         // java
-                x = modulo((x + steps), getWorld().getWidthWithoutOffset());
+                x = modulo((x + steps), getWorld().getSetup().getWidth());
                 break;
 
             case DOWN:         // java
-                y = modulo((y + steps), getWorld().getHeightWithoutOffset());
+                y = modulo((y + steps), getWorld().getSetup().getHeight());
                 break;
 
             case LEFT:         // java
-                x = modulo((x - steps), getWorld().getWidthWithoutOffset());
+                x = modulo((x - steps), getWorld().getSetup().getWidth());
                 break;
 
             case UP:         // java
-                y = modulo((y - steps), getWorld().getHeightWithoutOffset());
+                y = modulo((y - steps), getWorld().getSetup().getHeight());
                 break;
 
             default: // Not a valid direction
@@ -264,7 +242,7 @@ public class SubFigure extends Figur {
         }
 
 
-        List<?> objects = getWorld().getObjectsAt(x, y, clazz);
+        List<?> objects = getWorld().getPlayground().gibObjekteAuf(x, y, clazz);
 
         if (objects != null && objects.size() > 0) {
             return objects.get(0);
@@ -278,7 +256,7 @@ public class SubFigure extends Figur {
     }
 
     public void createLightBeings(int x, int y) {
-        if (getWorld().getWidthWithoutOffset() < x || getWorld().getHeightWithoutOffset() < y || x < 0 || y < 0) {
+        if (getWorld().getSetup().getHeight() < x || getWorld().getSetup().getWidth() < y || x < 0 || y < 0) {
             //TODO einen besseren text
             showWarning(
                     "Kara can't move because he can't push the mushroom!",
@@ -389,5 +367,17 @@ public class SubFigure extends Figur {
     //    public boolean mushroomFront() {
     //        return getObjectInFront(getRotation(), 1, Mushroom.class) != null;
     //    }
+
+    public enum FigureTyp{
+        Zauber("character_body.png","character_stab.png","character_kleidung.png"), Steinbeisser("steinbeißer.png");
+
+        public final String[] path;
+
+        FigureTyp(String... path) {
+            this.path = path;
+
+        }
+
+        }
 
 }

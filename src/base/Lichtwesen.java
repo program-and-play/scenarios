@@ -1,3 +1,4 @@
+
 import greenfoot.*;
 
 import java.awt.*;
@@ -6,17 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-
-/**
- * 
- */
 class Lichtwesen extends Figur {
     private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
             "lichtwesen_neu_lila.png", "lichtwesen_neu_rosa.png", "lichtwesen_neu_rot.png","lichtwesen_neu_blau.png"};
+
     private ArrayList<GreenfootImage> bodyImages;
     private int colorPointer;
 
-    protected Lichtwesen() {
+    public Lichtwesen() {
         super(new GreenfootImage("lichtwesen_neu_blau.png"));
         bodyImages = new ArrayList<GreenfootImage>();
         for (int i = 0; i < path.length; i++) {
@@ -31,12 +29,6 @@ class Lichtwesen extends Figur {
     private ArrayList<GreenfootImage> getAnimationContainer() {
         return loadImageForAnimation(new GreenfootImage("lichtwesen_beschwören.png"), 6);
     }
-
-//    @Override
-//    public void setLocation(int x, int y) {
-//        super.setLocation(x, y);
-//        //getWorld().createFieldBackground();
-//    }
 
     protected void makeAnimation() {
         for (GreenfootImage img : getAnimationContainer()) {

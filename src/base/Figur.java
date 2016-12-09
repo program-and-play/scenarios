@@ -1,6 +1,11 @@
+ 
+
+ 
+
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
+import util.DialogUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,13 +28,10 @@ import java.util.HashMap;
  */
 class Figur extends Actor {
 
-    public static final String BODY_FILE = "character_body.png";
-    public static final String STICK_FILE = "character_stab.png";
-    public static final String CLOTHES_FILE = "character_kleidung.png";
-
     private int imagePointer;
 
     private Direction currentDirection = Direction.RIGHT;
+
     private HashMap<Direction, ArrayList<GreenfootImage>> imageContainer;
 
     protected Figur(GreenfootImage image) {
@@ -61,12 +63,12 @@ class Figur extends Actor {
 
     @Override
     public int getX() {
-        return super.getX() - getWorld().getOffsetStartToX();
+        return super.getX() - getWorld().getSetup().getOffsetStartToX();
     }
 
     @Override
     public int getY() {
-        return super.getY() - getWorld().getOffsetStartToY();
+        return super.getY() - getWorld().getSetup().getOffsetStartToY();
     }
 
     public HashMap<Direction, ArrayList<GreenfootImage>> getImageContainer() {
@@ -80,11 +82,11 @@ class Figur extends Actor {
 
         switch (direction) {
             case RIGHT:         // java
-                return x + steps >= getWorld().getWidthWithoutOffset();
+                return x + steps >= getWorld().getSetup().getWidth();
 
             case DOWN:         // java
 
-                return y + steps >= getWorld().getHeightWithoutOffset();
+                return y + steps >= getWorld().getSetup().getHeight();
 
             case LEFT:         // java
 
@@ -116,7 +118,7 @@ class Figur extends Actor {
     protected void showWarning(String englishMessage, String germanMessage) {
         String message = "<html>" + englishMessage + "<p><i>" + germanMessage + "</i></html>";
         Object[] options = {"OK", "Exit Program"};
-        int choice = LeereWelt.DialogUtils.showOptionDialogEdt(null, message, "Warning",
+        int choice = DialogUtils.showOptionDialogEdt(null, message, "Warning",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
                 options, options[0]);
 
@@ -133,7 +135,7 @@ class Figur extends Actor {
     }
 
     public void setLocationWithoutOffset(int x, int y) {
-        super.setLocation(x + getWorld().getOffsetStartToX(), y + getWorld().getOffsetStartToY());
+        super.setLocation(x + getWorld().getSetup().getOffsetStartToX(), y + getWorld().getSetup().getOffsetStartToY());
         System.out.println("setLocationWithoutOffsetWithoutOffset");
     }
 
