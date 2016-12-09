@@ -40,6 +40,14 @@ public class SubFigure extends Figur {
                     "Kara kann sich nicht bewegen wegen einem Baum!");
             return;
         }
+
+        Geysir geysir = (Geysir) getObjectInFront(getCurrentDirection(), 1, Geysir.class);
+
+        if (geysir != null) {
+            //TODO warnung umschreiben
+            showWarning("Vor dir ist ein Geysir!", "");
+            return;
+        }
         // Check for a tree
         //TODO Warnung für hindernisse schreiben
         //        if (treeFront()) {
@@ -55,7 +63,9 @@ public class SubFigure extends Figur {
 
             // Check if the mushroom could be pushed to the next field
             if (!theWorldsEnd(getCurrentDirection(), 1, stone)
-                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null &&
+                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null
+                    && getObjectInFront(getCurrentDirection(), 2, Geysir.class) == null
+                    &&
                     typ == FigureTyp.Steinbeisser
             /*getObjectInFront(getRotation(), LeereWelt.FACTOR*2, Tree.class) == null*/
                     ) {
