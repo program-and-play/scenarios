@@ -1,11 +1,5 @@
- 
 
-import greenfoot.Greenfoot;
-import greenfoot.GreenfootImage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import greenfoot.*;
 /**
  * Write a description of class Zauberer here.
  *
@@ -21,15 +15,15 @@ public class Zauberer extends SubFigure {
         }
         return Zauberer.instance;
     }
+
+    private Zauberer() {
+        super(FigureTyp.Zauber);
+    }
+
     /**
      * Act - do whatever the Zauberer wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-
-    private Zauberer(){
-        super();
-    }
-
     public void act() {
         if (worldEndFront())
             turnRight();
