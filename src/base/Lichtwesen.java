@@ -14,7 +14,7 @@ class Lichtwesen extends Figur {
     private ArrayList<GreenfootImage> bodyImages;
     private int colorPointer;
 
-    protected Lichtwesen() {
+    public Lichtwesen() {
         super(new GreenfootImage("lichtwesen_neu_blau.png"));
         bodyImages = new ArrayList<GreenfootImage>();
         for (int i = 0; i < path.length; i++) {

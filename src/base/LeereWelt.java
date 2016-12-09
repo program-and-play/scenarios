@@ -46,7 +46,7 @@ public class LeereWelt extends World {
 
         //TODO entscheide welchen default speed gesetzt werden soll
         Greenfoot.setSpeed(setup.getSpeed());
-        playground.objektHinzufuegen(new SoundButton(true), getWidth(), getHeight());
+        addObject(new SoundButton(setup.isMute()), getWidth(), getHeight());
 
         setBackground(background.getBackground());
         // Initialize actors
@@ -58,7 +58,7 @@ public class LeereWelt extends World {
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
         if (setup.isDark() && object instanceof Lichtwesen) {
-            // background.updateBackground(getObjects(Lichtwesen.class));
+             background.updateBackground(getObjects(Lichtwesen.class));
             setBackground(background.getBackground());
         }
     }
@@ -67,7 +67,7 @@ public class LeereWelt extends World {
     public void removeObject(Actor object) {
         super.removeObject(object);
         if (setup.isDark() && object instanceof Lichtwesen) {
-            // background.updateBackground(getObjects(Lichtwesen.class));
+            background.updateBackground(getObjects(Lichtwesen.class));
             setBackground(background.getBackground());
         }
     }

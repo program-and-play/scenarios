@@ -46,6 +46,7 @@ public class Factory {
                 playground.objektHinzufuegen(tmp, actorPosition.getX(), actorPosition.getY());
         }
 
+
     }
 
 

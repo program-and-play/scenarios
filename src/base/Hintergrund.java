@@ -106,6 +106,7 @@ public class Hintergrund {
         background.drawImage(levelScreen, 0, 0);
         background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY * CELL_SIZE);
         if (isDark) {
+            System.out.println("Hier");
             for (Lichtwesen obj : list) {
                 GreenfootImage cellImage = lightCellList.get(random.nextInt(cellList.size() - 1));
                 applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);

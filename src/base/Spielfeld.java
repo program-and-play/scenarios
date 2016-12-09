@@ -22,6 +22,11 @@ public class Spielfeld {
 	}
 
 	public void objektHinzufuegen(Actor object, int x, int y) {
+        if(x >= setup.getWidth())
+            x = setup.getWidth()-1;
+
+        if(y >= setup.getHeight() )
+            y = setup.getHeight()-1;
         if(x < 0 || y < 0) {
             String message = "<html>" +
                     "<p>Die Koordinaten müssen einen Wert größer oder gleich 0 besitzen.</p>" +
@@ -31,6 +36,7 @@ public class Spielfeld {
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
+
         welt.addObject(object, x + setup.getOffsetStartToX(), y + setup.getOffsetStartToY());
     }
 
