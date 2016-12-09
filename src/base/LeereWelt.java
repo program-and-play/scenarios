@@ -51,6 +51,19 @@ public class LeereWelt extends World {
         setBackground(background.getBackground());
         // Initialize actors
         Factory.initActorsFromWorldSetup( setup,  playground);
+Geysir x = new Geysir();
+        Geysir x1 = new Geysir();
+        Geysir x2 = new Geysir();
+        Geysir x3 = new Geysir();
+        Geysir x4 = new Geysir();
+
+        addObject(x, 4, 4);
+        addObject(x1, 2, 2);
+        addObject(x2, 3, 2);
+        addObject(x3, 5, 3);
+        addObject(x4, 1, 4);
+
+        new Animator(x,x1,x2,x3,x4).start();
     }
 
     //New
