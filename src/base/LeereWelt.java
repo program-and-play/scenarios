@@ -3,7 +3,7 @@
 
 import greenfoot.*;
 import interfaces.GreenfootWorld;
-import interfaces.LeutwesenInterface;
+import interfaces.LichtwesenInterface;
 import util.*;
 
 import javax.swing.*;
@@ -73,7 +73,7 @@ Geysir x = new Geysir();
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
         if (setup.isDark() && object instanceof Lichtwesen) {
-             background.updateBackground(getObjects(LeutwesenInterface.class));
+             background.updateBackground(getObjects(LichtwesenInterface.class));
             setBackground(background.getBackground());
         }
     }
@@ -82,7 +82,7 @@ Geysir x = new Geysir();
     public void removeObject(Actor object) {
         super.removeObject(object);
         if (setup.isDark() && object instanceof Lichtwesen) {
-            background.updateBackground(getObjects(LeutwesenInterface.class));
+            background.updateBackground(getObjects(LichtwesenInterface.class));
             setBackground(background.getBackground());
         }
     }

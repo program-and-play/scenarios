@@ -4,7 +4,7 @@ import interfaces.*;
 import java.util.ArrayList;
 
 
-class Lichtwesen extends Figur implements LeutwesenInterface {
+class Lichtwesen extends Figur implements LichtwesenInterface {
     private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
             "lichtwesen_neu_lila.png", "lichtwesen_neu_rosa.png", "lichtwesen_neu_rot.png","lichtwesen_neu_blau.png"};
 
