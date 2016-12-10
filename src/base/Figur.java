@@ -1,6 +1,5 @@
- 
 
- 
+
 
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
@@ -47,6 +46,27 @@ class Figur extends Actor {
     protected Figur() {
         imageContainer = loadImageForCharacter(getImage());
         resetImage();
+    }
+
+    protected static GreenfootImage createImage(String... path) {
+        //TODO eine ausreichende Error meldung drucken
+        if (path.length < 1)
+            throw new IllegalArgumentException("Error: ...");
+
+
+        GreenfootImage bodyImage = new GreenfootImage(path[0]);
+        for (String x : path) {
+            bodyImage.drawImage(new GreenfootImage(x), 0, 0);
+        }
+        return bodyImage;
+    }
+
+    public int getImagePointer() {
+        return imagePointer;
+    }
+
+    public void setImagePointer(int imagePointer) {
+        this.imagePointer = imagePointer;
     }
 
     public Direction getCurrentDirection() {
@@ -201,36 +221,41 @@ class Figur extends Actor {
         return animationMap;
     }
 
-    public void changeAnimationImage(Figur actor, int offset, Direction direction){
-        GreenfootImage tmp;
-        if(imagePointer >= getImageContainer().get(direction).size()-1)
-            imagePointer = 0;
-        else
-            imagePointer++;
-        GreenfootImage image = getImageContainer().get(direction).get(imagePointer);
-        switch (direction) {
-            case RIGHT:
-                tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
-                tmp.drawImage(image, offset, 0);
-                break;
-            case LEFT:
-                tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
-                tmp.drawImage(image, offset, 0);
-                break;
-            case UP:
-                tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
-                tmp.drawImage(image, 0, offset);
-                break;
-            case DOWN:
-                tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
-                tmp.drawImage(image, 0, offset);
-                break;
-            default:
-                tmp = new GreenfootImage(image.getWidth() + 60, image.getHeight() + 60);
-                break;
-        }
+    public void changeAnimationImage(int offset, Direction direction, Figur... actorArray) {
+        for (Figur actor : actorArray) {
+            GreenfootImage tmp;
+            int imagePointer = actor.getImagePointer();
+            if (imagePointer >= getImageContainer().get(direction).size() - 1)
+                actor.setImagePointer(0);
+            else
+                actor.setImagePointer(imagePointer++);
 
-        actor.setImage(tmp);
+            GreenfootImage image = actor.getImageContainer().get(direction).get(imagePointer);
+
+            switch (direction) {
+                case RIGHT:
+                    tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
+                    tmp.drawImage(image, offset, 0);
+                    break;
+                case LEFT:
+                    tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
+                    tmp.drawImage(image, offset, 0);
+                    break;
+                case UP:
+                    tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
+                    tmp.drawImage(image, 0, offset);
+                    break;
+                case DOWN:
+                    tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
+                    tmp.drawImage(image, 0, offset);
+                    break;
+                default:
+                    tmp = new GreenfootImage(image.getWidth() + 60, image.getHeight() + 60);
+                    break;
+            }
+
+            actor.setImage(tmp);
+        }
     }
 
     public void resetImage() {
@@ -238,7 +263,7 @@ class Figur extends Actor {
         setImage(imageContainer.get(currentDirection).get(0));
     }
 
-//TODO wird in Lichtwesen gebraucht, ob so gut?
+    //TODO wird in Lichtwesen gebraucht, ob so gut?
     public void changeImage(GreenfootImage image, int sceneX, int sceneY) {
         imageContainer = loadImageForCharacter(image, sceneX, sceneY);
         setImage(imageContainer.get(currentDirection).get(0));

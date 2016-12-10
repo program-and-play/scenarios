@@ -16,21 +16,8 @@ public class Charakter extends Figur {
 
     private FigureTyp typ;
 
-    protected static GreenfootImage createImage(String... path){//,String body, String clothes, String stick) {
-        if(path.length < 1)
-            throw new IllegalArgumentException( "Error: ..." );
-
-        GreenfootImage bodyImage = new GreenfootImage(path[0]);
-        for ( String x :path ){
-            bodyImage.drawImage(new GreenfootImage(x), 0, 0);
-        }
-        return bodyImage;
-    }
-
-
     protected Charakter(FigureTyp typ) {
-        super(createImage(typ.path),4,4);
-
+        super(createImage(typ.path), 4, 4);
     }
 
     public void move() {
@@ -42,36 +29,21 @@ public class Charakter extends Figur {
         }
 
         Geysir geysir = (Geysir) getObjectInFront(getCurrentDirection(), 1, Geysir.class);
-
+        // Check for a geysir
         if (geysir != null) {
             //TODO warnung umschreiben
             showWarning("Vor dir ist ein Geysir!", "");
             return;
         }
-        // Check for a tree
-        //TODO Warnung für hindernisse schreiben
-        //        if (treeFront()) {
-        //            showWarning("Kara can't move because of a tree!",
-        //                    "Kara kann sich nicht bewegen wegen einem Baum!");
-        //            return;
-        //        }
+
         //TODO Ein Push objekt bewegen
         // Check for a stone
         Stein stone = (Stein) getObjectInFront(getCurrentDirection(), 1, Stein.class);
         if (stone != null) {
 
             // Check if the mushroom could be pushed to the next field
-            if (!theWorldsEnd(getCurrentDirection(), 1, stone)
-                    && getObjectInFront(getCurrentDirection(), 2, Stein.class) == null
-                    && getObjectInFront(getCurrentDirection(), 2, Geysir.class) == null
-                    &&
-                    typ == FigureTyp.Steinbeisser
-            /*getObjectInFront(getRotation(), LeereWelt.FACTOR*2, Tree.class) == null*/
-                    ) {
-
-
+            if (!theWorldsEnd(getCurrentDirection(), 1, stone) && getObjectInFront(getCurrentDirection(), 2, Figur.class) == null && typ == FigureTyp.Steinbeisser) {
                 moveActors(getCurrentDirection(), this, stone);
-
             } else {
                 // Could not push the mushroom
                 //TODO updaten den text
@@ -81,13 +53,11 @@ public class Charakter extends Figur {
                 return;
             }
         } else {
-
             // Kara can move
-            moveActors(getCurrentDirection(),this);
+            moveActors(getCurrentDirection(), this);
         }
         Greenfoot.delay(1);
     }
-
 
     /**
      * Moves the actor one step in the specified direction and animation his movements.
@@ -95,93 +65,60 @@ public class Charakter extends Figur {
      * @param actors    the actors to be moved
      * @param direction the direction to move
      */
-    private void moveActors( Direction direction, Figur... actors) {
-        int cell = 60;
-        int k = 0;
-        switch (direction) {
-            case RIGHT:
-                for (int j = 1; j <= 6; j++) {
-                    //TODO cell size besser bekommen
-                    k = k + 20;
-                    for (Figur figure : actors) {
-                        changeAnimationImage(figure, k, direction);
-                    }
-                    Greenfoot.delay(2);
-                }
-                for (Figur figure : actors) {
-                    figure.resetImage();
-                    figure.setLocationWithoutOffset(modulo((figure.getX() + 1), getWorld().getSetup().getWidth()), figure.getY());
-                }
-                break;
 
-            case DOWN:
-                for (int j = 1; j <= 6; j++) {
-                    //TODO cell size besser bekommen
-                    k = k + 20;
-                    for (Figur figure : actors) {
-                        changeAnimationImage(figure, k, direction);
-                    }
-                    Greenfoot.delay(2);
-                }
+
+    private void moveActors(Direction direction, Figur... actors) {
+        if (direction.equals(Direction.LEFT) || direction.equals(Direction.UP)) {
+            if (direction.equals(Direction.UP))
                 for (Figur figure : actors) {
-                    figure.resetImage();
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() + 1), getWorld().getSetup().getHeight()));
+                            modulo((figure.getY() - 1), getWorld().getSetup().getHeight()));
                 }
-                break;
 
-            case LEFT:
-                k = 120;
+            else if (direction.equals(Direction.LEFT))
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(
                             modulo((figure.getX() - 1), getWorld().getSetup().getWidth()),
                             figure.getY());
                 }
-                for (int j = 1; j <= 6; j++) {
-                    //TODO cell size besser bekommen
-                    k = k - 20;
-                    for (Figur figure : actors) {
-                        changeAnimationImage(figure, k, direction);
-                    }
-                    Greenfoot.delay(2);
-                }
+
+            for (int j = 0, k = 120; j < 5; j++, k = k - 24) {
+                //TODO cell size besser bekommen
+                changeAnimationImage(k, direction, actors);
+                Greenfoot.delay(2);
+            }
+            for (Figur figure : actors) {
+                figure.resetImage();
+            }
+        } else {
+            for (int j = 0, k = 0; j < 5; j++, k = k + 24) {
+                //TODO cell size besser bekommen
+                changeAnimationImage(k, direction, actors);
+                Greenfoot.delay(2);
+            }
+
+            if (direction.equals(Direction.DOWN))
                 for (Figur figure : actors) {
                     figure.resetImage();
-                }
-                break;
-
-            case UP:
-                k = 120;
-                for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() - 1), getWorld().getSetup().getHeight()));
+                            modulo((figure.getY() + 1), getWorld().getSetup().getHeight()));
                 }
-                for (int j = 1; j <= 6; j++) {
-                    //TODO cell size besser bekommen
-                    k = k - 20;
-                    for (Figur figure : actors) {
-                        changeAnimationImage(figure, k, direction);
-                    }
-                    Greenfoot.delay(2);
-                }
+            else if (direction.equals(Direction.RIGHT))
                 for (Figur figure : actors) {
                     figure.resetImage();
+                    figure.setLocationWithoutOffset(
+                            modulo((figure.getX() + 1), getWorld().getSetup().getWidth()), figure.getY());
                 }
-                break;
-
-            default: // Not a valid direction
-                break;
         }
+
     }
-
-
-
 
 
     /**
      * Kara turns left by 90 degrees <br>
      * <i>Kara dreht sich um 90° nach links</i>
      */
+
     public void turnLeft() {
         setCurrentDirection(getCurrentDirection().rotationLeft());
         resetImage();
@@ -230,19 +167,19 @@ public class Charakter extends Figur {
         int y = getY();
 
         switch (getCurrentDirection()) {
-            case RIGHT:         // java
+            case RIGHT:
                 x = modulo((x + steps), getWorld().getSetup().getWidth());
                 break;
 
-            case DOWN:         // java
+            case DOWN:
                 y = modulo((y + steps), getWorld().getSetup().getHeight());
                 break;
 
-            case LEFT:         // java
+            case LEFT:
                 x = modulo((x - steps), getWorld().getSetup().getWidth());
                 break;
 
-            case UP:         // java
+            case UP:
                 y = modulo((y - steps), getWorld().getSetup().getHeight());
                 break;
 
@@ -377,8 +314,8 @@ public class Charakter extends Figur {
     //        return getObjectInFront(getRotation(), 1, Mushroom.class) != null;
     //    }
 
-    public enum FigureTyp{
-        Zauber("character_body.png","character_stab.png","character_kleidung.png"), Steinbeisser("steinbeißer.png");
+    public enum FigureTyp {
+        Zauber("character_body.png", "character_stab.png", "character_kleidung.png"), Steinbeisser("steinbeißer.png");
 
         public final String[] path;
 
@@ -387,6 +324,6 @@ public class Charakter extends Figur {
 
         }
 
-        }
+    }
 
 }
