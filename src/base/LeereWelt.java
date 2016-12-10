@@ -2,17 +2,19 @@
 
 
 import greenfoot.*;
+import interfaces.GreenfootWorld;
+import interfaces.LeutwesenInterface;
 import util.*;
 
 import javax.swing.*;
-import java.util.List;
 
 /**
  * Basisklasse der Welt.
  */
-public class LeereWelt extends World {
+public class LeereWelt extends World implements GreenfootWorld {
 
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
+
     private static WeltSetup setup;
     private Spielfeld playground;
     private Hintergrund background;
@@ -57,11 +59,11 @@ Geysir x = new Geysir();
         Geysir x3 = new Geysir();
         Geysir x4 = new Geysir();
 
-        addObject(x, 4, 4);
-        addObject(x1, 2, 2);
-        addObject(x2, 3, 2);
-        addObject(x3, 5, 3);
-        addObject(x4, 1, 4);
+        addObject(x, 4, 5);
+        addObject(x1, 5, 5);
+        addObject(x2, 4, 3);
+        addObject(x3, 8, 4);
+        addObject(x4, 6, 3);
 
         new Animator(x,x1,x2,x3,x4).start();
     }
@@ -71,7 +73,7 @@ Geysir x = new Geysir();
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
         if (setup.isDark() && object instanceof Lichtwesen) {
-             background.updateBackground(getObjects(Lichtwesen.class));
+             background.updateBackground(getObjects(LeutwesenInterface.class));
             setBackground(background.getBackground());
         }
     }
@@ -80,7 +82,7 @@ Geysir x = new Geysir();
     public void removeObject(Actor object) {
         super.removeObject(object);
         if (setup.isDark() && object instanceof Lichtwesen) {
-            background.updateBackground(getObjects(Lichtwesen.class));
+            background.updateBackground(getObjects(LeutwesenInterface.class));
             setBackground(background.getBackground());
         }
     }

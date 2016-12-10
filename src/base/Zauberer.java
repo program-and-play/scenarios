@@ -1,12 +1,10 @@
-
-import greenfoot.*;
 /**
  * Write a description of class Zauberer here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Zauberer extends SubFigure {
+public class Zauberer extends Charakter {
     private static Zauberer instance;
 
     protected static Zauberer getInstance () {

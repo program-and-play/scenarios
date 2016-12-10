@@ -78,7 +78,6 @@ class Figur extends Actor {
     protected boolean theWorldsEnd(Direction direction, int steps, Actor actor) {
         int x = actor.getX();
         int y = actor.getY();
-        System.out.println("Actor X " + x + " Actor y " + y);
 
         switch (direction) {
             case RIGHT:         // java
@@ -136,7 +135,6 @@ class Figur extends Actor {
 
     public void setLocationWithoutOffset(int x, int y) {
         super.setLocation(x + getWorld().getSetup().getOffsetStartToX(), y + getWorld().getSetup().getOffsetStartToY());
-        System.out.println("setLocationWithoutOffsetWithoutOffset");
     }
 
     public HashMap<Direction, ArrayList<GreenfootImage>> loadImageForCharacter(GreenfootImage bodyImage, int NumOfCellHorizontal, int NumOfCellVertical) {

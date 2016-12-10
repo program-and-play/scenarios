@@ -1,3 +1,5 @@
+package util;
+
 import interfaces.Animation;
 
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
+package util;
+
 import greenfoot.*;
-import util.WeltSetup;
+import interfaces.LeutwesenInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,15 +101,14 @@ public class Hintergrund {
         return tmpGameWorld;
     }
 
-    public GreenfootImage updateBackground(List<Lichtwesen> list) {
+    public GreenfootImage updateBackground(List<LeutwesenInterface> list) {
         Random random = new Random();
         // levelscreen + gameWorld + shadow
         background = new GreenfootImage(outerWidth * CELL_SIZE, outerHeight * CELL_SIZE);
         background.drawImage(levelScreen, 0, 0);
         background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY * CELL_SIZE);
         if (isDark) {
-            System.out.println("Hier");
-            for (Lichtwesen obj : list) {
+            for (LeutwesenInterface obj : list) {
                 GreenfootImage cellImage = lightCellList.get(random.nextInt(cellList.size() - 1));
                 applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
                 background.drawImage(

@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Write a description of class SubFigure here.
+ * Write a description of class Charakter here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class SubFigure extends Figur {
+public class Charakter extends Figur {
 
     private FigureTyp typ;
 
@@ -28,7 +28,7 @@ public class SubFigure extends Figur {
     }
 
 
-    protected SubFigure(FigureTyp typ) {
+    protected Charakter(FigureTyp typ) {
         super(createImage(typ.path),4,4);
 
     }
@@ -58,7 +58,6 @@ public class SubFigure extends Figur {
         //TODO Ein Push objekt bewegen
         // Check for a stone
         Stein stone = (Stein) getObjectInFront(getCurrentDirection(), 1, Stein.class);
-        System.out.println(stone);
         if (stone != null) {
 
             // Check if the mushroom could be pushed to the next field
