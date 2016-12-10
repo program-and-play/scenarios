@@ -1,5 +1,6 @@
 import greenfoot.Actor;
 import util.DialogUtils;
+import util.Spielfeld;
 import util.WeltSetup;
 
 import javax.swing.*;

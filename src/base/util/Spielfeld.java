@@ -1,6 +1,7 @@
- 
+package util;
 
 import greenfoot.*;
+import interfaces.GreenfootWorld;
 import util.DialogUtils;
 
 import javax.swing.*;
@@ -13,20 +14,22 @@ import util.WeltSetup;
  */
 public class Spielfeld {
 
-	private LeereWelt welt;
+	private GreenfootWorld welt;
     private WeltSetup setup;
 
-	public Spielfeld(LeereWelt welt, WeltSetup setup) {
+	public Spielfeld(GreenfootWorld welt, WeltSetup setup) {
 		this.welt = welt;
         this.setup = setup;
 	}
 
 	public void objektHinzufuegen(Actor object, int x, int y) {
+        //TODO
         if(x >= setup.getWidth())
             x = setup.getWidth()-1;
 
         if(y >= setup.getHeight() )
             y = setup.getHeight()-1;
+
         if(x < 0 || y < 0) {
             String message = "<html>" +
                     "<p>Die Koordinaten müssen einen Wert größer oder gleich 0 besitzen.</p>" +

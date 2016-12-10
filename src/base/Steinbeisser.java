@@ -1,12 +1,10 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
 /**
  * Write a description of class Steinbeisser here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Steinbeisser extends SubFigure
+public class Steinbeisser extends Charakter
 {
     public Steinbeisser() {
         super(FigureTyp.Steinbeisser);
@@ -22,7 +20,7 @@ public class Steinbeisser extends SubFigure
 
     public void eatStone(){
         //Direction direction
-        // SubFigure this
+        // Charakter this
         // Figur stone
 
         //TODO

@@ -1,13 +1,10 @@
 
 import greenfoot.*;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import interfaces.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 
-class Lichtwesen extends Figur {
+
+class Lichtwesen extends Figur implements LeutwesenInterface {
     private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
             "lichtwesen_neu_lila.png", "lichtwesen_neu_rosa.png", "lichtwesen_neu_rot.png","lichtwesen_neu_blau.png"};
 
