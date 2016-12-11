@@ -1,6 +1,3 @@
-
-
-
 import greenfoot.*;
 import interfaces.GreenfootWorld;
 import interfaces.LichtwesenInterface;
@@ -13,25 +10,24 @@ import javax.swing.*;
  */
 public class LeereWelt extends World implements GreenfootWorld {
 
-    private static final String WORLD_SETUP_FILE = "WeltSetup.json";
-
-    private static WeltSetup setup;
-    private Spielfeld playground;
-    private Hintergrund background;
-
     // Size of one cell
     public static final int CELL_SIZE = 60;
+    private static final String WORLD_SETUP_FILE = "WeltSetup.json";
+    private static WeltSetup setup;
 
     static {
         setup = Factory.createWorldSetup(WORLD_SETUP_FILE);
     }
+
+    private Spielfeld playground;
+    private Hintergrund background;
 
     /**
      * Eine neue Welt erstellen.
      */
     public LeereWelt() {
         // Create the new world
-        super(setup != null ? setup.getOuterWidth(): 10, setup != null ? setup.getOuterHeight() : 10, CELL_SIZE);
+        super(setup != null ? setup.getOuterWidth() : 10, setup != null ? setup.getOuterHeight() : 10, CELL_SIZE);
         //  Warn that there was no WORLD_SETUP_FILE specified.
         //TODO  Namen der Welt und weitere details ändern
 
@@ -52,8 +48,8 @@ public class LeereWelt extends World implements GreenfootWorld {
 
         setBackground(background.getBackground());
         // Initialize actors
-        Factory.initActorsFromWorldSetup( setup,  playground);
-Geysir x = new Geysir();
+        Factory.initActorsFromWorldSetup(setup, playground);
+        Geysir x = new Geysir();
         Geysir x1 = new Geysir();
         Geysir x2 = new Geysir();
         Geysir x3 = new Geysir();
@@ -65,7 +61,7 @@ Geysir x = new Geysir();
         addObject(x3, 8, 4);
         addObject(x4, 6, 3);
 
-        new Animator(x,x1,x2,x3,x4).start();
+        new Animator(x, x1, x2, x3, x4).start();
     }
 
     //New
@@ -73,7 +69,7 @@ Geysir x = new Geysir();
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
         if (setup.isDark() && object instanceof Lichtwesen) {
-             background.updateBackground(getObjects(LichtwesenInterface.class));
+            background.updateBackground(getObjects(LichtwesenInterface.class));
             setBackground(background.getBackground());
         }
     }
@@ -86,8 +82,6 @@ Geysir x = new Geysir();
             setBackground(background.getBackground());
         }
     }
-
-
 
     protected WeltSetup getSetup() {
         return setup;

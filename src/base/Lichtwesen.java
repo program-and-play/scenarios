@@ -1,26 +1,17 @@
 
 import greenfoot.*;
 import interfaces.*;
+import util.LichtwesenFarbe;
+
 import java.util.ArrayList;
 
 
 class Lichtwesen extends Figur implements LichtwesenInterface {
-    private String[] path = { "lichtwesen_neu_beige.png", "lichtwesen_neu_gelb.png",
-            "lichtwesen_neu_lila.png", "lichtwesen_neu_rosa.png", "lichtwesen_neu_rot.png","lichtwesen_neu_blau.png"};
-
-    private ArrayList<GreenfootImage> bodyImages;
-    private int colorPointer;
+    private LichtwesenFarbe farbe;
 
     public Lichtwesen() {
-        super(new GreenfootImage("lichtwesen_neu_blau.png"));
-        bodyImages = new ArrayList<GreenfootImage>();
-        for (int i = 0; i < path.length; i++) {
-            GreenfootImage tmp = new GreenfootImage(path[i]);
-            //TODO muss besser gehen die groesse der Pixel zu bekommen
-            tmp.scale(60, 60);
-            bodyImages.add(tmp);
-        }
-        colorPointer = 0;
+        farbe = LichtwesenFarbe.BLAU;
+        aktualisiereBild();
     }
 
     private ArrayList<GreenfootImage> getAnimationContainer() {
@@ -35,43 +26,46 @@ class Lichtwesen extends Figur implements LichtwesenInterface {
         this.resetImage();
     }
 
-    public void leuteBeigeCappuchino() {
-        colorPointer = 0;
-        setImage(bodyImages.get(colorPointer));
+    public void leuchteBeigeCappuchino() {
+        farbe = LichtwesenFarbe.BEIGE;
+        aktualisiereBild();
     }
 
     public void leuchteGelb() {
-        colorPointer = 1;
-        setImage(bodyImages.get(colorPointer));
+        farbe = LichtwesenFarbe.GELB;
+        aktualisiereBild();
 
     }
 
     public void leuteLila() {
-        colorPointer = 2;
-        setImage(bodyImages.get(colorPointer));
+        farbe = LichtwesenFarbe.LILA;
+        aktualisiereBild();
     }
 
     public void leuteRosa() {
-        colorPointer = 3;
-        setImage(bodyImages.get(colorPointer));
+        farbe = LichtwesenFarbe.ROSA;
+        aktualisiereBild();
     }
 
     public void leuchteRot() {
-        colorPointer = 4;
-        setImage(bodyImages.get(colorPointer));
+        farbe = LichtwesenFarbe.ROT;
+        aktualisiereBild();
 
     }
 
     public void leuchteBlau() {
-        colorPointer = 5;
-        setImage(bodyImages.get(colorPointer));
+        farbe = LichtwesenFarbe.BLAU;
+        aktualisiereBild();
 
     }
 
     public void wechselFarbe() {
-        if (colorPointer >= bodyImages.size() - 1)
-            colorPointer = -1;
-        setImage(bodyImages.get(++colorPointer));
+        farbe = farbe.next();
+        aktualisiereBild();
+    }
+
+    private void aktualisiereBild() {
+        setImage(farbe.bild());
     }
 
 }
