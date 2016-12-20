@@ -5,6 +5,5 @@ package interfaces;
  */
 public interface Animation {
 
-    public void updateImage();
     public void makeAnimation();
 }

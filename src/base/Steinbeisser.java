@@ -6,7 +6,16 @@
  */
 public class Steinbeisser extends Charakter
 {
-    public Steinbeisser() {
+    private static Steinbeisser instance;
+
+    protected static Steinbeisser getInstance () {
+        if (Steinbeisser.instance == null) {
+            Steinbeisser.instance = new Steinbeisser ();
+        }
+        return Steinbeisser.instance;
+    }
+
+    private Steinbeisser() {
         super(FigureTyp.Steinbeisser);
     }
     /**

@@ -34,17 +34,16 @@ class Figur extends Actor {
     private HashMap<Direction, ArrayList<GreenfootImage>> imageContainer;
 
     protected Figur(GreenfootImage image) {
-        imageContainer = loadImageForCharacter(image);
-        resetImage();
+        this(image, 1, 1);
     }
 
     protected Figur(GreenfootImage image, int sceneX, int sceneY) {
-        imageContainer = loadImageForCharacter(image, sceneX, sceneY);
+        imageContainer = loadImage(image, sceneX, sceneY);
         resetImage();
     }
 
     protected Figur() {
-        imageContainer = loadImageForCharacter(getImage());
+        imageContainer = loadImage(getImage(), 1, 1);
         resetImage();
     }
 
@@ -157,29 +156,34 @@ class Figur extends Actor {
         super.setLocation(x + getWorld().getSetup().getOffsetStartToX(), y + getWorld().getSetup().getOffsetStartToY());
     }
 
-    public HashMap<Direction, ArrayList<GreenfootImage>> loadImageForCharacter(GreenfootImage bodyImage, int NumOfCellHorizontal, int NumOfCellVertical) {
+    public HashMap<Direction, ArrayList<GreenfootImage>> loadImage(GreenfootImage bodyImage, int NumOfCellHorizontal, int NumOfCellVertical) {
         //TODO hier ein richtigen Import von der Cellsize der World
         int PIXEL = 60;
-        HashMap<Direction, ArrayList<GreenfootImage>> animationMap = new HashMap<Direction, ArrayList<GreenfootImage>>();
+        HashMap<Direction, ArrayList<GreenfootImage>> animationMap = new HashMap<>();
         GreenfootImage loaded = bodyImage;
         loaded.scale(PIXEL * NumOfCellHorizontal, PIXEL * NumOfCellVertical);
         BufferedImage loadedBuf = loaded.getAwtImage();
         int i = 0;
-        for (Direction dir : Direction.values()) {
-            ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
-            for (int j = 0; j < loaded.getWidth(); j = j + PIXEL) {
 
+        for (Direction dir : Direction.values()) {
+            ArrayList<GreenfootImage> animation = new ArrayList<>();
+
+
+
+            for (int j = 0; j < loaded.getWidth(); j = j + PIXEL) {
                 BufferedImage bufImage = loadedBuf.getSubimage(j, i, PIXEL, PIXEL);
                 GreenfootImage gImage = new GreenfootImage(bufImage.getWidth(), bufImage.getHeight());
                 BufferedImage gBufImg = gImage.getAwtImage();
                 Graphics2D graphics = (Graphics2D) gBufImg.getGraphics();
                 graphics.drawImage(bufImage, null, 0, 0);
-
                 animation.add(gImage);
             }
+
             animationMap.put(dir, animation);
-            i = i + PIXEL;
+            if(i + PIXEL < loaded.getHeight())
+                i = i + PIXEL;
         }
+
 
         return animationMap;
     }
@@ -207,51 +211,24 @@ class Figur extends Actor {
         return animation;
     }
 
-    public HashMap<Direction, ArrayList<GreenfootImage>> loadImageForCharacter(GreenfootImage bodyImage) {
-        //TODO hier ein richtigen Import von der Cellsize der World
-        int PIXEL = 60;
-        HashMap<Direction, ArrayList<GreenfootImage>> animationMap = new HashMap<Direction, ArrayList<GreenfootImage>>();
-        GreenfootImage loaded = bodyImage;
-        loaded.scale(PIXEL, PIXEL);
-        for (Direction dir : Direction.values()) {
-            ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
-            animation.add(loaded);
-            animationMap.put(dir, animation);
-        }
-        return animationMap;
-    }
-
     public void changeAnimationImage(int offset, Direction direction, Figur... actorArray) {
         for (Figur actor : actorArray) {
             GreenfootImage tmp;
             int imagePointer = actor.getImagePointer();
-            if (imagePointer >= getImageContainer().get(direction).size() - 1)
+            if (imagePointer >= actor.getImageContainer().get(direction).size() - 1)
                 actor.setImagePointer(0);
             else
                 actor.setImagePointer(imagePointer++);
 
             GreenfootImage image = actor.getImageContainer().get(direction).get(imagePointer);
+            if (direction.equals(Direction.LEFT) || direction.equals(Direction.RIGHT)) {
+                tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
+                tmp.drawImage(image, offset, 0);
 
-            switch (direction) {
-                case RIGHT:
-                    tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
-                    tmp.drawImage(image, offset, 0);
-                    break;
-                case LEFT:
-                    tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
-                    tmp.drawImage(image, offset, 0);
-                    break;
-                case UP:
-                    tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
-                    tmp.drawImage(image, 0, offset);
-                    break;
-                case DOWN:
-                    tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
-                    tmp.drawImage(image, 0, offset);
-                    break;
-                default:
-                    tmp = new GreenfootImage(image.getWidth() + 60, image.getHeight() + 60);
-                    break;
+            } else {
+                tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
+                tmp.drawImage(image, 0, offset);
+
             }
 
             actor.setImage(tmp);
@@ -265,7 +242,7 @@ class Figur extends Actor {
 
     //TODO wird in Lichtwesen gebraucht, ob so gut?
     public void changeImage(GreenfootImage image, int sceneX, int sceneY) {
-        imageContainer = loadImageForCharacter(image, sceneX, sceneY);
+        imageContainer = loadImage(image, sceneX, sceneY);
         setImage(imageContainer.get(currentDirection).get(0));
     }
 

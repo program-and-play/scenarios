@@ -31,12 +31,16 @@ public class Animator extends Thread
 
     @Override
     public void run() {
+
         while (!isInterrupted()){
-            getAnimation(randomGenerator.nextInt(animationsList.size())).makeAnimation();
-            try {
-                sleep(randomGenerator.nextInt(2000));
-            } catch (InterruptedException e) {
-                interrupt();
+
+            if(animationsList.size() > 0) {
+                getAnimation(randomGenerator.nextInt(animationsList.size())).makeAnimation();
+                try {
+                    sleep(randomGenerator.nextInt(2000));
+                } catch (InterruptedException e) {
+                    interrupt();
+                }
             }
         }
     }
@@ -48,4 +52,6 @@ public class Animator extends Thread
     public synchronized Animation getAnimation(int index) {
         return animationsList.get(index);
     }
+
+
 }

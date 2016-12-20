@@ -18,12 +18,12 @@ class Lichtwesen extends Figur implements LichtwesenInterface {
         return loadImageForAnimation(new GreenfootImage("lichtwesen_beschwören.png"), 6);
     }
 
-    protected void makeAnimation() {
+    public void makeAnimation() {
         for (GreenfootImage img : getAnimationContainer()) {
             setImage(img);
             Greenfoot.delay(2);
         }
-        this.resetImage();
+        aktualisiereBild();
     }
 
     public void leuchteBeigeCappuchino() {
