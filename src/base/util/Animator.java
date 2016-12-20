@@ -15,16 +15,25 @@ import java.util.Random;
  */
 public class Animator extends Thread
 {
+    private static Animator instance;
+
+
+    public static Animator getInstance () {
+        if (Animator.instance == null) {
+            Animator.instance = new Animator ();
+        }
+        return Animator.instance;
+    }
 
     private List<Animation> animationsList;
     private Random randomGenerator = new Random();
 
-    public Animator()
+    private Animator()
     {
         animationsList = new ArrayList<>();
     }
 
-    public Animator(Animation... animations)
+    private Animator(Animation... animations)
     {
         animationsList = Arrays.asList(animations);
     }
@@ -35,7 +44,7 @@ public class Animator extends Thread
         while (!isInterrupted()){
 
             if(animationsList.size() > 0) {
-                getAnimation(randomGenerator.nextInt(animationsList.size())).makeAnimation();
+                makeAnimation(getAnimation(randomGenerator.nextInt(animationsList.size())));
                 try {
                     sleep(randomGenerator.nextInt(2000));
                 } catch (InterruptedException e) {
@@ -45,12 +54,20 @@ public class Animator extends Thread
         }
     }
 
-    public synchronized void setAnimation(Animation animation) {
+    public synchronized void addAnimation(Animation animation) {
         animationsList.add(animation);
+    }
+
+    public synchronized void removeAnimation(Animation animation) {
+        animationsList.remove(animation);
     }
 
     public synchronized Animation getAnimation(int index) {
         return animationsList.get(index);
+    }
+
+    public synchronized void makeAnimation(Animation animation) {
+        animation.makeAnimation();
     }
 
 

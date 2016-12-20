@@ -2,6 +2,7 @@
 
 
 import greenfoot.*;
+import interfaces.Animation;
 import interfaces.GreenfootWorld;
 import interfaces.LichtwesenInterface;
 import util.*;
@@ -36,17 +37,10 @@ public class LeereWelt extends World implements GreenfootWorld {
         playground = new Spielfeld(this, Factory.getSetup());
         background = new Hintergrund(Factory.getSetup(), CELL_SIZE);
 
-        //  TODO Paintorder reparieren
-        //        setPaintOrder(PAINT_ORDER)
-
-        //TODO entscheide welchen default speed gesetzt werden soll
-        Greenfoot.setSpeed(Factory.getSetup().getSpeed());
-
         addObject(new SoundButton(Factory.getSetup().isMute()), getWidth(), getHeight());
 
         setBackground(background.getBackground());
 
-        // Initialize actors
         Factory.initActorsFromWorldSetup( Factory.getSetup(),  playground);
     }
 
@@ -58,6 +52,8 @@ public class LeereWelt extends World implements GreenfootWorld {
              background.updateBackground(getObjects(LichtwesenInterface.class));
             setBackground(background.getBackground());
         }
+        if(object instanceof Animation)
+            Factory.addAnimationObject((Animation) object);
     }
 
     @Override
@@ -67,6 +63,9 @@ public class LeereWelt extends World implements GreenfootWorld {
             background.updateBackground(getObjects(LichtwesenInterface.class));
             setBackground(background.getBackground());
         }
+
+        if(object instanceof Animation)
+            Factory.removeAnimationObject((Animation) object);
     }
 
 

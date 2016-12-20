@@ -1,10 +1,7 @@
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import interfaces.Animation;
-import util.Animator;
-import util.DialogUtils;
-import util.Spielfeld;
-import util.WeltSetup;
+import util.*;
 
 import javax.swing.*;
 import java.io.File;
@@ -20,11 +17,27 @@ private static WeltSetup setupFactory;
 
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
 
-    private static final Animator animator = new Animator();
+    private static final Animator animator = Animator.getInstance();
 
     static {
         Factory.createWorldSetup();
         animator.start();
+
+        //TODO entscheide welchen default speed gesetzt werden soll
+        Greenfoot.setSpeed(Factory.getSetup().getSpeed());
+
+        //TODO Paintorder reparieren
+        //        setPaintOrder(PAINT_ORDER)
+
+
+    }
+
+    protected static void addAnimationObject(Animation animation){
+        animator.addAnimation(animation);
+    }
+
+    protected static void removeAnimationObject(Animation animation){
+        animator.removeAnimation(animation);
     }
 
     public static WeltSetup getSetup() {
@@ -87,7 +100,7 @@ private static WeltSetup setupFactory;
             if (tmp != null)
                 playground.objektHinzufuegen(tmp, actorPosition.getX(), actorPosition.getY());
             if(tmp instanceof Animation)
-                animator.setAnimation((Animation) tmp);
+                animator.addAnimation((Animation) tmp);
         }
 
 
