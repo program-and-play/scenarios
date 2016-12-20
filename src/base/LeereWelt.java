@@ -37,8 +37,6 @@ public class LeereWelt extends World implements GreenfootWorld {
         playground = new Spielfeld(this, Factory.getSetup());
         background = new Hintergrund(Factory.getSetup(), CELL_SIZE);
 
-        addObject(new SoundButton(Factory.getSetup().isMute()), getWidth(), getHeight());
-
         setBackground(background.getBackground());
 
         Factory.initActorsFromWorldSetup( Factory.getSetup(),  playground);

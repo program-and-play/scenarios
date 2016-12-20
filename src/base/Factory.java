@@ -28,8 +28,6 @@ private static WeltSetup setupFactory;
 
         //TODO Paintorder reparieren
         //        setPaintOrder(PAINT_ORDER)
-
-
     }
 
     protected static void addAnimationObject(Animation animation){
@@ -103,7 +101,8 @@ private static WeltSetup setupFactory;
                 animator.addAnimation((Animation) tmp);
         }
 
-
+        SoundButton x = new SoundButton(Factory.getSetup().isMute());
+        playground.getWelt().addObject(x, setup.getOuterWidth(),setup.getOuterHeight());
     }
 
 

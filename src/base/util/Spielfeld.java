@@ -22,7 +22,11 @@ public class Spielfeld {
         this.setup = setup;
 	}
 
-	public void objektHinzufuegen(Actor object, int x, int y) {
+    public GreenfootWorld getWelt() {
+        return welt;
+    }
+
+    public void objektHinzufuegen(Actor object, int x, int y) {
         //TODO
         if(x >= setup.getWidth())
             x = setup.getWidth()-1;
