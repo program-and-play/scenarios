@@ -8,17 +8,17 @@ import java.util.Random;
  */
 public class Tasche {
 
-    private ArrayList<Schlüssel> inhalt;
+    private ArrayList<Schluessel> inhalt;
 
-    public Tasche(ArrayList<Schlüssel> inhalt) {
+    public Tasche(ArrayList<Schluessel> inhalt) {
         this.inhalt = inhalt;
     }
 
     /**
      *
-     * @return ein zufälliger Schlüssel
+     * @return ein zufälliger Schluessel
      */
-    public Schlüssel greifeSchlüssel() throws LeereTascheException {
+    public Schluessel greifeSchluessel() throws Exception {
         int anzahl = inhalt.size();
         if(anzahl <= 0) {
             throw new LeereTascheException();
