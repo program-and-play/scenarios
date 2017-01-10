@@ -3,6 +3,7 @@ package util;
 import greenfoot.*;
 import interfaces.LichtwesenInterface;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -85,7 +86,7 @@ public class Hintergrund {
     }
 
     private GreenfootImage createLevelScreen() {
-        GreenfootImage tmpLevelScreen = new GreenfootImage(setup.getLevelScreen());
+        GreenfootImage tmpLevelScreen = defaultImage();
         tmpLevelScreen.scale(outerWidth * CELL_SIZE, outerHeight * CELL_SIZE);
         return tmpLevelScreen;
     }
@@ -131,6 +132,23 @@ public class Hintergrund {
         tmpBackground.drawImage(levelScreen, 0, 0);
         tmpBackground.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY * CELL_SIZE);
         return tmpBackground;
+    }
+
+    public GreenfootImage defaultImage(){
+        GreenfootImage foo = new GreenfootImage(setup.getLevelScreen());
+        BufferedImage bi = foo.getAwtImage();
+        Graphics2D ig2 = bi.createGraphics();
+
+//        ig2.setBackground(Color.WHITE);
+//        ig2.clearRect(0, 0, width, height);
+//
+
+
+        ig2.setPaint ( Color.white );
+        ig2.fillRect ( 0, 0, bi.getWidth(), bi.getHeight() );
+
+                foo.drawImage(new GreenfootImage(setup.getLevelScreen()), 0,0);
+        return foo;
     }
 
 
