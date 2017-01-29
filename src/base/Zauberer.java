@@ -72,7 +72,7 @@ public class Zauberer extends Charakter {
         resetImage();
         Lichtwesen tmp = new Lichtwesen();
         getWorld().erhalteSpielfeld().objektHinzufuegen(tmp, x, y);
-        tmp.bewegen();
+        tmp.animiere();
     }
 
 

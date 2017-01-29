@@ -20,7 +20,7 @@ class Lichtwesen extends Figur implements LichtwesenInterface {
      * Das Lichtwesen bewegt sich auf der Stelle.
      */
 
-    public void bewegen() {
+    public void animiere() {
         for (GreenfootImage img : bewegung) {
             setImage(img);
             Greenfoot.delay(2);
