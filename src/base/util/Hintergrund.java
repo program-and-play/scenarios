@@ -35,6 +35,7 @@ public class Hintergrund {
     private boolean isDark;
     private WeltSetup setup;
     private BufferedImage mask;
+    private GreenfootImage[][] weltKacheln;
 
 
     public Hintergrund(WeltSetup setup, int CELL_SIZE) {
@@ -66,7 +67,7 @@ public class Hintergrund {
     }
 
     private ArrayList<GreenfootImage> initialCellList() {
-        ArrayList<GreenfootImage> tmpList = new ArrayList<GreenfootImage>();
+        ArrayList<GreenfootImage> tmpList = new ArrayList<>();
         for (String path : setup.getCellPath()) {
             GreenfootImage tmpImage = new GreenfootImage(path);
             tmpImage.scale(CELL_SIZE, CELL_SIZE);
@@ -76,7 +77,7 @@ public class Hintergrund {
     }
 
     private ArrayList<GreenfootImage> initialLightCellList() {
-        ArrayList<GreenfootImage> tmpList = new ArrayList<GreenfootImage>();
+        ArrayList<GreenfootImage> tmpList = new ArrayList<>();
         for (String path : setup.getCellPath()) {
             GreenfootImage tmpImage = new GreenfootImage(path.replace("dunkel", "hell"));
             tmpImage.scale(CELL_SIZE, CELL_SIZE);
@@ -94,9 +95,14 @@ public class Hintergrund {
     private GreenfootImage createGameWorld() {
         GreenfootImage tmpGameWorld = new GreenfootImage(width * CELL_SIZE, height * CELL_SIZE);
         Random random = new Random();
+        weltKacheln = new GreenfootImage[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                tmpGameWorld.drawImage(cellList.get(random.nextInt(cellList.size() - 1)), j * CELL_SIZE, i * CELL_SIZE);
+                System.out.println("i " + i + " j "+j);
+                int foo = random.nextInt(cellList.size() - 1);
+                weltKacheln[i][j] =lightCellList.get(foo);
+                tmpGameWorld.drawImage(cellList.get(foo), j * CELL_SIZE, i * CELL_SIZE);
+
             }
         }
         return tmpGameWorld;
@@ -110,7 +116,8 @@ public class Hintergrund {
         background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY * CELL_SIZE);
         if (isDark) {
             for (LichtwesenInterface obj : list) {
-                GreenfootImage cellImage = lightCellList.get(random.nextInt(cellList.size() - 1));
+
+                GreenfootImage cellImage = weltKacheln[obj.getY()][obj.getX()];//lightCellList.get(random.nextInt(cellList.size() - 1));
                 applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
                 background.drawImage(
                         cellImage,
