@@ -48,7 +48,7 @@ public class Zauberer extends Charakter {
      */
 
     public void erzeugeLichtwesen(int x, int y) {
-        if (getWorld().getSetup().getHeight() < x || getWorld().getSetup().getWidth() < y || x < 0 || y < 0) {
+        if (Factory.getSetup().getHeight() < x || Factory.getSetup().getWidth() < y || x < 0 || y < 0) {
             showWarning(
                     "", //Optional fuer den englischen Text.
                     "Der Zauber kann kein Lichtwesen erzeugen, da die Indizes außerhalb der Welt gewählt wurden.");
@@ -71,7 +71,7 @@ public class Zauberer extends Charakter {
         }
         resetImage();
         Lichtwesen tmp = new Lichtwesen();
-        getWorld().getPlayground().objektHinzufuegen(tmp, x, y);
+        getWorld().erhalteSpielfeld().objektHinzufuegen(tmp, x, y);
         tmp.makeAnimation();
     }
 

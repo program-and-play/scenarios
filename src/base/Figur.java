@@ -5,6 +5,7 @@ import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 import util.DialogUtils;
+import util.WeltSetup;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,12 +83,12 @@ class Figur extends Actor {
 
     @Override
     public int getX() {
-        return super.getX() - getWorld().getSetup().getOffsetStartToX();
+        return super.getX() - Factory.getSetup().getOffsetStartToX();
     }
 
     @Override
     public int getY() {
-        return super.getY() - getWorld().getSetup().getOffsetStartToY();
+        return super.getY() - Factory.getSetup().getOffsetStartToY();
     }
 
     public HashMap<Direction, ArrayList<GreenfootImage>> getImageContainer() {
@@ -99,21 +100,14 @@ class Figur extends Actor {
         int y = actor.getY();
 
         switch (direction) {
-            case RIGHT:         // java
-                return x + steps >= getWorld().getSetup().getWidth();
-
-            case DOWN:         // java
-
-                return y + steps >= getWorld().getSetup().getHeight();
-
-            case LEFT:         // java
-
+            case RIGHT:
+                return x + steps >= Factory.getSetup().getWidth();
+            case DOWN:
+                return y + steps >= Factory.getSetup().getHeight();
+            case LEFT:
                 return x - steps < 0;
-
-            case UP:         // java
-
+            case UP:
                 return y - steps < 0;
-
             default: // Not a valid direction
                 return false;
         }
@@ -153,7 +147,7 @@ class Figur extends Actor {
     }
 
     public void setLocationWithoutOffset(int x, int y) {
-        super.setLocation(x + getWorld().getSetup().getOffsetStartToX(), y + getWorld().getSetup().getOffsetStartToY());
+        super.setLocation(x + Factory.getSetup().getOffsetStartToX(), y + Factory.getSetup().getOffsetStartToY());
     }
 
     public HashMap<Direction, ArrayList<GreenfootImage>> loadImage(GreenfootImage bodyImage, int NumOfCellHorizontal, int NumOfCellVertical) {
@@ -169,7 +163,6 @@ class Figur extends Actor {
             ArrayList<GreenfootImage> animation = new ArrayList<>();
 
 
-
             for (int j = 0; j < loaded.getWidth(); j = j + PIXEL) {
                 BufferedImage bufImage = loadedBuf.getSubimage(j, i, PIXEL, PIXEL);
                 GreenfootImage gImage = new GreenfootImage(bufImage.getWidth(), bufImage.getHeight());
@@ -180,7 +173,7 @@ class Figur extends Actor {
             }
 
             animationMap.put(dir, animation);
-            if(i + PIXEL < loaded.getHeight())
+            if (i + PIXEL < loaded.getHeight())
                 i = i + PIXEL;
         }
 

@@ -1,5 +1,6 @@
 
 import greenfoot.*;
+import util.WeltSetup;
 
 import java.util.List;
 
@@ -51,17 +52,18 @@ public class Charakter extends Figur {
      */
 
     private void moveActors(Direction direction, Figur... actors) {
+        WeltSetup foo = Factory.getSetup();
         if (direction.equals(Direction.LEFT) || direction.equals(Direction.UP)) {
             if (direction.equals(Direction.UP))
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() - 1), getWorld().getSetup().getHeight()));
+                            modulo((figure.getY() - 1), foo.getHeight()));
                 }
 
             else if (direction.equals(Direction.LEFT))
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(
-                            modulo((figure.getX() - 1), getWorld().getSetup().getWidth()),
+                            modulo((figure.getX() - 1), foo.getWidth()),
                             figure.getY());
                 }
 
@@ -84,13 +86,13 @@ public class Charakter extends Figur {
                 for (Figur figure : actors) {
                     figure.resetImage();
                     figure.setLocationWithoutOffset(figure.getX(),
-                            modulo((figure.getY() + 1), getWorld().getSetup().getHeight()));
+                            modulo((figure.getY() + 1), foo.getHeight()));
                 }
             else if (direction.equals(Direction.RIGHT))
                 for (Figur figure : actors) {
                     figure.resetImage();
                     figure.setLocationWithoutOffset(
-                            modulo((figure.getX() + 1), getWorld().getSetup().getWidth()), figure.getY());
+                            modulo((figure.getX() + 1), foo.getWidth()), figure.getY());
                 }
         }
 
@@ -147,22 +149,23 @@ public class Charakter extends Figur {
     protected Object getObjectInFront(Direction direction, int steps, Class<?> clazz) {
         int x = getX();
         int y = getY();
+        WeltSetup foo = Factory.getSetup();
 
         switch (getCurrentDirection()) {
             case RIGHT:
-                x = modulo((x + steps), getWorld().getSetup().getWidth());
+                x = modulo((x + steps), foo.getWidth());
                 break;
 
             case DOWN:
-                y = modulo((y + steps), getWorld().getSetup().getHeight());
+                y = modulo((y + steps), foo.getHeight());
                 break;
 
             case LEFT:
-                x = modulo((x - steps), getWorld().getSetup().getWidth());
+                x = modulo((x - steps), foo.getWidth());
                 break;
 
             case UP:
-                y = modulo((y - steps), getWorld().getSetup().getHeight());
+                y = modulo((y - steps), foo.getHeight());
                 break;
 
             default: // Not a valid direction
@@ -170,7 +173,7 @@ public class Charakter extends Figur {
         }
 
 
-        List<?> objects = getWorld().getPlayground().gibObjekteAuf(x, y, clazz);
+        List<?> objects = getWorld().erhalteSpielfeld().gibObjekteAuf(x, y, clazz);
 
         if (objects != null && objects.size() > 0) {
             return objects.get(0);
