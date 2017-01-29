@@ -62,10 +62,6 @@ public class LeereWelt extends World implements GreenfootWorld {
     }
 
 
-    protected WeltSetup getSetup() {
-        return Factory.getSetup();
-    }
-
     public Spielfeld erhalteSpielfeld() {
         return spielfeld;
     }
