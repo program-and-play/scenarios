@@ -1,29 +1,35 @@
-
-
-
 import greenfoot.*;
 import interfaces.*;
 import util.*;
+
 import javax.swing.*;
 
 /**
  * Basisklasse der Welt.
  */
 public class LeereWelt extends World implements GreenfootWorld {
-
+    public static final int CELL_SIZE = 60;
 
     private Spielfeld spielfeld;
     private Hintergrund hintergrund;
-
-    // Size of one cell
-    public static final int CELL_SIZE = 60;
 
     /**
      * Eine neue Welt erstellen.
      */
     public LeereWelt() {
-        super(Factory.getSetup() != null ? Factory.getSetup().getOuterWidth(): 10, Factory.getSetup() != null ? Factory.getSetup().getOuterHeight() : 10, CELL_SIZE);
+        super(Factory.getSetup() != null ? Factory.getSetup().getOuterWidth() : 10, Factory.getSetup() != null ? Factory.getSetup().getOuterHeight() : 10, CELL_SIZE);
+        konstruiereWelt();
+    }
 
+    @Override
+    public void act() {
+
+    }
+
+
+    /*-----  UNTERHALB DIESER ZEILE SIND NUR EINFACH HELFERMETHODEN ----- */
+
+    private void konstruiereWelt() {
         if (Factory.getSetup() == null) {
             DialogUtils.showMessageDialogEdt(null, DialogUtils.setupNullMessage, "Warning", JOptionPane.WARNING_MESSAGE);
             return;
@@ -34,10 +40,9 @@ public class LeereWelt extends World implements GreenfootWorld {
 
         setBackground(hintergrund.getBackground());
 
-        Factory.initActorsFromWorldSetup( Factory.getSetup(),  spielfeld);
+        Factory.initActorsFromWorldSetup(Factory.getSetup(), spielfeld);
     }
 
-    //New
     @Override
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
@@ -45,7 +50,7 @@ public class LeereWelt extends World implements GreenfootWorld {
             hintergrund.updateBackground(getObjects(LichtwesenInterface.class));
             setBackground(hintergrund.getBackground());
         }
-        if(object instanceof Animation)
+        if (object instanceof Animation)
             Factory.addAnimationObject((Animation) object);
     }
 
@@ -57,10 +62,9 @@ public class LeereWelt extends World implements GreenfootWorld {
             setBackground(hintergrund.getBackground());
         }
 
-        if(object instanceof Animation)
+        if (object instanceof Animation)
             Factory.removeAnimationObject((Animation) object);
     }
-
 
     public Spielfeld erhalteSpielfeld() {
         return spielfeld;

@@ -98,7 +98,6 @@ public class Hintergrund {
         weltKacheln = new GreenfootImage[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                System.out.println("i " + i + " j "+j);
                 int foo = random.nextInt(cellList.size() - 1);
                 weltKacheln[i][j] =lightCellList.get(foo);
                 tmpGameWorld.drawImage(cellList.get(foo), j * CELL_SIZE, i * CELL_SIZE);
@@ -116,7 +115,6 @@ public class Hintergrund {
         background.drawImage(gameWorld, offsetStartToX * CELL_SIZE, offsetStartToY * CELL_SIZE);
         if (isDark) {
             for (LichtwesenInterface obj : list) {
-
                 GreenfootImage cellImage = weltKacheln[obj.getY()][obj.getX()];//lightCellList.get(random.nextInt(cellList.size() - 1));
                 applyGrayscaleMaskToAlpha(cellImage.getAwtImage(), mask);
                 background.drawImage(
