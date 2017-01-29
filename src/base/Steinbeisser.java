@@ -1,14 +1,21 @@
 /**
- * Write a description of class Steinbeisser here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Der Steinbeisser ist der Sidekick des Zaubers. Er ist ein hilfreicher Begleiter, mit coolen Faehigkeiten.
+ *
+ * @author Lukas Hettwer
+ *
+ * @version 0.1
  */
+
 public class Steinbeisser extends Charakter
 {
     private static Steinbeisser instance;
 
-    protected static Steinbeisser getInstance () {
+    /**
+     * Erzeugt eine Instance vom Steinbeisser, existiert schon ein Steinbeisser, wird dieser zurueck gegeben.
+     * @return Steinbeisser
+     */
+
+    protected static Steinbeisser erzeugeInstance () {
         if (Steinbeisser.instance == null) {
             Steinbeisser.instance = new Steinbeisser ();
         }
@@ -16,22 +23,26 @@ public class Steinbeisser extends Charakter
     }
 
     private Steinbeisser() {
-        super(FigureTyp.Steinbeisser);
+        super(FigurTyp.Steinbeisser);
     }
+
     /**
-     * Act - do whatever the Steinbeisser wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * In der Act Methode wird das ausgefuehrt was der Zauberer tun soll. Diese Methode wird immer wieder aufgerufen,
+     * wenn der 'Act' oder 'Run' Button gedrueckt wurde.
      */
     public void act() 
     {
-        // Add your action code here.
+        // Fuege hier deine "Befehle" fuer den Steinbeisser ein.
     }
 
-    public void eatStone(){
+    /**
+     * Zerbeisst einen Stein direkt vor dem Steinbeisser, wenn dort einer Liegt.
+     */
+
+    public void zerbeisseStein(){
         //Direction direction
         // Charakter this
         // Figur stone
-
         //TODO
     }
 }

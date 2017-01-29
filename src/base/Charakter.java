@@ -1,72 +1,54 @@
 
-import greenfoot.Greenfoot;
-import greenfoot.GreenfootImage;
+import greenfoot.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-/**
- * Write a description of class Charakter here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class Charakter extends Figur {
 
-    private FigureTyp typ;
+    private FigurTyp typ;
 
-    protected Charakter(FigureTyp typ) {
+    protected Charakter(FigurTyp typ) {
         super(createImage(typ.path), 4, 4);
         this.typ = typ;
     }
 
-    public void move() {
+    public void laufen() {
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
-            //TODO warnung umschreiben
-            showWarning("Kara can't move because of a tree!",
-                    "Kara kann sich nicht bewegen wegen einem Baum!");
+            showWarning("", //Optional fuer den englischen Text.
+                    "Der Charakter kann sich nicht bewegen wegen, da die Welt zu Ende ist!");
             return;
         }
 
         Geysir geysir = (Geysir) getObjectInFront(getCurrentDirection(), 1, Geysir.class);
         // Check for a geysir
         if (geysir != null) {
-            //TODO warnung umschreiben
-            showWarning("Vor dir ist ein Geysir!", "");
+            showWarning("", "Der Charakter kann sich nicht bewegen weil, vor ihm ist ein Geysir!");
             return;
         }
 
-        //TODO Ein Push objekt bewegen
-        // Check for a stone
         Stein stone = (Stein) getObjectInFront(getCurrentDirection(), 1, Stein.class);
         if (stone != null) {
 
-            // Check if the mushroom could be pushed to the next field
-            if (!theWorldsEnd(getCurrentDirection(), 1, stone) && getObjectInFront(getCurrentDirection(), 2, Figur.class) == null && typ == FigureTyp.Steinbeisser) {
+            if (!theWorldsEnd(getCurrentDirection(), 1, stone) && getObjectInFront(getCurrentDirection(), 2, Figur.class) == null && typ == FigurTyp.Steinbeisser) {
                 moveActors(getCurrentDirection(), this, stone);
             } else {
-                // Could not push the mushroom
-                //TODO updaten den text
                 showWarning(
-                        "Kara can't move because he can't push the mushroom!",
-                        "Kara kann sich nicht bewegen, da er den Pilz nicht schieben kann!");
+                        "",
+                        "Der Steinbeisser kann sich nicht bewegen, da er den Stein nicht schieben kann!");
                 return;
             }
         } else {
-            // Kara can move
             moveActors(getCurrentDirection(), this);
         }
         Greenfoot.delay(1);
     }
 
     /**
-     * Moves the actor one step in the specified direction and animation his movements.
+     * Beweget den/die Actor(s) um einen Schritt in die ausgewaehlte Richtung, dabei wird die Bewegung animiert.
      *
-     * @param actors    the actors to be moved
-     * @param direction the direction to move
+     * @param actors    der/die Actor(s) der/die bewegt werden sollen
+     * @param direction in welche Richtung  sie gehen sollen
      */
-
 
     private void moveActors(Direction direction, Figur... actors) {
         if (direction.equals(Direction.LEFT) || direction.equals(Direction.UP)) {
@@ -116,21 +98,20 @@ public class Charakter extends Figur {
 
 
     /**
-     * Kara turns left by 90 degrees <br>
-     * <i>Kara dreht sich um 90° nach links</i>
+     * Charakter dreht sich um 90° nach links
      */
 
-    public void turnLeft() {
+    public void linkswendung() {
         setCurrentDirection(getCurrentDirection().rotationLeft());
         resetImage();
         Greenfoot.delay(1);
     }
 
     /**
-     * Kara turns right by 90 degrees <br>
-     * <i>Kara dreht sich um 90° nach rechts</i>
+     * Charakter dreht sich um 90° nach rechts
      */
-    public void turnRight() {
+
+    public void rechtswendung() {
         setCurrentDirection(getCurrentDirection().rotationRight());
         resetImage();
         Greenfoot.delay(1);
@@ -198,7 +179,13 @@ public class Charakter extends Figur {
         }
     }
 
-    public boolean worldEndFront() {
+    /**
+     * Ueberprueft, ob die Welt vor dem Character, zu Ende ist.
+     *
+     * @return boolean
+     */
+
+    public boolean istWeltzuEnde() {
         return theWorldsEnd(getCurrentDirection(), 1, this);
     }
 
@@ -287,12 +274,12 @@ public class Charakter extends Figur {
     //        return getObjectInFront(getRotation(), 1, Mushroom.class) != null;
     //    }
 
-    public enum FigureTyp {
+    public enum FigurTyp {
         Zauber("character_body.png", "character_stab.png", "character_kleidung.png"), Steinbeisser("steinbeißer.png");
 
         public final String[] path;
 
-        FigureTyp(String... path) {
+        FigurTyp(String... path) {
             this.path = path;
 
         }

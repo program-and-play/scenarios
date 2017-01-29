@@ -1,19 +1,25 @@
-import greenfoot.Greenfoot;
-import greenfoot.GreenfootImage;
+import greenfoot.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Write a description of class Zauberer here.
+ * Der Zauber ist der Hauptcharacter dieses kleines Spiels.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Lukas Hettwer
+ *
+ * @version 0.1
  */
+
 public class Zauberer extends Charakter {
     private static Zauberer instance;
 
-    protected static Zauberer getInstance () {
+    /**
+     * Erzeugt eine Instance vom Zauberer, existiert schon ein Zauberer, wird dieser zurueck gegeben.
+     * @return Zauberer
+     */
+
+    protected static Zauberer erzeugeInstance () {
         if (Zauberer.instance == null) {
             Zauberer.instance = new Zauberer ();
         }
@@ -21,45 +27,51 @@ public class Zauberer extends Charakter {
     }
 
     private Zauberer() {
-        super(FigureTyp.Zauber);
+        super(FigurTyp.Zauber);
     }
 
     /**
-     * Act - do whatever the Zauberer wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * In der Act Methode wird das ausgefuehrt was der Zauberer tun soll. Diese Methode wird immer wieder aufgerufen,
+     * wenn der 'Act' oder 'Run' Button gedrueckt wurde.
      */
     public void act() {
-        if (worldEndFront())
-            turnRight();
-        move();
-        // Add your action code here.
+        if (istWeltzuEnde())
+            rechtswendung();
+        laufen();
+        // Fuege hier deine "Befehle" fuer den Zauberer ein.
     }
 
-    public void createLightBeings(int x, int y) {
+    /**
+     * Erzeugt ein Lichtwesen auf dem Spielfeld
+     * @param x die horizontale Position
+     * @param y die vertikale Position
+     */
+
+    public void erzeugeLichtwesen(int x, int y) {
         if (getWorld().getSetup().getHeight() < x || getWorld().getSetup().getWidth() < y || x < 0 || y < 0) {
-            //TODO einen besseren text
             showWarning(
-                    "Kara can't move because he can't push the mushroom!",
-                    "Kara kann sich nicht bewegen, da er den Pilz nicht schieben kann!");
+                    "", //Optional fuer den englischen Text.
+                    "Der Zauber kann kein Lichtwesen erzeugen, da die Indizes außerhalb der Welt gewählt wurden.");
             return;
         }
-        final String BODY_FILE = "character_body.png";
-        final String STICK_FILE = "stab_lichtwesenbeschwören.png";
-        final String CLOTHES_FILE = "character_kleidung.png";
-        GreenfootImage bodyImageForMagic = new GreenfootImage(BODY_FILE);
-        bodyImageForMagic.drawImage(new GreenfootImage(CLOTHES_FILE), 0, 0);
-        bodyImageForMagic.drawImage(new GreenfootImage(STICK_FILE), 0, 0);
-        bodyImageForMagic.scale(240, 240);
 
-        HashMap<Direction, ArrayList<GreenfootImage>> imageContainerForMagic = loadImage(bodyImageForMagic, 4, 4);
+        final String KOERPER_FILE = "character_body.png";
+        final String ZAUBERSTAB_FILE = "stab_lichtwesenbeschwören.png";
+        final String KLEIDUNG_FILE = "character_kleidung.png";
+        GreenfootImage figurZaubern = new GreenfootImage(KOERPER_FILE);
+        figurZaubern.drawImage(new GreenfootImage(ZAUBERSTAB_FILE), 0, 0);
+        figurZaubern.drawImage(new GreenfootImage(KLEIDUNG_FILE), 0, 0);
+        figurZaubern.scale(240, 240);
 
-        for (GreenfootImage img : imageContainerForMagic.get(getCurrentDirection())) {
+        HashMap<Direction, ArrayList<GreenfootImage>> bilderContainerZaubern = loadImage(figurZaubern, 4, 4);
+
+        for (GreenfootImage img : bilderContainerZaubern.get(getCurrentDirection())) {
             setImage(img);
             Greenfoot.delay(2);
         }
         resetImage();
         Lichtwesen tmp = new Lichtwesen();
-        getWorld().addObject(tmp, x, y);
+        getWorld().getPlayground().objektHinzufuegen(tmp, x, y);
         tmp.makeAnimation();
     }
 

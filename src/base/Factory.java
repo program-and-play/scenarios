@@ -78,7 +78,7 @@ private static WeltSetup setupFactory;
             Actor tmp = null;
             switch (actorPosition.getActor()) {
                 case "Zauberer":
-                    tmp = Zauberer.getInstance();
+                    tmp = Zauberer.erzeugeInstance();
                     break;
                 case "Stein":
                     tmp = new Stein();
@@ -87,7 +87,7 @@ private static WeltSetup setupFactory;
                     tmp = new Lichtwesen();
                     break;
                 case "Steinbeisser":
-                    tmp = Steinbeisser.getInstance();
+                    tmp = Steinbeisser.erzeugeInstance();
                     break;
                 case "Geysir":
                     tmp = new Geysir();
