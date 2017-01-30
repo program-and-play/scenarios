@@ -18,7 +18,6 @@ public class Charakter extends Figur {
                     "Der Charakter kann sich nicht bewegen wegen, da die Welt zu Ende ist!");
             return;
         }
-
             moveActors(getCurrentDirection(), this);
         Greenfoot.delay(1);
     }
@@ -54,8 +53,7 @@ public class Charakter extends Figur {
                             figure.getY());
                 }
 
-            for (int j = 0, k = 120; j < 5; j++, k = k - 24) {
-                //TODO cell size besser bekommen
+            for (int j = 0, k = getWorld().getCellSize()*2; j < 5; j++, k = k - getWorld().getCellSize()*2/5) {
                 changeAnimationImage(k, direction, actors);
                 op.apply(x);
                 Greenfoot.delay(2);
@@ -64,8 +62,7 @@ public class Charakter extends Figur {
                 figure.resetImage();
             }
         } else {
-            for (int j = 0, k = 0; j < 5; j++, k = k + 24) {
-                //TODO cell size besser bekommen
+            for (int j = 0, k = 0; j < 5; j++, k = k + getWorld().getCellSize()*2/5) {
                 changeAnimationImage(k, direction, actors);
                 op.apply(x);
                 Greenfoot.delay(2);
@@ -180,91 +177,5 @@ public class Charakter extends Figur {
     public boolean istWeltzuEnde() {
         return theWorldsEnd(getCurrentDirection(), 1, this);
     }
-
-    //TODO etwas hinlegen
-    //    /**
-    //     * Kara puts down a leaf <br>
-    //     * <i>Kara legt ein neues Kleeblatt an die Position, auf der er sich
-    //     * befindet</i>
-    //     */
-    //    public void putLeaf() {
-    //        if (!onLeaf()) {
-    //            Leaf leaf = new Leaf();
-    //            getWorld().addObject(leaf, getX(), getY());
-    //            Greenfoot.delay(1);
-    //        } else {
-    //            showWarning("Kara can't put a leaf on top of another leaf!",
-    //                    "Kara kann kein Kleeblatt auf ein Feld legen, auf dem schon eines ist!");
-    //        }
-    //    }
-    //TODO etwas nehmen
-    //    /**
-    //     * Kara picks up a leaf <br>
-    //     * <i>Kara entfernt ein unter ihm liegendes Kleeblatt</i>
-    //     */
-    //    public void removeLeaf() {
-    //        Leaf leaf = (Leaf) getOneObjectAtOffset(0, 0, Leaf.class);
-    //        if (leaf != null) {
-    //            getWorld().removeObject(leaf);
-    //            Greenfoot.delay(1);
-    //        } else {
-    //            showWarning("There is no leaf that Kara could remove here!",
-    //                    "Kara kann hier kein Blatt auflesen!");
-    //        }
-    //    }
-
-    //TODO überprüfen ob man auf was steht
-    //    /**
-    //     * Kara checks if he stands on a leaf <br>
-    //     * <i>Kara schaut nach, ob er sich auf einem Kleeblatt befindet</i>
-    //     *
-    //     * @return true if Kara stands on a leaf, false otherwise
-    //     */
-    //    public boolean onLeaf() {
-    //        return getOneObjectAtOffset(0, 0, Leaf.class) != null;
-    //    }
-
-
-    //TODO überprüfen ob vor/links/rechts was blockiert
-    //    /**
-    //     * Kara checks if there is a tree in front of him <br>
-    //     * <i>Kara schaut nach, ob sich ein Baum vor ihm befindet</i>
-    //     *
-    //     * @return true if there is a tree in front of Kara, false otherwise
-    //     */
-    //    public boolean treeFront() {
-    //        return getObjectInFront(getRotation(), 1, Tree.class) != null;
-    //    }
-    //TODO überprüfen ob vor/links/rechts was blockiert
-    //    /**
-    //     * Kara checks if there is a tree on his left side <br>
-    //     * <i>Kara schaut nach, ob sich ein Baum links von ihm befindet</i>
-    //     *
-    //     * @return true if Kara has a tree on his left, false otherwise
-    //     */
-    //    public boolean treeLeft() {
-    //        return getObjectInFront(modulo(getRotation() - 90, 360), 1, Tree.class) != null;
-    //    }
-    //TODO überprüfen ob vor/links/rechts was blockiert
-    //    /**
-    //     * Kara checks if there is a tree on his right side <br>
-    //     * <i>Kara schaut nach, ob sich ein Baum rechts von ihm befindet</i>
-    //     *
-    //     * @return true if Kara has a tree on his right, false otherwise
-    //     */
-    //    public boolean treeRight() {
-    //        return getObjectInFront(modulo(getRotation() + 90, 360), 1, Tree.class) != null;
-    //    }
-    //TODO überprüfen ob vor/links/rechts was blockiert
-    //    /**
-    //     * Kara checks if there is a mushroom in front of him <br>
-    //     * <i>Kara schaut nach, ob er einen Pilz vor sich hat</i>
-    //     *
-    //     * @return true if a mushroom is in front of a Kara, false otherwise
-    //     */
-    //    public boolean mushroomFront() {
-    //        return getObjectInFront(getRotation(), 1, Mushroom.class) != null;
-    //    }
-
 
 }
