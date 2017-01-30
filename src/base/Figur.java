@@ -34,6 +34,10 @@ class Figur extends Actor {
 
     private HashMap<Direction, ArrayList<GreenfootImage>> imageContainer;
 
+    protected Figur(FigurTyp figur) {
+        this(createImage(figur.path));
+    }
+
     protected Figur(GreenfootImage image) {
         this(image, 1, 1);
     }
@@ -49,9 +53,8 @@ class Figur extends Actor {
     }
 
     protected static GreenfootImage createImage(String... path) {
-        //TODO eine ausreichende Error meldung drucken
         if (path.length < 1)
-            throw new IllegalArgumentException("Error: ...");
+            throw new IllegalArgumentException("Error: Es wurde keinen Path fuer ein Bild uebergeben!");
 
 
         GreenfootImage bodyImage = new GreenfootImage(path[0]);
@@ -93,6 +96,10 @@ class Figur extends Actor {
 
     public HashMap<Direction, ArrayList<GreenfootImage>> getImageContainer() {
         return imageContainer;
+    }
+
+    public void setImageContainer(HashMap<Direction, ArrayList<GreenfootImage>> neuerContainer) {
+         imageContainer = neuerContainer;
     }
 
     protected boolean theWorldsEnd(Direction direction, int steps, Actor actor) {
@@ -277,6 +284,18 @@ class Figur extends Actor {
                 default:
                     return null;
             }
+        }
+
+    }
+
+    public enum FigurTyp {
+        Zauber("character_body.png", "character_stab.png", "character_kleidung.png"), Steinbeisser("steinbeißer.png"), Stein("stein.png");
+
+        public final String[] path;
+
+        FigurTyp(String... path) {
+            this.path = path;
+
         }
 
     }

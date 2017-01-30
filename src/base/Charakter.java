@@ -35,7 +35,7 @@ public class Charakter extends Figur {
             } else {
                 showWarning(
                         "",
-                        "Der Steinbeisser kann sich nicht bewegen, da er den Stein nicht schieben kann!");
+                        "Der Charakter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
                 return;
             }
         } else {
@@ -44,14 +44,22 @@ public class Charakter extends Figur {
         Greenfoot.delay(1);
     }
 
+
+    interface Aktion { void apply(Aktioner arg1); }
+
+    interface Aktioner{void aktion();}
+
+    protected void moveActors(Direction direction, Figur... actors){
+       moveActors(direction, null ,(z)-> {}, actors);
+    }
+
     /**
      * Beweget den/die Actor(s) um einen Schritt in die ausgewaehlte Richtung, dabei wird die Bewegung animiert.
      *
      * @param actors    der/die Actor(s) der/die bewegt werden sollen
      * @param direction in welche Richtung  sie gehen sollen
      */
-
-    private void moveActors(Direction direction, Figur... actors) {
+    protected void moveActors(Direction direction, Aktioner x, Aktion op, Figur... actors) {
         WeltSetup foo = Factory.getSetup();
         if (direction.equals(Direction.LEFT) || direction.equals(Direction.UP)) {
             if (direction.equals(Direction.UP))
@@ -70,6 +78,7 @@ public class Charakter extends Figur {
             for (int j = 0, k = 120; j < 5; j++, k = k - 24) {
                 //TODO cell size besser bekommen
                 changeAnimationImage(k, direction, actors);
+                op.apply(x);
                 Greenfoot.delay(2);
             }
             for (Figur figure : actors) {
@@ -79,6 +88,7 @@ public class Charakter extends Figur {
             for (int j = 0, k = 0; j < 5; j++, k = k + 24) {
                 //TODO cell size besser bekommen
                 changeAnimationImage(k, direction, actors);
+                op.apply(x);
                 Greenfoot.delay(2);
             }
 
@@ -277,16 +287,5 @@ public class Charakter extends Figur {
     //        return getObjectInFront(getRotation(), 1, Mushroom.class) != null;
     //    }
 
-    public enum FigurTyp {
-        Zauber("character_body.png", "character_stab.png", "character_kleidung.png"), Steinbeisser("steinbeißer.png");
-
-        public final String[] path;
-
-        FigurTyp(String... path) {
-            this.path = path;
-
-        }
-
-    }
 
 }
