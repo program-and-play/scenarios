@@ -59,6 +59,29 @@ public class Factory {
         animator.removeAnimation(animation);
     }
 
+    protected static void laufen(Charakter ch) {
+        Geysir geysir = (Geysir) ch.getObjectInFront(ch.getCurrentDirection(), 1, Geysir.class);
+        // Check for a geysir
+        if (geysir != null) {
+            ch.showWarning("", "Der Charakter kann sich nicht bewegen weil, vor ihm ist ein Geysir!");
+            return;
+        }
+
+        Stein stone = (Stein) ch.getObjectInFront(ch.getCurrentDirection(), 1, Stein.class);
+        if (stone != null) {
+
+            if (!ch.theWorldsEnd(ch.getCurrentDirection(), 1, stone) && ch.getObjectInFront(ch.getCurrentDirection(), 2, Figur.class) == null && ch.getTyp() == Figur.FigurTyp.Steinbeisser) {
+                ch.moveActors(ch.getCurrentDirection(), ch, stone);
+            } else {
+                ch.showWarning(
+                        "",
+                        "Der Charakter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
+                return;
+            }
+        } else {
+            ch.moveActors(ch.getCurrentDirection(), ch);
+        }
+    }
 
     public static void addObject(Actor object, int x, int y, LeereWelt welt) {
         if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {

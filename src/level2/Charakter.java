@@ -18,10 +18,14 @@ public class Charakter extends Figur {
                     "Der Charakter kann sich nicht bewegen wegen, da die Welt zu Ende ist!");
             return;
         }
-            moveActors(getCurrentDirection(), this);
+
+        Factory.laufen(this);
         Greenfoot.delay(1);
     }
 
+    public FigurTyp getTyp() {
+        return typ;
+    }
 
     interface Aktion { void apply(Aktioner arg1); }
 

@@ -20,30 +20,13 @@ public class Charakter extends Figur {
             return;
         }
 
-        Geysir geysir = (Geysir) getObjectInFront(getCurrentDirection(), 1, Geysir.class);
-        // Check for a geysir
-        if (geysir != null) {
-            showWarning("", "Der Charakter kann sich nicht bewegen weil, vor ihm ist ein Geysir!");
-            return;
-        }
-
-        Stein stone = (Stein) getObjectInFront(getCurrentDirection(), 1, Stein.class);
-        if (stone != null) {
-
-            if (!theWorldsEnd(getCurrentDirection(), 1, stone) && getObjectInFront(getCurrentDirection(), 2, Figur.class) == null && typ == FigurTyp.Steinbeisser) {
-                moveActors(getCurrentDirection(), this, stone);
-            } else {
-                showWarning(
-                        "",
-                        "Der Charakter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
-                return;
-            }
-        } else {
-            moveActors(getCurrentDirection(), this);
-        }
+        Factory.laufen(this);
         Greenfoot.delay(1);
     }
 
+    public FigurTyp getTyp() {
+        return typ;
+    }
 
     interface Aktion { void apply(Aktioner arg1); }
 

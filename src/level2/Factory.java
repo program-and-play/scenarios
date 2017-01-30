@@ -1,11 +1,9 @@
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
-import interfaces.Animation;
-import util.Animator;
-import util.SoundButton;
-import util.Spielfeld;
-import util.WeltSetup;
+import interfaces.LichtwesenInterface;
+import util.*;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -19,6 +17,7 @@ public class Factory {
 
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
 
+
     public static final int CELLSIZE = 60;
 
     public static final Class<?>[] PAINT_ORDER = {
@@ -29,6 +28,40 @@ public class Factory {
         Factory.createWorldSetup();
 
         Greenfoot.setSpeed(Factory.getSetup().getSpeed());
+    }
+
+    protected static void konstruiereWelt(LeereWelt welt) {
+        if (Factory.getSetup() == null) {
+            DialogUtils.showMessageDialogEdt(null, DialogUtils.setupNullMessage, "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        welt.setPaintOrder(Factory.PAINT_ORDER);
+
+        welt.setSpielfeld(new Spielfeld(welt, Factory.getSetup()));
+        welt.setHintergrund(new Hintergrund(Factory.getSetup(), Factory.CELLSIZE));
+
+        welt.setBackground(welt.getHintergrund().getBackground());
+
+        Factory.initActorsFromWorldSetup(Factory.getSetup(), welt.erhalteSpielfeld());
+    }
+
+    protected static void laufen(Charakter ch) {
+            ch.moveActors(ch.getCurrentDirection(), ch);
+        
+    }
+
+    public static void addObject(Actor object, int x, int y, LeereWelt welt) {
+        if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {
+            welt.getHintergrund().updateBackground(welt.getObjects(LichtwesenInterface.class));
+            welt.setBackground(welt.getHintergrund().getBackground());
+        }
+    }
+
+    public static void removeObject(Actor object, LeereWelt welt) {
+        if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {
+            welt.getHintergrund().updateBackground(welt.getObjects(LichtwesenInterface.class));
+            welt.setBackground(welt.getHintergrund().getBackground());
+        }
     }
 
     public static WeltSetup getSetup() {

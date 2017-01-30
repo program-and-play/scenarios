@@ -1,7 +1,9 @@
-import greenfoot.*;
+import greenfoot.Greenfoot;
+import greenfoot.GreenfootImage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Der Zauber ist der Hauptcharacter dieses kleines Spiels.
@@ -73,6 +75,10 @@ public class Zauberer extends Charakter {
         Lichtwesen tmp = new Lichtwesen();
         getWorld().erhalteSpielfeld().objektHinzufuegen(tmp, x, y);
         tmp.animiere();
+    }
+
+    public int random(int minZahl, int maxZahl){
+        return new Random().nextInt(maxZahl - minZahl + 1) + minZahl;
     }
 
 
