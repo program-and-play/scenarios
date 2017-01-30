@@ -15,7 +15,7 @@ public class Charakter extends Figur {
     public void laufen() {
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
             showWarning("", //Optional fuer den englischen Text.
-                    "Der Charakter kann sich nicht bewegen wegen, da die Welt zu Ende ist!");
+                    "Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!");
             return;
         }
 
