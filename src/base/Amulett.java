@@ -1,7 +1,10 @@
+import greenfoot.World;
+import util.Spielfeld;
 
-public class Amulett  
-{
+public class Amulett {
     private static Amulett instance;
+
+    private Spielfeld welt;
 
     /**
      * Erzeugt eine Instance vom Amulett, existiert schon ein Amulett, wird dieser zurueck gegeben.
@@ -9,16 +12,15 @@ public class Amulett
      * @return Amulett
      */
 
-    public static Amulett erzeugeInstance() {
+    public static Amulett erzeugeInstance(Spielfeld welt) {
         if (Amulett.instance == null) {
-            Amulett.instance = new Amulett();
+            Amulett.instance = new Amulett(welt);
         }
         return Amulett.instance;
     }
 
-    public Amulett()
-    {
-
+    public Amulett(Spielfeld welt) {
+        this.welt = welt;
     }
 
     /**
@@ -27,8 +29,9 @@ public class Amulett
      * @return Steinbeisser
      */
 
-    public Steinbeisser erzeugeSteinbeisser() {
+    public Steinbeisser rufeSteinbeißer() {
         Steinbeisser beisser = Steinbeisser.erzeugeInstance();
+        welt.objektHinzufuegen(beisser,0,0);
         return beisser;
     }
 
