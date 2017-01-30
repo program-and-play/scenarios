@@ -1,6 +1,3 @@
-
-
-
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
@@ -12,19 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * DIRECTION_RIGHT is the original direction - do nothing
- * <p>
- * This is the superclass for all Karas containing the basic Kara methods.
- * Programs should only be written in subclasses (e.g. MyKara).
- * <p>
- * <p>
- * <i>Diese Klasse ist die Oberklasse fuer alle Karas und enthaelt die
- * Grundfunktionen von Kara. Programme sollten nur in den Unterklassen wie
- * MyKara geschrieben werden.</i>
- *
- * @author Marco Jakob (http://code.makery.ch)
- */
+
 class Figur extends Actor {
 
     private int imagePointer;
@@ -54,7 +39,6 @@ class Figur extends Actor {
     protected static GreenfootImage createImage(String... path) {
         if (path.length < 1)
             throw new IllegalArgumentException("Error: Es wurde keinen Path fuer ein Bild uebergeben!");
-
 
         GreenfootImage bodyImage = new GreenfootImage(path[0]);
         for (String x : path) {
@@ -119,22 +103,13 @@ class Figur extends Actor {
         }
     }
 
-    /**
-     * Stops the simulation cycle (the act()-method is finished first) <br>
-     * <i>Stoppt die Simulation (die act()-Methode wird noch bis unten ausgefuehrt)</i>
-     */
     protected void stop() {
         Greenfoot.stop();
     }
 
-    /*----- END OF STANDARD KARA METHODS! BELOW ARE JUST SOME HELPER METHODS ----- */
 
-    /**
-     * Shows a popup with a warning message containing both the english or
-     * german message.
-     */
     protected void showWarning(String englishMessage, String germanMessage) {
-        String message = "<html>" + englishMessage + "<p><i>" + germanMessage + "</i></html>";
+        String message = "<html>" + englishMessage + "<p>" + germanMessage + "</html>";
         Object[] options = {"OK", "Exit Program"};
         int choice = DialogUtils.showOptionDialogEdt(null, message, "Warning",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
@@ -157,8 +132,7 @@ class Figur extends Actor {
     }
 
     public HashMap<Direction, ArrayList<GreenfootImage>> loadImage(GreenfootImage bodyImage, int NumOfCellHorizontal, int NumOfCellVertical) {
-        //TODO hier ein richtigen Import von der Cellsize der World
-        int PIXEL = 60;
+        int PIXEL = Factory.CELLSIZE;
         HashMap<Direction, ArrayList<GreenfootImage>> animationMap = new HashMap<>();
         GreenfootImage loaded = bodyImage;
         loaded.scale(PIXEL * NumOfCellHorizontal, PIXEL * NumOfCellVertical);
@@ -167,7 +141,6 @@ class Figur extends Actor {
 
         for (Direction dir : Direction.values()) {
             ArrayList<GreenfootImage> animation = new ArrayList<>();
-
 
             for (int j = 0; j < loaded.getWidth(); j = j + PIXEL) {
                 BufferedImage bufImage = loadedBuf.getSubimage(j, i, PIXEL, PIXEL);
@@ -182,19 +155,16 @@ class Figur extends Actor {
             if (i + PIXEL < loaded.getHeight())
                 i = i + PIXEL;
         }
-
-
         return animationMap;
     }
 
     public ArrayList<GreenfootImage> loadImageForAnimation(GreenfootImage bodyImage, int numOfCellHorizontal) {
-        //TODO hier ein richtigen Import von der Cellsize der World
-        int PIXEL = 60;
+        int PIXEL = Factory.CELLSIZE;
         GreenfootImage loaded = bodyImage;
         loaded.scale(PIXEL * numOfCellHorizontal, PIXEL);
         BufferedImage loadedBuf = loaded.getAwtImage();
 
-        ArrayList<GreenfootImage> animation = new ArrayList<GreenfootImage>();
+        ArrayList<GreenfootImage> animation = new ArrayList<>();
         for (int j = 0; j < loaded.getWidth(); j = j + PIXEL) {
 
             BufferedImage bufImage = loadedBuf.getSubimage(j, 0, PIXEL, PIXEL);
@@ -205,8 +175,6 @@ class Figur extends Actor {
 
             animation.add(gImage);
         }
-
-
         return animation;
     }
 
@@ -223,13 +191,10 @@ class Figur extends Actor {
             if (direction.equals(Direction.LEFT) || direction.equals(Direction.RIGHT)) {
                 tmp = new GreenfootImage(image.getWidth() + offset, image.getHeight());
                 tmp.drawImage(image, offset, 0);
-
             } else {
                 tmp = new GreenfootImage(image.getWidth(), image.getHeight() + offset);
                 tmp.drawImage(image, 0, offset);
-
             }
-
             actor.setImage(tmp);
         }
     }
@@ -238,13 +203,6 @@ class Figur extends Actor {
         imagePointer = 0;
         setImage(imageContainer.get(currentDirection).get(0));
     }
-
-    //TODO wird in Lichtwesen gebraucht, ob so gut?
-    public void changeImage(GreenfootImage image, int sceneX, int sceneY) {
-        imageContainer = loadImage(image, sceneX, sceneY);
-        setImage(imageContainer.get(currentDirection).get(0));
-    }
-
 
     public enum Direction {
         RIGHT, LEFT, UP, DOWN;

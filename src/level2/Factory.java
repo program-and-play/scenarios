@@ -1,5 +1,7 @@
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
+import interfaces.Animation;
+import util.Animator;
 import util.SoundButton;
 import util.Spielfeld;
 import util.WeltSetup;
@@ -13,19 +15,20 @@ import java.io.IOException;
  */
 public class Factory {
 
-private static WeltSetup setupFactory;
+    private static WeltSetup setupFactory;
 
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
 
+    public static final int CELLSIZE = 60;
+
+    public static final Class<?>[] PAINT_ORDER = {
+            Lichtwesen.class,
+            Zauberer.class};
 
     static {
         Factory.createWorldSetup();
 
-        //TODO entscheide welchen default speed gesetzt werden soll
         Greenfoot.setSpeed(Factory.getSetup().getSpeed());
-
-        //TODO Paintorder reparieren
-        //        setPaintOrder(PAINT_ORDER)
     }
 
     public static WeltSetup getSetup() {
@@ -46,10 +49,7 @@ private static WeltSetup setupFactory;
         WeltSetup.saveWorldSetup(setupFactory);
     }
 
-    public static WeltSetup createWorldSetup(){
-        // This code is executed when the class is loaded,
-        // BEFORE the constructor is called
-        //TODO das muss besser ausgelagert werden
+    public static WeltSetup createWorldSetup() {
         WeltSetup setup = null;
         try {
             File file = WeltSetup.findMatchingFiles(WORLD_SETUP_FILE, LeereWelt.class);
@@ -80,7 +80,7 @@ private static WeltSetup setupFactory;
         }
 
         SoundButton x = new SoundButton(Factory.getSetup().isMute());
-        playground.getWelt().addObject(x, setup.getOuterWidth(),setup.getOuterHeight());
+        playground.getWelt().addObject(x, setup.getOuterWidth(), setup.getOuterHeight());
     }
 
 

@@ -5,12 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Write a description of class Geysir here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+
 public class Geysir extends Figur implements Animation {
     private HashMap<Direction, ArrayList<GreenfootImage>> animation;
 

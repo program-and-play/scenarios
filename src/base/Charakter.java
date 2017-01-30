@@ -129,37 +129,23 @@ public class Charakter extends Figur {
 
 
     /**
-     * A special modulo operation that never returns a negative number. This is
-     * necessary to always stay inside the grid of the world.
-     * <p>
-     * The Java modulo operation would return -1 for something like -1%10, but
-     * we would need 9.
-     * <p>
-     * Note: Depending on the programming language, the modulo operation for
-     * negative numbers is defined differently.
+     * Ein spezielle Modulo-Operator der ausschliesslich positive Zahlen zurueck gibt.
      *
-     * @param a the first operand
-     * @param b the second operand
-     * @return the result of the modulo operation, always positive
+     * @param a der erste Wert
+     * @param b der zweite Wert
+     * @return Das Ergebnis der Modulo-Pperation
      */
     private int modulo(int a, int b) {
         return (a % b + b) % b;
     }
 
-    /**
-     * Finds an object in the specified direction.
-     *
-     * @param direction the direction in which to look for the object (Direction enum)
-     * @param steps     number of cells to look ahead (1 means the next field, etc.)
-     * @param clazz     the (actor) class to look for
-     * @return the object that was found or null if none was found
-     */
+
     protected Object getObjectInFront(Direction direction, int steps, Class<?> clazz) {
         int x = getX();
         int y = getY();
         WeltSetup foo = Factory.getSetup();
 
-        switch (getCurrentDirection()) {
+        switch (direction) {
             case RIGHT:
                 x = modulo((x + steps), foo.getWidth());
                 break;

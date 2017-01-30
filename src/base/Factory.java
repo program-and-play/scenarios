@@ -3,7 +3,6 @@ import greenfoot.Greenfoot;
 import interfaces.Animation;
 import util.*;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -13,28 +12,32 @@ import java.io.IOException;
  */
 public class Factory {
 
-private static WeltSetup setupFactory;
+    private static WeltSetup setupFactory;
 
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
 
     private static final Animator animator = Animator.getInstance();
 
+    public static final int CELLSIZE = 60;
+
+    public static final Class<?>[] PAINT_ORDER = {
+            Lichtwesen.class,
+            Zauberer.class,
+            Steinbeisser.class,
+            Stein.class};
+
     static {
         Factory.createWorldSetup();
         animator.start();
 
-        //TODO entscheide welchen default speed gesetzt werden soll
         Greenfoot.setSpeed(Factory.getSetup().getSpeed());
-
-        //TODO Paintorder reparieren
-        //        setPaintOrder(PAINT_ORDER)
     }
 
-    protected static void addAnimationObject(Animation animation){
+    protected static void addAnimationObject(Animation animation) {
         animator.addAnimation(animation);
     }
 
-    protected static void removeAnimationObject(Animation animation){
+    protected static void removeAnimationObject(Animation animation) {
         animator.removeAnimation(animation);
     }
 
@@ -56,10 +59,7 @@ private static WeltSetup setupFactory;
         WeltSetup.saveWorldSetup(setupFactory);
     }
 
-    public static WeltSetup createWorldSetup(){
-        // This code is executed when the class is loaded,
-        // BEFORE the constructor is called
-        //TODO das muss besser ausgelagert werden
+    public static WeltSetup createWorldSetup() {
         WeltSetup setup = null;
         try {
             File file = WeltSetup.findMatchingFiles(WORLD_SETUP_FILE, LeereWelt.class);
@@ -97,12 +97,12 @@ private static WeltSetup setupFactory;
 
             if (tmp != null)
                 playground.objektHinzufuegen(tmp, actorPosition.getX(), actorPosition.getY());
-            if(tmp instanceof Animation)
+            if (tmp instanceof Animation)
                 animator.addAnimation((Animation) tmp);
         }
 
         SoundButton x = new SoundButton(Factory.getSetup().isMute());
-        playground.getWelt().addObject(x, setup.getOuterWidth(),setup.getOuterHeight());
+        playground.getWelt().addObject(x, setup.getOuterWidth(), setup.getOuterHeight());
     }
 
 
