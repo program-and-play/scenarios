@@ -1,0 +1,32 @@
+<assembly>
+    <id>v</id>
+    <formats>
+        <format>tar.gz</format>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/target</directory>
+            <outputDirectory>/</outputDirectory>
+            <excludes>
+                <exclude>*.tar.gz</exclude>
+                <exclude>*.tar.bz2</exclude>
+                <exclude>classes</exclude>
+                <exclude>archive-tmp</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/site</directory>
+            <outputDirectory>docs</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

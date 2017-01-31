@@ -1,18 +1,19 @@
+<!-- Command line: clean resources:resources assembly:single -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.hoou</groupId>
-  <artifactId>base</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>com.hoou</groupId>
+    <artifactId>scenarios</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
 
-  <name>base</name>
-  <url>http://maven.apache.org</url>
+    <name>base</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <build>
         <plugins>
@@ -24,7 +25,9 @@
                         <!-- sandbox -->
                         <resource>
                             <directory>src/base</directory>
-                            <filtering>true</filtering>
+                            <excludes>
+                                <exclude>Factory.java</exclude>
+                            </excludes>
                             <targetPath>${basedir}/target/sandbox</targetPath>
                         </resource>
                         <resource>
@@ -62,7 +65,9 @@
                         <!-- level3 -->
                         <resource>
                             <directory>src/base</directory>
-                            <filtering>true</filtering>
+                            <excludes>
+                                <exclude>Factory.java</exclude>
+                            </excludes>
                             <targetPath>${basedir}/target/level3</targetPath>
                         </resource>
                         <resource>
@@ -71,13 +76,14 @@
                         </resource>
                         <resource>
                             <directory>src/resources</directory>
-                            <filtering>true</filtering>
                             <targetPath>${basedir}/target/level3</targetPath>
                         </resource>
                         <!-- level4 -->
                         <resource>
                             <directory>src/base</directory>
-                            <filtering>true</filtering>
+                            <excludes>
+                                <exclude>Factory.java</exclude>
+                            </excludes>
                             <targetPath>${basedir}/target/level4</targetPath>
                         </resource>
                         <resource>
@@ -86,13 +92,14 @@
                         </resource>
                         <resource>
                             <directory>src/resources</directory>
-                            <filtering>true</filtering>
                             <targetPath>${basedir}/target/level4</targetPath>
                         </resource>
                         <!-- level5 -->
                         <resource>
                             <directory>src/base</directory>
-                            <filtering>true</filtering>
+                            <excludes>
+                                <exclude>Factory.java</exclude>
+                            </excludes>
                             <targetPath>${basedir}/target/level5</targetPath>
                         </resource>
                         <resource>
@@ -101,13 +108,14 @@
                         </resource>
                         <resource>
                             <directory>src/resources</directory>
-                            <filtering>true</filtering>
                             <targetPath>${basedir}/target/level5</targetPath>
                         </resource>
                         <!-- level6 -->
                         <resource>
                             <directory>src/base</directory>
-                            <filtering>true</filtering>
+                            <excludes>
+                                <exclude>Factory.java</exclude>
+                            </excludes>
                             <targetPath>${basedir}/target/level6</targetPath>
                         </resource>
                         <resource>
@@ -116,7 +124,6 @@
                         </resource>
                         <resource>
                             <directory>src/resources</directory>
-                            <filtering>true</filtering>
                             <targetPath>${basedir}/target/level6</targetPath>
                         </resource>
                     </resources>
@@ -132,14 +139,20 @@
                     </execution>
                 </executions>
             </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <!-- Configures the used assembly descriptor -->
+                    <descriptors>
+                        <descriptor>zip.xml</descriptor>
+                    </descriptors>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
