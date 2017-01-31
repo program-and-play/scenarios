@@ -1,0 +1,147 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.hoou</groupId>
+  <artifactId>base</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>base</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <resources>
+                        <!-- sandbox -->
+                        <resource>
+                            <directory>src/base</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/sandbox</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/sandbox</directory>
+                            <targetPath>${basedir}/target/sandbox</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/resources</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/sandbox</targetPath>
+                        </resource>
+                        <!-- level2 -->
+                        <resource>
+                            <directory>src/base</directory>
+                            <excludes>
+                                <exclude>Amulett.java</exclude>
+                                <exclude>Geysir.java</exclude>
+                                <exclude>Schluessel.java</exclude>
+                                <exclude>Factory.java</exclude>
+                                <exclude>Stein.java</exclude>
+                                <exclude>Steinbeisser.java</exclude>
+                                <exclude>Tasche.java</exclude>
+                                <exclude>TascheMitBegrenztemZugriff.java</exclude>
+                            </excludes>
+                            <targetPath>${basedir}/target/level2</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/level2</directory>
+                            <targetPath>${basedir}/target/level2</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/resources</directory>
+                            <targetPath>${basedir}/target/level2</targetPath>
+                        </resource>
+                        <!-- level3 -->
+                        <resource>
+                            <directory>src/base</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level3</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/level3</directory>
+                            <targetPath>${basedir}/target/level3</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/resources</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level3</targetPath>
+                        </resource>
+                        <!-- level4 -->
+                        <resource>
+                            <directory>src/base</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level4</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/level4</directory>
+                            <targetPath>${basedir}/target/level4</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/resources</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level4</targetPath>
+                        </resource>
+                        <!-- level5 -->
+                        <resource>
+                            <directory>src/base</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level5</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/level5</directory>
+                            <targetPath>${basedir}/target/level5</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/resources</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level5</targetPath>
+                        </resource>
+                        <!-- level6 -->
+                        <resource>
+                            <directory>src/base</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level6</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/level6</directory>
+                            <targetPath>${basedir}/target/level6</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/resources</directory>
+                            <filtering>true</filtering>
+                            <targetPath>${basedir}/target/level6</targetPath>
+                        </resource>
+                    </resources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+
