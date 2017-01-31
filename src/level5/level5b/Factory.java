@@ -1,6 +1,7 @@
+package level5b;
+
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
-import greenfoot.World;
 import interfaces.Animation;
 import interfaces.LichtwesenInterface;
 import util.*;

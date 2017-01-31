@@ -1,0 +1,142 @@
+{
+  "width":8,
+  "height": 5,
+  "title": "",
+  "speed": 40,
+  "randomeValue": 1000,
+  "cellPath": [
+    "Lv5_tile1_dunkel.png",
+    "Lv5_tile2_dunkel.png",
+    "Lv5_tile3_dunkel.png",
+    "Lv5_tile4_dunkel.png"
+  ],
+  "actors": [
+    {
+      "actor": "Zauberer",
+      "x": 0,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "actor": "Stein",
+      "x": 2,
+      "y": 0
+    },
+    {
+      "actor": "Stein",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "actor": "Stein",
+      "x": 6,
+      "y": 0
+    },
+    {
+      "actor": "Stein",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "actor": "Stein",
+      "x": 4,
+      "y": 1
+    },
+    {
+      "actor": "Stein",
+      "x": 5,
+      "y": 1
+    },
+    {
+      "actor": "Stein",
+      "x": 6,
+      "y": 1
+    },
+    {
+      "actor": "Stein",
+      "x": 7,
+      "y": 1
+    },
+    {
+      "actor": "Stein",
+      "x": 1,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
+      "x": 2,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
+      "x": 3,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
+      "x": 4,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
+      "x": 6,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
+      "x": 1,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
+      "x": 3,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
+      "x": 4,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
+      "x": 5,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
+      "x": 6,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
+      "x": 7,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
+      "x": 3,
+      "y": 4
+    },
+    {
+      "actor": "Stein",
+      "x": 4,
+      "y": 4
+    },
+    {
+      "actor": "Lichtwesen",
+      "x": 1,
+      "y": 2
+    }
+  ],
+  "isDark": true,
+  "offsetStartToX": 1,
+  "offsetStartToY": 2,
+  "offsetXToEnd": 1,
+  "offsetYToEnd": 1,
+  "levelScreen": "rahmen_lv5.png",
+  "mute": true
+}

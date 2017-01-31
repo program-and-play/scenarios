@@ -22,6 +22,14 @@
                 <version>2.5</version>
                 <configuration>
                     <resources>
+                        <!-- lib -->
+                        <resource>
+                            <directory>lib</directory>
+                            <excludes>
+                                <exclude>greenfoot-api-3.0.3.jar</exclude>
+                            </excludes>
+                            <targetPath>${basedir}/target/lib</targetPath>
+                        </resource>
                         <!-- sandbox -->
                         <resource>
                             <directory>src/base</directory>
@@ -94,21 +102,37 @@
                             <directory>src/resources</directory>
                             <targetPath>${basedir}/target/level4</targetPath>
                         </resource>
-                        <!-- level5 -->
+                        <!-- level5a -->
                         <resource>
                             <directory>src/base</directory>
                             <excludes>
                                 <exclude>Factory.java</exclude>
                             </excludes>
-                            <targetPath>${basedir}/target/level5</targetPath>
+                            <targetPath>${basedir}/target/level5/level5a</targetPath>
                         </resource>
                         <resource>
-                            <directory>src/level5</directory>
-                            <targetPath>${basedir}/target/level5</targetPath>
+                            <directory>src/level5/level5a</directory>
+                            <targetPath>${basedir}/target/level5/level5a</targetPath>
                         </resource>
                         <resource>
                             <directory>src/resources</directory>
-                            <targetPath>${basedir}/target/level5</targetPath>
+                            <targetPath>${basedir}/target/level5/level5a</targetPath>
+                        </resource>
+                        <!-- level5b -->
+                        <resource>
+                            <directory>src/base</directory>
+                            <excludes>
+                                <exclude>Factory.java</exclude>
+                            </excludes>
+                            <targetPath>${basedir}/target/level5/level5b</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/level5/level5b</directory>
+                            <targetPath>${basedir}/target/level5/level5b</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/resources</directory>
+                            <targetPath>${basedir}/target/level5/level5b</targetPath>
                         </resource>
                         <!-- level6 -->
                         <resource>
