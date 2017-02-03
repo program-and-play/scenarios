@@ -1,14 +1,14 @@
 {
   "width":8,
   "height": 5,
-  "title": "Kara 09a Around Tree II",
+  "title": "",
   "speed": 40,
   "randomeValue": 1000,
   "cellPath": [
-    "Lv2_tile1_dunkel_v2.png",
-    "Lv2_tile2_dunkel_v2.png",
-    "Lv2_tile3_dunkel_v2.png",
-    "Lv2_tile4_dunkel_v2.png"
+    "Lv4_tile1.png",
+    "Lv4_tile2.png",
+    "Lv4_tile3.png",
+    "Lv4_tile4.png"
   ],
   "actors": [
     {
@@ -17,17 +17,17 @@
       "y": 0
     },
     {
-      "actor": "Lichtwesen",
+      "actor": "Geysir",
       "x": 2,
       "y": 2
     },
     {
-      "actor": "Lichtwesen",
+      "actor": "Geysir",
       "x": 10,
       "y": 6
     },
     {
-      "actor": "Lichtwesen",
+      "actor": "Geysir",
       "x": 1,
       "y": 5
     }

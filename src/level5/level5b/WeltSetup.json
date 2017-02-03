@@ -18,32 +18,12 @@
     },
     {
       "actor": "Stein",
-      "x": 1,
+      "x": 3,
       "y": 0
     },
     {
       "actor": "Stein",
-      "x": 2,
-      "y": 0
-    },
-    {
-      "actor": "Stein",
-      "x": 4,
-      "y": 0
-    },
-    {
-      "actor": "Stein",
-      "x": 6,
-      "y": 0
-    },
-    {
-      "actor": "Stein",
-      "x": 1,
-      "y": 1
-    },
-    {
-      "actor": "Stein",
-      "x": 4,
+      "x": 3,
       "y": 1
     },
     {
@@ -63,17 +43,7 @@
     },
     {
       "actor": "Stein",
-      "x": 1,
-      "y": 2
-    },
-    {
-      "actor": "Stein",
       "x": 2,
-      "y": 2
-    },
-    {
-      "actor": "Stein",
-      "x": 3,
       "y": 2
     },
     {
@@ -89,16 +59,6 @@
     {
       "actor": "Stein",
       "x": 1,
-      "y": 3
-    },
-    {
-      "actor": "Stein",
-      "x": 3,
-      "y": 3
-    },
-    {
-      "actor": "Stein",
-      "x": 4,
       "y": 3
     },
     {
@@ -118,21 +78,16 @@
     },
     {
       "actor": "Stein",
-      "x": 3,
+      "x": 0,
       "y": 4
     },
     {
       "actor": "Stein",
       "x": 4,
       "y": 4
-    },
-    {
-      "actor": "Lichtwesen",
-      "x": 1,
-      "y": 2
     }
   ],
-  "isDark": true,
+  "isDark": false,
   "offsetStartToX": 1,
   "offsetStartToY": 2,
   "offsetXToEnd": 1,

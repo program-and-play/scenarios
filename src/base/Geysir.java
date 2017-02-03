@@ -10,7 +10,7 @@ public class Geysir extends Figur implements Animation {
     private HashMap<Direction, ArrayList<GreenfootImage>> animation;
 
     public Geysir() {
-        super();
+        super(FigurTyp.Gysir);
         animation = loadImage(new GreenfootImage("geysir_animation.png"), 2, 1);
     }
 

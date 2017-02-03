@@ -12,6 +12,8 @@ import java.util.HashMap;
 
 public class Steinbeisser extends Charakter {
     private static Steinbeisser instance;
+    private int zerstoerteSteine;
+    private int maxZerstoerteSteine;
 
     /**
      * Erzeugt eine Instance vom Steinbeisser, existiert schon ein Steinbeisser, wird dieser zurueck gegeben.
@@ -28,6 +30,8 @@ public class Steinbeisser extends Charakter {
 
     private Steinbeisser() {
         super(FigurTyp.Steinbeisser);
+        zerstoerteSteine = 0;
+        maxZerstoerteSteine = 3;
     }
 
     /**
@@ -67,6 +71,10 @@ public class Steinbeisser extends Charakter {
         }
         if (foo == null) {
             showWarning("", "Vor dem Steinbeisser befindet sich nicht ein Stein!");
+            return;
+        }
+        if(++zerstoerteSteine > maxZerstoerteSteine){
+            showWarning("", "Der Steinbeisser kann maximal " + maxZerstoerteSteine + " Steine zerstören!");
             return;
         }
         final String KOERPER_FILE = "steinbeißer animation_neu.png";

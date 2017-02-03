@@ -244,7 +244,7 @@ class Figur extends Actor {
     }
 
     public enum FigurTyp {
-        Zauber("character_body.png", "character_stab.png", "character_kleidung.png"), Steinbeisser("steinbeißer.png"), Stein("stein.png");
+        Zauber("character_body.png", "character_stab.png", "character_kleidung.png"), Steinbeisser("steinbeißer.png"), Stein("stein.png"), Gysir("geysir.png");
 
         public final String[] path;
 

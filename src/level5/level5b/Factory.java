@@ -1,5 +1,3 @@
-package level5b;
-
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import interfaces.Animation;
