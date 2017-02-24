@@ -57,7 +57,7 @@ public class Zauberer extends Charakter {
         }
 
         final String KOERPER_FILE = "character_body.png";
-        final String ZAUBERSTAB_FILE = "stab_lichtwesenbeschwören.png";
+        final String ZAUBERSTAB_FILE = "stab_lichtwesenbeschwoeren.png";
         final String KLEIDUNG_FILE = "character_kleidung.png";
         GreenfootImage figurZaubern = new GreenfootImage(KOERPER_FILE);
         figurZaubern.drawImage(new GreenfootImage(ZAUBERSTAB_FILE), 0, 0);
