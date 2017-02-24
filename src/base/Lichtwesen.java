@@ -12,7 +12,7 @@ class Lichtwesen extends Figur implements LichtwesenInterface {
 
     public Lichtwesen() {
         farbe = LichtwesenFarbe.BLAU;
-        bewegung = loadImageForAnimation(new GreenfootImage("lichtwesen_beschwören.png"), 6);
+        bewegung = loadImageForAnimation(new GreenfootImage("lichtwesen_beschwoeren.png"), 6);
         aktualisiereBild();
     }
 
