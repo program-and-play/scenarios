@@ -59,6 +59,7 @@
                                 <exclude>Steinbeisser.java</exclude>
                                 <exclude>Tasche.java</exclude>
                                 <exclude>TascheMitBegrenztemZugriff.java</exclude>
+                                <exclude>Rune.java</exclude>
                             </excludes>
                             <targetPath>${basedir}/target/level2</targetPath>
                         </resource>
