@@ -9,6 +9,6 @@ public class Bittererde extends LeereWelt {
 
     @Override
     public void act() {
-        System.out.println("act");
+
     }
 }

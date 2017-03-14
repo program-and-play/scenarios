@@ -99,7 +99,9 @@ public class Hintergrund {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int foo = random.nextInt(cellList.size() - 1);
-                weltKacheln[i][j] =lightCellList.get(foo);
+                if(isDark)
+                    weltKacheln[i][j] =lightCellList.get(foo);
+
                 tmpGameWorld.drawImage(cellList.get(foo), j * CELL_SIZE, i * CELL_SIZE);
 
             }
