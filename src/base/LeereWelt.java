@@ -2,6 +2,8 @@ import greenfoot.*;
 import interfaces.*;
 import util.*;
 
+import java.util.List;
+
 
 public class LeereWelt extends World implements GreenfootWorld {
     private Spielfeld spielfeld;
@@ -11,6 +13,10 @@ public class LeereWelt extends World implements GreenfootWorld {
     public LeereWelt() {
         super(Factory.getSetup() != null ? Factory.getSetup().getOuterWidth() : 10, Factory.getSetup() != null ? Factory.getSetup().getOuterHeight() : 10, Factory.CELLSIZE);
         Factory.konstruiereWelt(this);
+        List<Charakter> charakters = getObjects(Charakter.class);
+        for (Charakter x : charakters) {
+            x.reset();
+        }
     }
 
 

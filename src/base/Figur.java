@@ -34,6 +34,11 @@ class Figur extends Actor {
         resetImage();
     }
 
+    protected void reset(){
+        setCurrentDirection(Direction.RIGHT);
+        resetImage();
+    }
+
     protected static GreenfootImage createImage(String... path) {
         if (path.length < 1)
             throw new IllegalArgumentException("Error: Es wurde keinen Path fuer ein Bild uebergeben!");
