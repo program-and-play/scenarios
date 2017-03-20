@@ -7,13 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Write a description of class Animator here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Animator extends Thread
+
+public final class Animator extends Thread
 {
     private static Animator instance;
 

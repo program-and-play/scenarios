@@ -1,4 +1,4 @@
 package util;
 
-public class LeereTascheException extends Exception {
+public final class LeereTascheException extends Exception {
 }

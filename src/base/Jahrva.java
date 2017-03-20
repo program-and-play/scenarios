@@ -5,41 +5,41 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * Der Zauber ist der Hauptcharacter dieses kleines Spiels.
+ * Jahrva ist der Hauptcharacter dieses kleines Spiels.
  *
  * @author Lukas Hettwer
  *
  * @version 0.1
  */
 
-public class Zauberer extends Charakter {
-    private static Zauberer instance;
+public final class Jahrva extends Charakter {
+    private static Jahrva instance;
 
     /**
-     * Erzeugt eine Instance vom Zauberer, existiert schon ein Zauberer, wird dieser zurueck gegeben.
-     * @return Zauberer
+     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
+     * @return Jahrva
      */
 
-    protected static Zauberer erzeugeInstance () {
-        if (Zauberer.instance == null) {
-            Zauberer.instance = new Zauberer ();
+    protected static Jahrva erzeugeInstance () {
+        if (Jahrva.instance == null) {
+            Jahrva.instance = new Jahrva();
         }
-        return Zauberer.instance;
+        return Jahrva.instance;
     }
 
-    private Zauberer() {
-        super(FigurTyp.Zauber);
+    private Jahrva() {
+        super(FigurTyp.Jahrva);
     }
 
     /**
-     * In der Act Methode wird das ausgefuehrt was der Zauberer tun soll. Diese Methode wird immer wieder aufgerufen,
+     * In der Act Methode wird das ausgefuehrt was Jahrva tun soll. Diese Methode wird immer wieder aufgerufen,
      * wenn der 'Act' oder 'Run' Button gedrueckt wurde.
      */
     public void act() {
         if (istWeltzuEnde())
             rechtswendung();
         laufen();
-        // Fuege hier deine "Befehle" fuer den Zauberer ein.
+        // Fuege hier deine "Befehle" fuer Jahrva ein.
     }
 
     /**
@@ -52,7 +52,7 @@ public class Zauberer extends Charakter {
         if (Factory.getSetup().getHeight() < x || Factory.getSetup().getWidth() < y || x < 0 || y < 0) {
             showWarning(
                     "", //Optional fuer den englischen Text.
-                    "Der Zauber kann kein Lichtwesen erzeugen, da die Indizes außerhalb der Welt gewählt wurden.");
+                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes außerhalb der Welt gewählt wurden.");
             return;
         }
 

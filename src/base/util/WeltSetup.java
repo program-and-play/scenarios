@@ -13,7 +13,7 @@ import java.util.List;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class WeltSetup {
+public final class WeltSetup {
     /**
      * The world width
      */

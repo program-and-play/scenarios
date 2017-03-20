@@ -1,7 +1,7 @@
 /**
  *
  */
-public class Rune extends Figur {
+public final class Rune extends Figur {
 
     private RunenTyp typ;
 

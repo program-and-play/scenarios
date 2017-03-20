@@ -2,7 +2,7 @@ import util.AnzahlZugriffeErreichtExeption;
 
 import java.util.ArrayList;
 
-public class TascheMitBegrenztemZugriff extends Tasche {
+public final class TascheMitBegrenztemZugriff extends Tasche {
 
     private int anzahlMoeglicherZugriffe;
 

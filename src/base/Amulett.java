@@ -1,7 +1,7 @@
 import greenfoot.World;
 import util.Spielfeld;
 
-public class Amulett {
+public final class Amulett {
     private static Amulett instance;
 
     private Spielfeld welt;

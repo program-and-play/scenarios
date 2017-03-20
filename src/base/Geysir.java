@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Geysir extends Figur implements Animation {
+public final class Geysir extends Figur implements Animation {
     private HashMap<Direction, ArrayList<GreenfootImage>> animation;
 
     public Geysir() {

@@ -1,6 +1,5 @@
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
-import greenfoot.World;
 import interfaces.Animation;
 import interfaces.LichtwesenInterface;
 import util.*;
@@ -25,7 +24,7 @@ public class Factory {
 
     public static final Class<?>[] PAINT_ORDER = {
             Lichtwesen.class,
-            Zauberer.class,
+            Jahrva.class,
             Steinbeisser.class,
             Stein.class};
 
@@ -138,8 +137,8 @@ public class Factory {
         for (WeltSetup.ActorPosition actorPosition : setup.getActors()) {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
-                case "Zauberer":
-                    tmp = Zauberer.erzeugeInstance();
+                case "Jahrva":
+                    tmp = Jahrva.erzeugeInstance();
                     break;
                 case "Stein":
                     tmp = new Stein();
@@ -162,7 +161,7 @@ public class Factory {
                 animator.addAnimation((Animation) tmp);
         }
 
-        SoundButton x = new SoundButton(Factory.getSetup().isMute());
+        SoundButton x = SoundButton.erzeugeInstance(Factory.getSetup().isMute());
         playground.getWelt().addObject(x, setup.getOuterWidth(), setup.getOuterHeight());
     }
 

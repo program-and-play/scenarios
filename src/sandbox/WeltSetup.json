@@ -1,7 +1,7 @@
 {
   "width":8,
   "height": 5,
-  "title": "Kara 09a Around Tree II",
+  "title": "",
   "speed": 40,
   "randomeValue": 1000,
   "cellPath": [
@@ -12,7 +12,7 @@
   ],
   "actors": [
     {
-      "actor": "Zauberer",
+      "actor": "Jahrva",
       "x": 0,
       "y": 0
     },

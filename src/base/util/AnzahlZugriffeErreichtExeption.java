@@ -1,4 +1,4 @@
 package util;
 
-public class AnzahlZugriffeErreichtExeption extends Exception {
+public final class AnzahlZugriffeErreichtExeption extends Exception {
 }

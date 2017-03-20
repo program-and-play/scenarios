@@ -6,7 +6,7 @@ import util.LichtwesenFarbe;
 import java.util.ArrayList;
 
 
-class Lichtwesen extends Figur implements LichtwesenInterface {
+public final class Lichtwesen extends Figur implements LichtwesenInterface {
     private LichtwesenFarbe farbe;
     private ArrayList<GreenfootImage> bewegung;
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Der Steinbeisser ist der Sidekick des Zaubers. Er ist ein hilfreicher Begleiter, mit coolen Faehigkeiten.
+ * Der Steinbeisser ist der Sidekick von Jahrva. Er ist ein hilfreicher Begleiter, mit coolen Faehigkeiten.
  *
  * @author Lukas Hettwer
  * @version 0.1
@@ -35,7 +35,7 @@ public class Steinbeisser extends Charakter {
     }
 
     /**
-     * In der Act Methode wird das ausgefuehrt was der Zauberer tun soll. Diese Methode wird immer wieder aufgerufen,
+     * In der Act Methode wird das ausgefuehrt was der Steinbeisser tun soll. Diese Methode wird immer wieder aufgerufen,
      * wenn der 'Act' oder 'Run' Button gedrueckt wurde.
      */
     public void act() {

@@ -10,7 +10,7 @@ import java.lang.*;
 /**
  * Spielfeldklasse kapselt die Funktionalität des Spielfeldes von der Logik der Welt.
  */
-public class Spielfeld {
+public final class Spielfeld {
 
     private GreenfootWorld welt;
     private WeltSetup setup;

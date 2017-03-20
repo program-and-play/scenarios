@@ -12,7 +12,7 @@ import java.awt.image.*;
 /**
  * Der Hintergrund des Spiels.
  */
-public class Hintergrund {
+public final class Hintergrund {
 
     // Levelscreen
     // Levelworld

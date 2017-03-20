@@ -22,7 +22,7 @@ public class Factory {
 
     public static final Class<?>[] PAINT_ORDER = {
             Lichtwesen.class,
-            Zauberer.class};
+            Jahrva.class};
 
     static {
         Factory.createWorldSetup();
@@ -100,8 +100,8 @@ public class Factory {
         for (WeltSetup.ActorPosition actorPosition : setup.getActors()) {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
-                case "Zauberer":
-                    tmp = Zauberer.erzeugeInstance();
+                case "Jahrva":
+                    tmp = Jahrva.erzeugeInstance();
                     break;
                 case "Lichtwesen":
                     tmp = new Lichtwesen();
@@ -112,7 +112,7 @@ public class Factory {
                 playground.objektHinzufuegen(tmp, actorPosition.getX(), actorPosition.getY());
         }
 
-        SoundButton x = new SoundButton(Factory.getSetup().isMute());
+        SoundButton x = SoundButton.erzeugeInstance(Factory.getSetup().isMute());
         playground.getWelt().addObject(x, setup.getOuterWidth(), setup.getOuterHeight());
     }
 

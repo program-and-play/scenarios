@@ -5,14 +5,27 @@ import greenfoot.*;
 /**
  *
  */
-public class SoundButton extends Actor {
+public final class SoundButton extends Actor {
 
     private GreenfootImage soundOnImage = new GreenfootImage("sound_on.png");
     private GreenfootImage soundOffImage = new GreenfootImage("sound_off.png");
 
     private boolean on;
+    private static SoundButton instance;
 
-    public SoundButton(boolean on) {
+    /**
+     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
+     * @return Jahrva
+     */
+
+    public static SoundButton erzeugeInstance (boolean on) {
+        if (SoundButton.instance == null) {
+            SoundButton.instance = new SoundButton(on);
+        }
+        return SoundButton.instance;
+    }
+
+    private SoundButton(boolean on) {
         this.on = on;
         soundOnImage.scale(60,60);
         soundOffImage.scale(60,60);

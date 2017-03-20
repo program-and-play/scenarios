@@ -1,4 +1,4 @@
 
-public class Schluessel {
+public final class Schluessel {
 
 }
