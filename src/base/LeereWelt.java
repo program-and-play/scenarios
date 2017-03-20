@@ -22,7 +22,7 @@ public class LeereWelt extends World implements GreenfootWorld {
 
     @Override
     public void act() {
-        System.out.println("LeereWelt!");
+
     }
 
 
