@@ -7,12 +7,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Write a description of class WeltSetup here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+
 public final class WeltSetup {
     /**
      * The world width
@@ -55,195 +50,6 @@ public final class WeltSetup {
 
 
     public WeltSetup() {
-    }
-
-    public boolean isMute() {
-        return mute;
-    }
-
-    public void setMute(boolean mute) {
-        this.mute = mute;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getRandomeValue() {
-        return randomeValue;
-    }
-
-    public void setRandomeValue(int randomeValue) {
-        this.randomeValue = randomeValue;
-    }
-
-    public ArrayList<String> getCellPath() {
-        return cellPath;
-    }
-
-    public void setCellPath(ArrayList<String> cellPath) {
-        this.cellPath = cellPath;
-    }
-
-    public ArrayList<ActorPosition> getActors() {
-        return actors;
-    }
-
-    public void setActors(ArrayList<ActorPosition> actor) {
-        this.actors = actor;
-    }
-
-    public boolean isDark() {
-        return isDark;
-    }
-
-    public void setDark(boolean dark) {
-        isDark = dark;
-    }
-
-    public int getOffsetStartToX() {
-        return offsetStartToX;
-    }
-
-    public void setOffsetStartToX(int offsetStartToX) {
-        this.offsetStartToX = offsetStartToX;
-    }
-
-    public int getOffsetStartToY() {
-        return offsetStartToY;
-    }
-
-    public void setOffsetStartToY(int offsetStartToY) {
-        this.offsetStartToY = offsetStartToY;
-    }
-
-    public int getOffsetXToEnd() {
-        return offsetXToEnd;
-    }
-
-    public void setOffsetXToEnd(int offsetXToEnd) {
-        this.offsetXToEnd = offsetXToEnd;
-    }
-
-    public int getOffsetYToEnd() {
-        return offsetYToEnd;
-    }
-
-    public void setOffsetYToEnd(int offsetYToEnd) {
-        this.offsetYToEnd = offsetYToEnd;
-    }
-
-    public String getLevelScreen() {
-        return levelScreen;
-    }
-
-    public void setLevelScreen(String levelScreen) {
-        this.levelScreen = levelScreen;
-    }
-
-   // windowWidth = offsetStartToX + width + offsetXToEnd;
-    // nettoHeight = offsetStartToY + height + offsetYToEnd;
-
-    public int getOuterWidth(){
-        return offsetStartToX + width + offsetXToEnd;
-    }
-
-    public int getOuterHeight(){
-        return offsetStartToY + height + offsetYToEnd;
-    }
-
-
-    @Override
-    public String toString() {
-        return "WeltSetup{" +
-                "width=" + width + "\n" +
-                ", height=" + height + "\n" +
-                ", title='" + title + '\'' + "\n" +
-                ", speed=" + speed + "\n" +
-                ", randomeValue=" + randomeValue + "\n" +
-                ", cellPath=" + cellPath + "\n" +
-                ", isDark=" + isDark + "\n" +
-                ", offsetStartToX=" + offsetStartToX + "\n" +
-                ", offsetStartToY=" + offsetStartToY + "\n" +
-                ", offsetXToEnd=" + offsetXToEnd + "\n" +
-                ", offsetYToEnd=" + offsetYToEnd + "\n" +
-                ", actors=" + actors + "\n" +
-                ", levelScreen='" + levelScreen + '\'' +
-                '}';
-    }
-
-    public class ActorPosition {
-
-        private String actor;
-
-        private int x;
-
-        private int y;
-
-        public ActorPosition() {
-
-        }
-
-        public String getActor() {
-            return actor;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public void setActor(String actor) {
-            this.actor = actor;
-        }
-
-        public void setX(int x) {
-            this.x = x;
-        }
-
-        public void setY(int y) {
-            this.y = y;
-        }
-
-        @Override
-        public String toString() {
-            return "ActorPosition{" +
-                    "actor='" + actor + '\'' +
-                    ", x=" + x +
-                    ", y=" + y +
-                    '}';
-        }
     }
 
     /**
@@ -421,6 +227,194 @@ public final class WeltSetup {
             if (out != null) {
                 out.close();
             }
+        }
+    }
+    
+    public boolean isMute() {
+        return mute;
+    }
+    
+    public void setMute(boolean mute) {
+        this.mute = mute;
+    }
+    
+    public int getWidth() {
+        return width;
+    }
+    
+    public void setWidth(int width) {
+        this.width = width;
+    }
+    
+    public int getHeight() {
+        return height;
+    }
+    
+    public void setHeight(int height) {
+        this.height = height;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    public int getSpeed() {
+        return speed;
+    }
+    
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    
+    public int getRandomeValue() {
+        return randomeValue;
+    }
+    
+    public void setRandomeValue(int randomeValue) {
+        this.randomeValue = randomeValue;
+    }
+    
+    public ArrayList<String> getCellPath() {
+        return cellPath;
+    }
+    
+    public void setCellPath(ArrayList<String> cellPath) {
+        this.cellPath = cellPath;
+    }
+    
+    public ArrayList<ActorPosition> getActors() {
+        return actors;
+    }
+    
+    public void setActors(ArrayList<ActorPosition> actor) {
+        this.actors = actor;
+    }
+    
+    public boolean isDark() {
+        return isDark;
+    }
+    
+    public void setDark(boolean dark) {
+        isDark = dark;
+    }
+    
+    public int getOffsetStartToX() {
+        return offsetStartToX;
+    }
+    
+    // windowWidth = offsetStartToX + width + offsetXToEnd;
+    // nettoHeight = offsetStartToY + height + offsetYToEnd;
+    
+    public void setOffsetStartToX(int offsetStartToX) {
+        this.offsetStartToX = offsetStartToX;
+    }
+    
+    public int getOffsetStartToY() {
+        return offsetStartToY;
+    }
+    
+    public void setOffsetStartToY(int offsetStartToY) {
+        this.offsetStartToY = offsetStartToY;
+    }
+    
+    public int getOffsetXToEnd() {
+        return offsetXToEnd;
+    }
+    
+    public void setOffsetXToEnd(int offsetXToEnd) {
+        this.offsetXToEnd = offsetXToEnd;
+    }
+    
+    public int getOffsetYToEnd() {
+        return offsetYToEnd;
+    }
+    
+    public void setOffsetYToEnd(int offsetYToEnd) {
+        this.offsetYToEnd = offsetYToEnd;
+    }
+    
+    public String getLevelScreen() {
+        return levelScreen;
+    }
+    
+    public void setLevelScreen(String levelScreen) {
+        this.levelScreen = levelScreen;
+    }
+    
+    public int getOuterWidth() {
+        return offsetStartToX + width + offsetXToEnd;
+    }
+    
+    public int getOuterHeight() {
+        return offsetStartToY + height + offsetYToEnd;
+    }
+    
+    @Override
+    public String toString() {
+        return "WeltSetup{" +
+                "width=" + width + "\n" +
+                ", height=" + height + "\n" +
+                ", title='" + title + '\'' + "\n" +
+                ", speed=" + speed + "\n" +
+                ", randomeValue=" + randomeValue + "\n" +
+                ", cellPath=" + cellPath + "\n" +
+                ", isDark=" + isDark + "\n" +
+                ", offsetStartToX=" + offsetStartToX + "\n" +
+                ", offsetStartToY=" + offsetStartToY + "\n" +
+                ", offsetXToEnd=" + offsetXToEnd + "\n" +
+                ", offsetYToEnd=" + offsetYToEnd + "\n" +
+                ", actors=" + actors + "\n" +
+                ", levelScreen='" + levelScreen + '\'' +
+                '}';
+    }
+    
+    public class ActorPosition {
+        
+        private String actor;
+        
+        private int x;
+        
+        private int y;
+        
+        public ActorPosition() {
+        
+        }
+        
+        public String getActor() {
+            return actor;
+        }
+        
+        public void setActor(String actor) {
+            this.actor = actor;
+        }
+        
+        public int getX() {
+            return x;
+        }
+        
+        public void setX(int x) {
+            this.x = x;
+        }
+        
+        public int getY() {
+            return y;
+        }
+        
+        public void setY(int y) {
+            this.y = y;
+        }
+        
+        @Override
+        public String toString() {
+            return "ActorPosition{" +
+                    "actor='" + actor + '\'' +
+                    ", x=" + x +
+                    ", y=" + y +
+                    '}';
         }
     }
 

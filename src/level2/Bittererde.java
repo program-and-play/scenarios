@@ -1,6 +1,9 @@
-/**
- * Created by lukashettwer on 03.02.17.
- */
+
+import util.LichtwesenFarbe;
+
+import static util.LichtwesenFarbe.*;
+
+
 public final class Bittererde extends LeereWelt {
 
     public Bittererde() {

@@ -6,14 +6,18 @@ import java.util.HashMap;
 /**
  * Der Steinbeisser ist der Sidekick von Jahrva. Er ist ein hilfreicher Begleiter, mit coolen Faehigkeiten.
  *
- * @author Lukas Hettwer
- * @version 0.1
  */
 
 public class Steinbeisser extends Charakter {
     private static Steinbeisser instance;
     private int zerstoerteSteine;
     private int maxZerstoerteSteine;
+    
+    private Steinbeisser() {
+        super(FigurTyp.Steinbeisser);
+        zerstoerteSteine = 0;
+        maxZerstoerteSteine = 3;
+    }
 
     /**
      * Erzeugt eine Instance vom Steinbeisser, existiert schon ein Steinbeisser, wird dieser zurueck gegeben.
@@ -26,12 +30,6 @@ public class Steinbeisser extends Charakter {
             Steinbeisser.instance = new Steinbeisser();
         }
         return Steinbeisser.instance;
-    }
-
-    private Steinbeisser() {
-        super(FigurTyp.Steinbeisser);
-        zerstoerteSteine = 0;
-        maxZerstoerteSteine = 3;
     }
 
     /**

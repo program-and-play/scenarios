@@ -5,14 +5,13 @@ import util.LichtwesenFarbe;
 
 import java.util.ArrayList;
 
+import static util.LichtwesenFarbe.*;
 
 public final class Lichtwesen extends Figur implements LichtwesenInterface {
-    private LichtwesenFarbe farbe;
-    private ArrayList<GreenfootImage> bewegung;
+    LichtwesenFarbe farbe = BLAU;
+    ArrayList<GreenfootImage> bewegung = loadImageForAnimation(new GreenfootImage("lichtwesen_beschwoeren.png"), 6);
 
     public Lichtwesen() {
-        farbe = LichtwesenFarbe.BLAU;
-        bewegung = loadImageForAnimation(new GreenfootImage("lichtwesen_beschwoeren.png"), 6);
         aktualisiereBild();
     }
 
@@ -33,7 +32,7 @@ public final class Lichtwesen extends Figur implements LichtwesenInterface {
      */
 
     public void leuchteBeigeCappuchino() {
-        farbe = LichtwesenFarbe.BEIGE;
+        farbe = BEIGE;
         aktualisiereBild();
     }
 
@@ -42,7 +41,7 @@ public final class Lichtwesen extends Figur implements LichtwesenInterface {
      */
 
     public void leuchteGelb() {
-        farbe = LichtwesenFarbe.GELB;
+        farbe = GELB;
         aktualisiereBild();
     }
 
@@ -51,7 +50,7 @@ public final class Lichtwesen extends Figur implements LichtwesenInterface {
      */
 
     public void leuteLila() {
-        farbe = LichtwesenFarbe.LILA;
+        farbe = LILA;
         aktualisiereBild();
     }
 
@@ -60,7 +59,7 @@ public final class Lichtwesen extends Figur implements LichtwesenInterface {
      */
 
     public void leuteRosa() {
-        farbe = LichtwesenFarbe.ROSA;
+        farbe = ROSA;
         aktualisiereBild();
     }
 
@@ -69,7 +68,7 @@ public final class Lichtwesen extends Figur implements LichtwesenInterface {
      */
 
     public void leuchteRot() {
-        farbe = LichtwesenFarbe.ROT;
+        farbe = ROT;
         aktualisiereBild();
     }
 
@@ -78,7 +77,7 @@ public final class Lichtwesen extends Figur implements LichtwesenInterface {
      */
 
     public void leuchteBlau() {
-        farbe = LichtwesenFarbe.BLAU;
+        farbe = BLAU;
         aktualisiereBild();
     }
 

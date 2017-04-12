@@ -7,13 +7,14 @@ import java.util.Random;
 /**
  * Jahrva ist der Hauptcharacter dieses kleines Spiels.
  *
- * @author Lukas Hettwer
- *
- * @version 0.1
  */
 
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
+    
+    private Jahrva() {
+        super(FigurTyp.Jahrva);
+    }
 
     /**
      * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
@@ -25,10 +26,6 @@ public final class Jahrva extends Charakter {
             Jahrva.instance = new Jahrva();
         }
         return Jahrva.instance;
-    }
-
-    private Jahrva() {
-        super(FigurTyp.Jahrva);
     }
 
     /**

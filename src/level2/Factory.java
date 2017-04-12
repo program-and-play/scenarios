@@ -8,21 +8,15 @@ import java.io.File;
 import java.io.IOException;
 
 
-/**
- * Created by lukashettwer on 26.11.16.
- */
+
 public class Factory {
 
-    private static WeltSetup setupFactory;
-
-    private static final String WORLD_SETUP_FILE = "WeltSetup.json";
-
-
     public static final int CELLSIZE = 60;
-
     public static final Class<?>[] PAINT_ORDER = {
             Lichtwesen.class,
             Jahrva.class};
+    private static final String WORLD_SETUP_FILE = "WeltSetup.json";
+    private static WeltSetup setupFactory;
 
     static {
         Factory.createWorldSetup();
@@ -68,20 +62,6 @@ public class Factory {
         return setupFactory;
     }
 
-    public void muteSound() {
-        setupFactory.setMute(true);
-        save();
-    }
-
-    public void unmuteSound() {
-        setupFactory.setMute(false);
-        save();
-    }
-
-    public void save() {
-        WeltSetup.saveWorldSetup(setupFactory);
-    }
-
     public static WeltSetup createWorldSetup() {
         WeltSetup setup = null;
         try {
@@ -114,6 +94,20 @@ public class Factory {
 
         SoundButton x = SoundButton.erzeugeInstance(Factory.getSetup().isMute());
         playground.getWelt().addObject(x, setup.getOuterWidth(), setup.getOuterHeight());
+    }
+    
+    public void muteSound() {
+        setupFactory.setMute(true);
+        save();
+    }
+    
+    public void unmuteSound() {
+        setupFactory.setMute(false);
+        save();
+    }
+    
+    public void save() {
+        WeltSetup.saveWorldSetup(setupFactory);
     }
 
 
