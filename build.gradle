@@ -39,7 +39,7 @@ task copy(type: Copy){
 }
 
 task copyLibs(type: Copy){
-    from('libs/gson-2.8.1.jar')
+    from('libs/gson-2.3.1.jar')
     into('build/target/libs')
 }
 
@@ -60,7 +60,7 @@ task copyLevel2(type: Copy){
     from 'src/main/java/level2'
     into 'build/target/level2'
 
-    from 'src/main/java/resources'
+    from 'src/main/resources'
     into 'build/target/level2'
 }
 
@@ -73,7 +73,7 @@ task copyLevel3(type: Copy){
     from 'src/main/java/level3'
     into 'build/target/level3'
 
-    from 'src/main/java/resources'
+    from 'src/main/resources'
     into 'build/target/level3'
 
 }
@@ -87,7 +87,7 @@ task copyLevel4(type: Copy){
     from 'src/main/java/level4'
     into 'build/target/level4'
 
-    from 'src/main/java/resources'
+    from 'src/main/resources'
     into 'build/target/level4'
 
 }
@@ -101,7 +101,7 @@ task copyLevel5a(type: Copy){
     from 'src/main/java/level5/level5a'
     into 'build/target/level5/level5a'
 
-    from 'src/main/java/resources'
+    from 'src/main/resources'
     into 'build/target/level5/level5a'
 
 }
@@ -115,7 +115,7 @@ task copyLevel5b(type: Copy){
     from 'src/main/java/level5/level5b'
     into 'build/target/level5/level5b'
 
-    from 'src/main/java/resources'
+    from 'src/main/resources'
     into 'build/target/level5/level5b'
 
 }
@@ -129,7 +129,7 @@ task copyLevel6(type: Copy){
     from 'src/main/java/level6'
     into 'build/target/level6'
 
-    from 'src/main/java/resources'
+    from 'src/main/resources'
     into 'build/target/level6'
 
 }
@@ -143,7 +143,7 @@ task copySandbox(type: Copy){
     from 'src/main/java/sandbox'
     into 'build/target/sandbox'
 
-    from 'src/main/java/resources'
+    from 'src/main/resources'
     into 'build/target/sandbox'
 
 }

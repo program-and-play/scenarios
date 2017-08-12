@@ -16,7 +16,7 @@ public class Tasche {
 
     /**
      *
-     * @return ein zufälliger Schluessel
+     * @return ein zufaelliger Schluessel
      */
     public Schluessel greifeSchluessel() throws Exception {
         int anzahl = inhalt.size();

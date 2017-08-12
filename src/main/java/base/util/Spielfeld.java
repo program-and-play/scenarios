@@ -8,7 +8,7 @@ import java.util.*;
 import java.lang.*;
 
 /**
- * Spielfeldklasse kapselt die Funktionalität des Spielfeldes von der Logik der Welt.
+ * Spielfeldklasse kapselt die Funktionalitaet des Spielfeldes von der Logik der Welt.
  */
 public final class Spielfeld {
 
@@ -33,7 +33,7 @@ public final class Spielfeld {
 
         if (x < 0 || y < 0) {
             String message = "<html>" +
-                    "<p>Die Koordinaten müssen einen Wert größer oder gleich 0 besitzen.</p>" +
+                    "<p>Die Koordinaten muessen einen Wert groesser oder gleich 0 besitzen.</p>" +
                     "</html>";
 
             DialogUtils.showMessageDialogEdt(null, message, "Warning",

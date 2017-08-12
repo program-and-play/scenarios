@@ -64,7 +64,7 @@ public class Steinbeisser extends Charakter {
                 break;
         }
         if (istWeltzuEnde()) {
-            showWarning("", "Die Welt ist zu Ende, der Steinbeisser kann keinen Stein außerhalb der Welt zerbeissen!");
+            showWarning("", "Die Welt ist zu Ende, der Steinbeisser kann keinen Stein ausserhalb der Welt zerbeissen!");
             return;
         }
         if (foo == null) {
@@ -72,10 +72,10 @@ public class Steinbeisser extends Charakter {
             return;
         }
         if(++zerstoerteSteine > maxZerstoerteSteine){
-            showWarning("", "Der Steinbeisser kann maximal " + maxZerstoerteSteine + " Steine zerstören!");
+            showWarning("", "Der Steinbeisser kann maximal " + maxZerstoerteSteine + " Steine zerstoeren!");
             return;
         }
-        final String KOERPER_FILE = "steinbeißer animation_neu.png";
+        final String KOERPER_FILE = "steinbeisser animation_neu.png";
         GreenfootImage figurSteinbeisser = new GreenfootImage(KOERPER_FILE);
         figurSteinbeisser.scale(240, 240);
         HashMap<Direction, ArrayList<GreenfootImage>> speicherStandartContainer = getImageContainer();

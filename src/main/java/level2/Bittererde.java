@@ -1,5 +1,6 @@
 
 import util.LichtwesenFarbe;
+import greenfoot.*;
 
 import static util.LichtwesenFarbe.*;
 

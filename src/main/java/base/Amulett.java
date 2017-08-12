@@ -29,7 +29,7 @@ public final class Amulett {
      * @return Steinbeisser
      */
 
-    public Steinbeisser rufeSteinbeißer() {
+    public Steinbeisser rufeSteinbeisser() {
         Steinbeisser beisser = Steinbeisser.erzeugeInstance();
         welt.objektHinzufuegen(beisser,0,0);
         return beisser;

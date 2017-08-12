@@ -1,3 +1,5 @@
+import greenfoot.*;
+
 
 public final class Bittererde extends LeereWelt {
 

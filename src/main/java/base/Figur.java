@@ -250,7 +250,7 @@ class Figur extends Actor {
 
     public enum FigurTyp {
         Jahrva("character_body.png", "character_stab.png", "character_kleidung.png"),
-        Steinbeisser("steinbeißer.png"),
+        Steinbeisser("steinbeisser.png"),
         Stein("stein.png"),
         Gysir("geysir.png"),
         Rune("rune.png");

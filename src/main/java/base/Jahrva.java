@@ -49,7 +49,7 @@ public final class Jahrva extends Charakter {
         if (Factory.getSetup().getHeight() < x || Factory.getSetup().getWidth() < y || x < 0 || y < 0) {
             showWarning(
                     "", //Optional fuer den englischen Text.
-                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes außerhalb der Welt gewählt wurden.");
+                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes ausserhalb der Welt gewaehlt wurden.");
             return;
         }
 

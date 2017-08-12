@@ -91,7 +91,7 @@ public class Charakter extends Figur {
 
 
     /**
-     * Charakter dreht sich um 90° nach links
+     * Charakter dreht sich um 90 Grad nach links
      */
 
     public void linkswendung() {
@@ -101,7 +101,7 @@ public class Charakter extends Figur {
     }
 
     /**
-     * Charakter dreht sich um 90° nach rechts
+     * Charakter dreht sich um 90 Grad nach rechts
      */
 
     public void rechtswendung() {
