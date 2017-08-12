@@ -66,8 +66,16 @@ task copyLevel2(type: Copy){
 
 task copyLevel3(type: Copy){
     from('src/main/java/base') {
-        exclude 'Factory.java'
-        exclude 'Jahrva.java'
+        exclude 'Amulett.java',
+                'Factory.java',
+                'Schluessel.java',
+                'Stein.java',
+                'Tasche.java',
+                'Steinbeisser.java',
+                'TascheMitBegrenztemZugriff.java',
+                'Rune.java',
+                'Lichtwesen.java',
+                'Jahrva.java'
 
     }
     into 'build/target/level3'

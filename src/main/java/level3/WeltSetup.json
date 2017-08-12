@@ -15,24 +15,9 @@
       "actor": "Jahrva",
       "x": 0,
       "y": 0
-    },
-    {
-      "actor": "Lichtwesen",
-      "x": 2,
-      "y": 2
-    },
-    {
-      "actor": "Lichtwesen",
-      "x": 10,
-      "y": 6
-    },
-    {
-      "actor": "Lichtwesen",
-      "x": 1,
-      "y": 5
     }
   ],
-  "isDark": true,
+  "isDark": false,
   "offsetStartToX": 1,
   "offsetStartToY": 2,
   "offsetXToEnd": 1,

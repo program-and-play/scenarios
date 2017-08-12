@@ -14,10 +14,7 @@ public class Factory {
 
     public static final int CELLSIZE = 60;
     public static final Class<?>[] PAINT_ORDER = {
-            Lichtwesen.class,
-            Jahrva.class,
-            Steinbeisser.class,
-            Stein.class};
+            Jahrva.class};
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
     private static final Animator animator = Animator.getInstance();
     private static WeltSetup setupFactory;
@@ -60,36 +57,17 @@ public class Factory {
             return;
         }
 
-        Stein stone = (Stein) ch.getObjectInFront(ch.getCurrentDirection(), 1, Stein.class);
-        if (stone != null) {
-
-            if (!ch.theWorldsEnd(ch.getCurrentDirection(), 1, stone) && ch.getObjectInFront(ch.getCurrentDirection(), 2, Figur.class) == null && ch.getTyp() == Figur.FigurTyp.Steinbeisser) {
-                ch.moveActors(ch.getCurrentDirection(), ch, stone);
-            } else {
-                ch.showWarning(
-                        "",
-                        "Der Charakter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
-                return;
-            }
-        } else {
+       
             ch.moveActors(ch.getCurrentDirection(), ch);
-        }
+
     }
 
     public static void addObject(Actor object, int x, int y, LeereWelt welt) {
-        if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {
-            welt.getHintergrund().updateBackground(welt.getObjects(LichtwesenInterface.class));
-            welt.setBackground(welt.getHintergrund().getBackground());
-        }
         if (object instanceof Animation)
             Factory.addAnimationObject((Animation) object);
     }
 
     public static void removeObject(Actor object, LeereWelt welt) {
-        if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {
-            welt.getHintergrund().updateBackground(welt.getObjects(LichtwesenInterface.class));
-            welt.setBackground(welt.getHintergrund().getBackground());
-        }
 
         if (object instanceof Animation)
             Factory.removeAnimationObject((Animation) object);
@@ -119,15 +97,6 @@ public class Factory {
             switch (actorPosition.getActor()) {
                 case "Jahrva":
                     tmp = Jahrva.erzeugeInstance();
-                    break;
-                case "Stein":
-                    tmp = new Stein();
-                    break;
-                case "Lichtwesen":
-                    tmp = new Lichtwesen();
-                    break;
-                case "Steinbeisser":
-                    tmp = Steinbeisser.erzeugeInstance();
                     break;
                 case "Geysir":
                     tmp = new Geysir();
