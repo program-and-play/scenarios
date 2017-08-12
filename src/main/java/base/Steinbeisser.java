@@ -33,14 +33,6 @@ public class Steinbeisser extends Charakter {
     }
 
     /**
-     * In der Act Methode wird das ausgefuehrt was der Steinbeisser tun soll. Diese Methode wird immer wieder aufgerufen,
-     * wenn der 'Act' oder 'Run' Button gedrueckt wurde.
-     */
-    public void act() {
-        // Fuege hier deine "Befehle" fuer den Steinbeisser ein.
-    }
-
-    /**
      * Zerbeisst einen Stein direkt vor dem Steinbeisser, wenn dort einer Liegt.
      */
 

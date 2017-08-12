@@ -8,11 +8,6 @@ public class Charakter extends Figur {
 
     private FigurTyp typ;
 
-    protected Charakter(FigurTyp typ) {
-        super(createImage(typ.path), 4, 4);
-        this.typ = typ;
-    }
-
     public void laufen() {
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
             showWarning("", //Optional fuer den englischen Text.
@@ -23,7 +18,35 @@ public class Charakter extends Figur {
         Factory.laufen(this);
         Greenfoot.delay(1);
     }
-
+    
+    /**
+     * Charakter dreht sich um 90 Grad nach links
+     */
+    
+    public void linkswendung() {
+        setCurrentDirection(getCurrentDirection().rotationLeft());
+        resetImage();
+        Greenfoot.delay(1);
+    }
+    
+    /**
+     * Charakter dreht sich um 90 Grad nach rechts
+     */
+    
+    public void rechtswendung() {
+        setCurrentDirection(getCurrentDirection().rotationRight());
+        resetImage();
+        Greenfoot.delay(1);
+    }
+    
+    
+    
+    protected Charakter(FigurTyp typ) {
+        super(createImage(typ.path), 4, 4);
+        this.typ = typ;
+    }
+    
+    
     public FigurTyp getTyp() {
         return typ;
     }
@@ -88,29 +111,7 @@ public class Charakter extends Figur {
         }
 
     }
-
-
-    /**
-     * Charakter dreht sich um 90 Grad nach links
-     */
-
-    public void linkswendung() {
-        setCurrentDirection(getCurrentDirection().rotationLeft());
-        resetImage();
-        Greenfoot.delay(1);
-    }
-
-    /**
-     * Charakter dreht sich um 90 Grad nach rechts
-     */
-
-    public void rechtswendung() {
-        setCurrentDirection(getCurrentDirection().rotationRight());
-        resetImage();
-        Greenfoot.delay(1);
-    }
-
-
+    
     /**
      * Ein spezielle Modulo-Operator der ausschliesslich positive Zahlen zurueck gibt.
      *
