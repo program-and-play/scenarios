@@ -49,6 +49,13 @@ public final class Spielfeld {
         welt.removeObject(object);
     }
     
+    public void entferneObjekteAuf(int x, int y, Class cls) {
+        Actor actor = gibObjektAuf(x, y, cls);
+        if(actor != null) {
+            objektEntfernen(actor);
+        }
+    }
+    
     public List<Actor> gibObjekteAuf(int x, int y, Class cls) {
         return welt.getObjectsAt(setup.getOffsetStartToX() + x, setup.getOffsetStartToY() + y, cls);
     }
