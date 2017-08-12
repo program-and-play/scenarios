@@ -2,10 +2,7 @@ package util;
 
 import interfaces.Animation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public final class Animator extends Thread
@@ -26,6 +23,7 @@ public final class Animator extends Thread
     private Animator()
     {
         animationsList = new ArrayList<>();
+        setDaemon(true);
     }
 
     private Animator(Animation... animations)
@@ -39,7 +37,17 @@ public final class Animator extends Thread
         while (!isInterrupted()){
 
             if(animationsList.size() > 0) {
-                makeAnimation(getAnimation(randomGenerator.nextInt(animationsList.size())));
+                Set<Animation> animations = getRandomAnimationsSet();
+                for (int i = 0; i < 4; i++) {
+                    for (Animation animation: animations) {
+                        animation.setNext();
+                    }
+                }
+    
+                for (Animation animation:animations) {
+                    animation.reset();
+                }
+                
                 try {
                     sleep(randomGenerator.nextInt(2000));
                 } catch (InterruptedException e) {
@@ -60,10 +68,15 @@ public final class Animator extends Thread
     public synchronized Animation getAnimation(int index) {
         return animationsList.get(index);
     }
-
-    public synchronized void makeAnimation(Animation animation) {
-        animation.makeAnimation();
+    
+    private Set<Animation> getRandomAnimationsSet(){
+        int count = randomGenerator.nextInt(animationsList.size());
+        Set<Animation> set = new HashSet<>();
+        for (int i = 0; i < count; i++) {
+            set.add(getAnimation(randomGenerator.nextInt(animationsList.size())));
+        }
+        return set;
     }
-
+    
 
 }

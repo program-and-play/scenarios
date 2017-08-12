@@ -1,7 +1,13 @@
 package interfaces;
 
 
-public interface Animation {
+import java.util.Iterator;
 
-    public void makeAnimation();
+public interface Animation {
+    
+    void makeAnimation();
+    
+    void reset();
+    
+    void setNext();
 }

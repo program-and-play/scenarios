@@ -218,7 +218,6 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.8.1'
 
-
     compile files('libs/greenfoot-api-3.1.0.jar')
 
     // Use JUnit test framework
