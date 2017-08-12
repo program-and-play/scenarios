@@ -7,7 +7,7 @@ import util.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 
 
 public class Factory {
@@ -18,6 +18,7 @@ public class Factory {
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
     private static final Animator animator = Animator.getInstance();
     private static WeltSetup setupFactory;
+    private static LeereWelt leereWelt;
 
     static {
         Factory.createWorldSetup();
@@ -31,12 +32,15 @@ public class Factory {
             DialogUtils.showMessageDialogEdt(null, DialogUtils.setupNullMessage, "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
         welt.setPaintOrder(Factory.PAINT_ORDER);
 
         welt.setSpielfeld(new Spielfeld(welt, Factory.getSetup()));
         welt.setHintergrund(new Hintergrund(Factory.getSetup(), Factory.CELLSIZE));
 
         welt.setBackground(welt.getHintergrund().getBackground());
+    
+        leereWelt = welt;
 
         Factory.initActorsFromWorldSetup(Factory.getSetup(), welt.erhalteSpielfeld());
     }
@@ -52,14 +56,23 @@ public class Factory {
     protected static void laufen(Charakter ch) {
         Geysir geysir = (Geysir) ch.getObjectInFront(ch.getCurrentDirection(), 1, Geysir.class);
         // Check for a geysir
-        if (geysir != null) {
-            ch.showWarning("", "Der Charakter kann sich nicht bewegen weil, vor ihm ist ein Geysir!");
-            return;
-        }
+
 
        
             ch.moveActors(ch.getCurrentDirection(), ch);
-
+        if (geysir != null) {
+            ch.verbrennen();
+    
+            Spielfeld spielfeld = leereWelt.erhalteSpielfeld();
+            List<Actor> actors = spielfeld.getAllActors();
+            for(Actor a :actors){
+                WeltSetup.ActorPosition position = ((Figur) a).getActorPosition();
+                spielfeld.objektEntfernen(a);
+                spielfeld.objektHinzufuegen(a, position.getX(), position.getY());
+            }
+        }
+        
+        
     }
 
     public static void addObject(Actor object, int x, int y, LeereWelt welt) {
@@ -96,10 +109,10 @@ public class Factory {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
                 case "Jahrva":
-                    tmp = Jahrva.erzeugeInstance();
+                    tmp = Jahrva.erzeugeInstance(actorPosition);
                     break;
                 case "Geysir":
-                    tmp = new Geysir();
+                    tmp = new Geysir(actorPosition);
                     break;
 
             }

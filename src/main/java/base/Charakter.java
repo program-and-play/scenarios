@@ -2,19 +2,21 @@
 import greenfoot.*;
 import util.WeltSetup;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Charakter extends Figur {
-
+    
     private FigurTyp typ;
-
+    
     public void laufen() {
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
             showWarning("", //Optional fuer den englischen Text.
                     "Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!");
             return;
         }
-
+        
         Factory.laufen(this);
         Greenfoot.delay(1);
     }
@@ -41,11 +43,11 @@ public class Charakter extends Figur {
     
     @Override
     public void act() {
-        if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")){
+        if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
             nachLinksDrehen();
-        } else if(Greenfoot.isKeyDown("right")|| Greenfoot.isKeyDown("d")){
+        } else if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
             nachRechtsDrehen();
-        } else if(Greenfoot.isKeyDown("up")|| Greenfoot.isKeyDown("w")){
+        } else if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w")) {
             laufen();
         }
         Greenfoot.delay(1);
@@ -53,8 +55,8 @@ public class Charakter extends Figur {
     }
     
     
-    protected Charakter(FigurTyp typ) {
-        super(createImage(typ.path), 4, 4);
+    protected Charakter(FigurTyp typ, WeltSetup.ActorPosition startPosition) {
+        super(createImage(typ.path), 4, 4,startPosition);
         this.typ = typ;
     }
     
@@ -62,15 +64,20 @@ public class Charakter extends Figur {
     public FigurTyp getTyp() {
         return typ;
     }
-
-    interface Aktion { void apply(Aktioner arg1); }
-
-    interface Aktioner{void aktion();}
-
-    protected void moveActors(Direction direction, Figur... actors){
-       moveActors(direction, null ,(z)-> {}, actors);
+    
+    interface Aktion {
+        void apply(Aktioner arg1);
     }
-
+    
+    interface Aktioner {
+        void aktion();
+    }
+    
+    protected void moveActors(Direction direction, Figur... actors) {
+        moveActors(direction, null, (z) -> {
+        }, actors);
+    }
+    
     /**
      * Beweget den/die Actor(s) um einen Schritt in die ausgewaehlte Richtung, dabei wird die Bewegung animiert.
      *
@@ -85,15 +92,15 @@ public class Charakter extends Figur {
                     figure.setLocationWithoutOffset(figure.getX(),
                             modulo((figure.getY() - 1), foo.getHeight()));
                 }
-
+            
             else if (direction.equals(Direction.LEFT))
                 for (Figur figure : actors) {
                     figure.setLocationWithoutOffset(
                             modulo((figure.getX() - 1), foo.getWidth()),
                             figure.getY());
                 }
-
-            for (int j = 0, k = getWorld().getCellSize()*2; j < 5; j++, k = k - getWorld().getCellSize()*2/5) {
+            
+            for (int j = 0, k = getWorld().getCellSize() * 2; j < 5; j++, k = k - getWorld().getCellSize() * 2 / 5) {
                 changeAnimationImage(k, direction, actors);
                 op.apply(x);
                 Greenfoot.delay(2);
@@ -102,12 +109,12 @@ public class Charakter extends Figur {
                 figure.resetImage();
             }
         } else {
-            for (int j = 0, k = 0; j < 5; j++, k = k + getWorld().getCellSize()*2/5) {
+            for (int j = 0, k = 0; j < 5; j++, k = k + getWorld().getCellSize() * 2 / 5) {
                 changeAnimationImage(k, direction, actors);
                 op.apply(x);
                 Greenfoot.delay(2);
             }
-
+            
             if (direction.equals(Direction.DOWN))
                 for (Figur figure : actors) {
                     figure.resetImage();
@@ -121,7 +128,7 @@ public class Charakter extends Figur {
                             modulo((figure.getX() + 1), foo.getWidth()), figure.getY());
                 }
         }
-
+        
     }
     
     /**
@@ -134,52 +141,69 @@ public class Charakter extends Figur {
     private int modulo(int a, int b) {
         return (a % b + b) % b;
     }
-
-
+    
+    
     protected Object getObjectInFront(Direction direction, int steps, Class<?> clazz) {
         int x = getX();
         int y = getY();
         WeltSetup foo = Factory.getSetup();
-
+        
         switch (direction) {
             case RIGHT:
                 x = modulo((x + steps), foo.getWidth());
                 break;
-
+            
             case DOWN:
                 y = modulo((y + steps), foo.getHeight());
                 break;
-
+            
             case LEFT:
                 x = modulo((x - steps), foo.getWidth());
                 break;
-
+            
             case UP:
                 y = modulo((y - steps), foo.getHeight());
                 break;
-
+            
             default: // Not a valid direction
                 return null;
         }
-
-
+        
+        
         List<?> objects = getWorld().erhalteSpielfeld().gibObjekteAuf(x, y, clazz);
-
+        
         if (objects != null && objects.size() > 0) {
             return objects.get(0);
         } else {
             return null;
         }
     }
-
+    
+    public void verbrennen() {
+        final String KOERPER_FILE = "geysir_death.png";
+        
+        GreenfootImage figurZaubern = new GreenfootImage(KOERPER_FILE);
+        figurZaubern.scale(240, 240);
+        
+        HashMap<Direction, ArrayList<GreenfootImage>> bilderContainer = loadImage(figurZaubern, 4, 4);
+        
+        for (GreenfootImage img : bilderContainer.get(getCurrentDirection())) {
+            setImage(img);
+            Greenfoot.delay(2);
+        }
+        resetImage();
+        Greenfoot.delay(2);
+        reset();
+    }
+    
     /**
      * Ueberprueft, ob die Welt vor dem Character, zu Ende ist.
      *
      * @return boolean
      */
-
+    
     public boolean istWeltzuEnde() {
         return theWorldsEnd(getCurrentDirection(), 1, this);
     }
-
+    
 }

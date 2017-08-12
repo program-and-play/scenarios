@@ -1,3 +1,5 @@
+import util.WeltSetup;
+
 /**
  *
  */
@@ -9,8 +11,8 @@ public final class Rune extends Figur {
      *
      * @param typ
      */
-    public Rune(RunenTyp typ) {
-        super(FigurTyp.Rune);
+    public Rune(RunenTyp typ, WeltSetup.ActorPosition startPosition) {
+        super(FigurTyp.Rune, startPosition);
         this.typ = typ;
     }
 

@@ -16,7 +16,8 @@ sourceSets {
                        'src/main/java/level2',
                        'src/main/java/level3',
                        'src/main/java/level4',
-                       'src/main/java/level5',
+                       'src/main/java/level5/level5a',
+                       'src/main/java/level5/level5b',
                        'src/main/java/level6',
                        'src/main/java/sandbox']
         }
@@ -53,7 +54,8 @@ task copyLevel2(type: Copy){
                 'Tasche.java',
                 'Steinbeisser.java',
                 'TascheMitBegrenztemZugriff.java',
-                'Rune.java'
+                'Rune.java',
+                'Jahrva.java'
     }
     into 'build/target/level2'
 

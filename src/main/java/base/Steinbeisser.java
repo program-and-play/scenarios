@@ -1,4 +1,5 @@
 import greenfoot.*;
+import util.WeltSetup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +14,8 @@ public class Steinbeisser extends Charakter {
     private int zerstoerteSteine;
     private int maxZerstoerteSteine;
     
-    private Steinbeisser() {
-        super(FigurTyp.Steinbeisser);
+    private Steinbeisser(WeltSetup.ActorPosition startPosition) {
+        super(FigurTyp.Steinbeisser, startPosition);
         zerstoerteSteine = 0;
         maxZerstoerteSteine = 3;
     }
@@ -25,9 +26,9 @@ public class Steinbeisser extends Charakter {
      * @return Steinbeisser
      */
 
-    public static Steinbeisser erzeugeInstance() {
+    public static Steinbeisser erzeugeInstance(WeltSetup.ActorPosition startPosition) {
         if (Steinbeisser.instance == null) {
-            Steinbeisser.instance = new Steinbeisser();
+            Steinbeisser.instance = new Steinbeisser(startPosition);
         }
         return Steinbeisser.instance;
     }

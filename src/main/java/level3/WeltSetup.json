@@ -15,6 +15,28 @@
       "actor": "Jahrva",
       "x": 0,
       "y": 0
+    },
+    {
+      "actor": "Geysir",
+      "x": 1,
+      "y": 0
+    },    {
+      "actor": "Geysir",
+      "x": 3,
+      "y": 4
+    },    {
+      "actor": "Geysir",
+      "x": 3,
+      "y": 2
+    },    {
+      "actor": "Geysir",
+      "x": 2,
+      "y": 4
+    },
+    {
+      "actor": "Geysir",
+      "x": 2,
+      "y": 1
     }
   ],
   "isDark": false,

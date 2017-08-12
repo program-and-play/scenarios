@@ -372,7 +372,7 @@ public final class WeltSetup {
                 '}';
     }
     
-    public class ActorPosition {
+    public static class ActorPosition {
         
         private String actor;
         

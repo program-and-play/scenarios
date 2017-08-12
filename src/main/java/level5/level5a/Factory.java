@@ -112,16 +112,16 @@ public class Factory {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
                 case "Jahrva":
-                    tmp = Jahrva.erzeugeInstance();
+                    tmp = Jahrva.erzeugeInstance(actorPosition);
                     break;
                 case "Stein":
-                    tmp = new Stein();
+                    tmp = new Stein(actorPosition);
                     break;
                 case "Lichtwesen":
-                    tmp = new Lichtwesen();
+                    tmp = new Lichtwesen(actorPosition);
                     break;
                 case "Steinbeisser":
-                    tmp = Steinbeisser.erzeugeInstance();
+                    tmp = Steinbeisser.erzeugeInstance(actorPosition);
                     break;
 
             }

@@ -1,5 +1,6 @@
 import greenfoot.World;
 import util.Spielfeld;
+import util.WeltSetup;
 
 public final class Amulett {
     private static Amulett instance;
@@ -30,7 +31,11 @@ public final class Amulett {
      */
 
     public Steinbeisser rufeSteinbeisser() {
-        Steinbeisser beisser = Steinbeisser.erzeugeInstance();
+        WeltSetup.ActorPosition actorPosition = new WeltSetup.ActorPosition();
+        actorPosition.setActor("Steinbeisser");
+        actorPosition.setX(0);
+        actorPosition.setY(0);
+        Steinbeisser beisser = Steinbeisser.erzeugeInstance(actorPosition);
         welt.objektHinzufuegen(beisser,0,0);
         return beisser;
     }

@@ -81,10 +81,10 @@ public class Factory {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
                 case "Jahrva":
-                    tmp = Jahrva.erzeugeInstance();
+                    tmp = Jahrva.erzeugeInstance(actorPosition);
                     break;
                 case "Lichtwesen":
-                    tmp = new Lichtwesen();
+                    tmp = new Lichtwesen(actorPosition);
                     break;
             }
 

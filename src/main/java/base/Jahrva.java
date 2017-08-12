@@ -1,8 +1,4 @@
-import greenfoot.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
+import util.WeltSetup;
 
 /**
  * Jahrva ist der Hauptcharacter dieses kleines Spiels.
@@ -11,19 +7,21 @@ import java.util.Random;
 
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
+
     
-    private Jahrva() {
-        super(FigurTyp.Jahrva);
+    private Jahrva(WeltSetup.ActorPosition actorPosition) {
+        super(FigurTyp.Jahrva,actorPosition);
     }
 
     /**
      * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
      * @return Jahrva
+     * @param actorPosition
      */
 
-    protected static Jahrva erzeugeInstance () {
+    protected static Jahrva erzeugeInstance(WeltSetup.ActorPosition actorPosition) {
         if (Jahrva.instance == null) {
-            Jahrva.instance = new Jahrva();
+            Jahrva.instance = new Jahrva(actorPosition);
         }
         return Jahrva.instance;
     }
@@ -42,5 +40,4 @@ public final class Jahrva extends Charakter {
     public void nachRechtsDrehen() {
         super.nachRechtsDrehen();
     }
-
 }

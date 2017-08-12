@@ -1,5 +1,6 @@
 
 import greenfoot.*;
+import util.WeltSetup;
 
 import java.util.ArrayList;
 
@@ -9,8 +10,8 @@ public final class Stein extends Figur implements Charakter.Aktioner{
     ArrayList<GreenfootImage> zerbechenBild;
     int i;
 
-    public Stein() {
-        super(FigurTyp.Stein);
+    public Stein(WeltSetup.ActorPosition startPosition) {
+        super(FigurTyp.Stein, startPosition);
         zerbechenBild = loadImageForAnimation( new GreenfootImage("stein_animation.png"),  4);
         i = 0;
     }
