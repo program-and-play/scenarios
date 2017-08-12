@@ -29,17 +29,6 @@ public final class Jahrva extends Charakter {
     }
 
     /**
-     * In der Act Methode wird das ausgefuehrt was Jahrva tun soll. Diese Methode wird immer wieder aufgerufen,
-     * wenn der 'Act' oder 'Run' Button gedrueckt wurde.
-     */
-    public void act() {
-        if (istWeltzuEnde())
-            rechtswendung();
-        laufen();
-        // Fuege hier deine "Befehle" fuer Jahrva ein.
-    }
-
-    /**
      * Erzeugt ein Lichtwesen auf dem Spielfeld
      * @param x die horizontale Position
      * @param y die vertikale Position
