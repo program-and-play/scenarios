@@ -39,6 +39,18 @@ public class Charakter extends Figur {
         Greenfoot.delay(1);
     }
     
+    @Override
+    public void act() {
+        if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")){
+            linkswendung();
+        } else if(Greenfoot.isKeyDown("right")|| Greenfoot.isKeyDown("d")){
+            rechtswendung();
+        } else if(Greenfoot.isKeyDown("up")|| Greenfoot.isKeyDown("w")){
+            laufen();
+        }
+        Greenfoot.delay(1);
+        
+    }
     
     
     protected Charakter(FigurTyp typ) {
