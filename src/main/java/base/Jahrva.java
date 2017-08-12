@@ -27,7 +27,22 @@ public final class Jahrva extends Charakter {
         }
         return Jahrva.instance;
     }
-
+    
+    @Override
+    public void laufen() {
+        super.laufen();
+    }
+    
+    @Override
+    public void nachLinksDrehen() {
+        super.nachLinksDrehen();
+    }
+    
+    @Override
+    public void nachRechtsDrehen() {
+        super.nachRechtsDrehen();
+    }
+    
     /**
      * Erzeugt ein Lichtwesen auf dem Spielfeld
      * @param x die horizontale Position

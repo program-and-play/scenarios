@@ -23,7 +23,7 @@ public class Charakter extends Figur {
      * Charakter dreht sich um 90 Grad nach links
      */
     
-    public void linkswendung() {
+    public void nachLinksDrehen() {
         setCurrentDirection(getCurrentDirection().rotationLeft());
         resetImage();
         Greenfoot.delay(1);
@@ -33,7 +33,7 @@ public class Charakter extends Figur {
      * Charakter dreht sich um 90 Grad nach rechts
      */
     
-    public void rechtswendung() {
+    public void nachRechtsDrehen() {
         setCurrentDirection(getCurrentDirection().rotationRight());
         resetImage();
         Greenfoot.delay(1);
@@ -42,9 +42,9 @@ public class Charakter extends Figur {
     @Override
     public void act() {
         if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")){
-            linkswendung();
+            nachLinksDrehen();
         } else if(Greenfoot.isKeyDown("right")|| Greenfoot.isKeyDown("d")){
-            rechtswendung();
+            nachRechtsDrehen();
         } else if(Greenfoot.isKeyDown("up")|| Greenfoot.isKeyDown("w")){
             laufen();
         }
