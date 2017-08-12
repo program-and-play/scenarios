@@ -1,6 +1,7 @@
 package util;
 
-import greenfoot.*;
+
+import greenfoot.GreenfootImage;
 import interfaces.LichtwesenInterface;
 
 import java.awt.*;
@@ -151,7 +152,7 @@ public final class Hintergrund {
 //
 
 
-        ig2.setPaint ( Color.white );
+        ig2.setPaint ( java.awt.Color.white );
         ig2.fillRect ( 0, 0, bi.getWidth(), bi.getHeight() );
 
                 foo.drawImage(new GreenfootImage(setup.getLevelScreen()), 0,0);
