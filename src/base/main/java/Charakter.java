@@ -4,7 +4,6 @@ import util.ActorPosition;
 import util.WeltSetup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

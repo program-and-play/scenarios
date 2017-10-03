@@ -12,18 +12,17 @@ apply plugin: 'java'
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java/base',
-                       'src/main/java/level2',
-                       'src/main/java/level3',
-                       'src/main/java/level4',
-                       'src/main/java/level5/level5a',
-                       'src/main/java/level5/level5b',
-                       'src/main/java/level6',
-                       'src/main/java/sandbox']
+            srcDirs = ['src/base/main/java',
+                       'src/level2/main/java',
+                       'src/level3/main/java',
+                       'src/level4/level4a/main/java',
+                       'src/level4/level4b/main/java',
+                       'src/level6/main/java',
+                       'src/sandbox/main/java']
         }
     }
 }
-version = 0.2
+version = 0.3
 
 task buildAll(dependsOn: ':clean') {
 
@@ -45,7 +44,7 @@ task copyLibs(type: Copy){
 }
 
 task copyLevel2(type: Copy){
-    from('src/main/java/base') {
+    from('src/base/main/java') {
         exclude 'Amulett.java',
                 'Geysir.java',
                 'Factory.java',
@@ -59,7 +58,7 @@ task copyLevel2(type: Copy){
     }
     into 'build/target/level2'
 
-    from 'src/main/java/level2'
+    from 'src/level2/main/java'
     into 'build/target/level2'
 
     from 'src/main/resources'
@@ -67,7 +66,7 @@ task copyLevel2(type: Copy){
 }
 
 task copyLevel3(type: Copy){
-    from('src/main/java/base') {
+    from('src/base/main/java') {
         exclude 'Amulett.java',
                 'Factory.java',
                 'Schluessel.java',
@@ -82,7 +81,7 @@ task copyLevel3(type: Copy){
     }
     into 'build/target/level3'
 
-    from 'src/main/java/level3'
+    from 'src/level3/main/java'
     into 'build/target/level3'
 
     from 'src/main/resources'
@@ -91,12 +90,12 @@ task copyLevel3(type: Copy){
 }
 
 task copyLevel4a(type: Copy){
-    from('src/main/java/base') {
+    from('src/base/main/java') {
         exclude 'Factory.java'
     }
     into 'build/target/level4/level4a'
 
-    from 'src/main/java/level4/level4a'
+    from 'src/level4/level4a/main/java'
     into 'build/target/level4/level4a'
 
     from 'src/main/resources'
@@ -105,12 +104,12 @@ task copyLevel4a(type: Copy){
 }
 
 task copyLevel4b(type: Copy){
-    from('src/main/java/base') {
+    from('src/base/main/java') {
         exclude 'Factory.java'
     }
     into 'build/target/level4/level4b'
 
-    from 'src/main/java/level4/level4b'
+    from 'src/level4/level4b/main/java'
     into 'build/target/level4/level4b'
 
     from 'src/main/resources'
@@ -119,12 +118,12 @@ task copyLevel4b(type: Copy){
 }
 
 task copyLevel6(type: Copy){
-    from('src/main/java/base') {
+    from('src/base/main/java') {
         exclude 'Factory.java'
     }
     into 'build/target/level6'
 
-    from 'src/main/java/level6'
+    from 'src/level6/main'
     into 'build/target/level6'
 
     from 'src/main/resources'
@@ -133,12 +132,12 @@ task copyLevel6(type: Copy){
 }
 
 task copySandbox(type: Copy){
-    from('src/main/java/base') {
+    from('src/base/main/java') {
         exclude 'Factory.java'
     }
     into 'build/target/sandbox'
 
-    from 'src/main/java/sandbox'
+    from 'src/java/sandbox/main'
     into 'build/target/sandbox'
 
     from 'src/main/resources'

@@ -18,33 +18,25 @@ public final class Jahrva extends Charakter {
         super(FigurTyp.Jahrva, startPosition);
     }
 
-    /**
-     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
-     * @return Jahrva
-     */
-
-    protected static Jahrva erzeugeInstance (ActorPosition startPosition) {
-        if (Jahrva.instance == null) {
-            Jahrva.instance = new Jahrva(startPosition);
-        }
-        return Jahrva.instance;
+    @Override
+    public void act() {
     }
-    
+
     @Override
     public void laufen() {
         super.laufen();
     }
-    
+
     @Override
     public void nachLinksDrehen() {
         super.nachLinksDrehen();
     }
-    
+
     @Override
     public void nachRechtsDrehen() {
         super.nachRechtsDrehen();
     }
-    
+
     /**
      * Erzeugt ein Lichtwesen auf dem Spielfeld
      * @param x die horizontale Position
@@ -87,8 +79,16 @@ public final class Jahrva extends Charakter {
         return new Random().nextInt(maxZahl - minZahl + 1) + minZahl;
     }
 
+    /**
+     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
+     *
+     * @return Jahrva
+     */
 
-
-
-
+    protected static Jahrva erzeugeInstance(ActorPosition startPosition) {
+        if (Jahrva.instance == null) {
+            Jahrva.instance = new Jahrva(startPosition);
+        }
+        return Jahrva.instance;
+    }
 }

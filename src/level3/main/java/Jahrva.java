@@ -11,17 +11,8 @@ public final class Jahrva extends Charakter {
         super(FigurTyp.Jahrva, startPosition);
     }
 
-    /**
-     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
-     *
-     * @return Jahrva
-     */
-
-    protected static Jahrva erzeugeInstance(ActorPosition startPosition) {
-        if (Jahrva.instance == null) {
-            Jahrva.instance = new Jahrva(startPosition);
-        }
-        return Jahrva.instance;
+    @Override
+    public void act() {
     }
 
     public void dreheNachWesten() {
@@ -67,11 +58,6 @@ public final class Jahrva extends Charakter {
     }
 
     @Override
-    public void act() {
-        super.act();
-    }
-
-    @Override
     public void laufen() {
         super.laufen();
     }
@@ -84,6 +70,19 @@ public final class Jahrva extends Charakter {
     @Override
     public void nachRechtsDrehen() {
         super.nachRechtsDrehen();
+    }
+
+    /**
+     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
+     *
+     * @return Jahrva
+     */
+
+    protected static Jahrva erzeugeInstance(ActorPosition startPosition) {
+        if (Jahrva.instance == null) {
+            Jahrva.instance = new Jahrva(startPosition);
+        }
+        return Jahrva.instance;
     }
 
 
