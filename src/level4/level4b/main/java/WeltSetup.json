@@ -17,17 +17,37 @@
       "y": 2
     },
     {
-      "actor": "Stein",
-      "x": 3,
+      "actor": "Steinillusion",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "actor": "Steinillusion",
+      "x": 2,
       "y": 0
     },
     {
       "actor": "Stein",
-      "x": 3,
+      "x": 4,
+      "y": 0
+    },
+    {
+      "actor": "Steinillusion",
+      "x": 6,
+      "y": 0
+    },
+    {
+      "actor": "Stein",
+      "x": 1,
       "y": 1
     },
     {
       "actor": "Stein",
+      "x": 4,
+      "y": 1
+    },
+    {
+      "actor": "Steinillusion",
       "x": 5,
       "y": 1
     },
@@ -37,13 +57,23 @@
       "y": 1
     },
     {
-      "actor": "Stein",
+      "actor": "Steinillusion",
       "x": 7,
       "y": 1
     },
     {
       "actor": "Stein",
+      "x": 1,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
       "x": 2,
+      "y": 2
+    },
+    {
+      "actor": "Stein",
+      "x": 3,
       "y": 2
     },
     {
@@ -63,6 +93,16 @@
     },
     {
       "actor": "Stein",
+      "x": 3,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
+      "x": 4,
+      "y": 3
+    },
+    {
+      "actor": "Stein",
       "x": 5,
       "y": 3
     },
@@ -78,13 +118,18 @@
     },
     {
       "actor": "Stein",
-      "x": 0,
+      "x": 3,
       "y": 4
     },
     {
       "actor": "Stein",
       "x": 4,
       "y": 4
+    },
+    {
+      "actor": "Lichtwesen",
+      "x": 1,
+      "y": 2
     }
   ],
   "isDark": true,

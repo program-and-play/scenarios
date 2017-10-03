@@ -5,7 +5,7 @@ import util.ActorPosition;
 import java.util.ArrayList;
 
 
-public final class Stein extends Figur implements Charakter.Aktioner{
+public class Stein extends Figur implements Charakter.Aktioner {
 
     ArrayList<GreenfootImage> zerbechenBild;
     int i;

@@ -117,13 +117,15 @@ public class Factory {
                 case "Stein":
                     tmp = new Stein(actorPosition);
                     break;
+                case "Steinillusion":
+                    tmp = new Steinillusion(actorPosition);
+                    break;
                 case "Lichtwesen":
                     tmp = new Lichtwesen(actorPosition);
                     break;
                 case "Scalen":
                     tmp = Scalen.erzeugeInstance(actorPosition);
                     break;
-
             }
 
             if (tmp != null)

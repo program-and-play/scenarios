@@ -54,7 +54,8 @@ task copyLevel2(type: Copy){
                 'Scalen.java',
                 'TascheMitBegrenztemZugriff.java',
                 'Rune.java',
-                'Jahrva.java'
+                'Jahrva.java',
+                'Steinillusion.java'
     }
     into 'build/target/level2'
 
@@ -76,7 +77,8 @@ task copyLevel3(type: Copy){
                 'TascheMitBegrenztemZugriff.java',
                 'Rune.java',
                 'Lichtwesen.java',
-                'Jahrva.java'
+                'Jahrva.java',
+                'Steinillusion.java'
 
     }
     into 'build/target/level3'
@@ -91,7 +93,14 @@ task copyLevel3(type: Copy){
 
 task copyLevel4a(type: Copy){
     from('src/base/main/java') {
-        exclude 'Factory.java'
+        exclude 'Amulett.java',
+                'Geysir.java',
+                'Factory.java',
+                'Schluessel.java',
+                'Tasche.java',
+                'TascheMitBegrenztemZugriff.java',
+                'Rune.java',
+                'Jahrva.java'
     }
     into 'build/target/level4/level4a'
 
@@ -105,7 +114,14 @@ task copyLevel4a(type: Copy){
 
 task copyLevel4b(type: Copy){
     from('src/base/main/java') {
-        exclude 'Factory.java'
+        exclude 'Amulett.java',
+                'Geysir.java',
+                'Factory.java',
+                'Schluessel.java',
+                'Tasche.java',
+                'TascheMitBegrenztemZugriff.java',
+                'Rune.java',
+                'Jahrva.java'
     }
     into 'build/target/level4/level4b'
 
