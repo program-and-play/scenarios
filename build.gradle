@@ -90,45 +90,31 @@ task copyLevel3(type: Copy){
 
 }
 
-task copyLevel4(type: Copy){
+task copyLevel4a(type: Copy){
     from('src/main/java/base') {
         exclude 'Factory.java'
     }
-    into 'build/target/level4'
+    into 'build/target/level4/level4a'
 
-    from 'src/main/java/level4'
-    into 'build/target/level4'
+    from 'src/main/java/level4/level4a'
+    into 'build/target/level4/level4a'
 
     from 'src/main/resources'
-    into 'build/target/level4'
+    into 'build/target/level4/level4a'
 
 }
 
-task copyLevel5a(type: Copy){
+task copyLevel4b(type: Copy){
     from('src/main/java/base') {
         exclude 'Factory.java'
     }
-    into 'build/target/level5/level5a'
+    into 'build/target/level4/level4b'
 
-    from 'src/main/java/level5/level5a'
-    into 'build/target/level5/level5a'
-
-    from 'src/main/resources'
-    into 'build/target/level5/level5a'
-
-}
-
-task copyLevel5b(type: Copy){
-    from('src/main/java/base') {
-        exclude 'Factory.java'
-    }
-    into 'build/target/level5/level5b'
-
-    from 'src/main/java/level5/level5b'
-    into 'build/target/level5/level5b'
+    from 'src/main/java/level4/level4b'
+    into 'build/target/level4/level4b'
 
     from 'src/main/resources'
-    into 'build/target/level5/level5b'
+    into 'build/target/level4/level4b'
 
 }
 
@@ -170,19 +156,14 @@ task executeLevel3(dependsOn: ':buildAll',type: Exec) {
     args "-a", "/Applications/Greenfoot.app", "build/target/level3/project.greenfoot"
 }
 
-task executeLevel4(dependsOn: ':buildAll', type: Exec) {
+task executeLevel4a(dependsOn: ':buildAll', type: Exec) {
     executable "open"
-    args "-a", "/Applications/Greenfoot.app", "build/target/level4/project.greenfoot"
+    args "-a", "/Applications/Greenfoot.app", "build/target/level4/level4a/project.greenfoot"
 }
 
-task executeLevel5a(dependsOn: ':buildAll', type: Exec) {
+task executeLevel4b(dependsOn: ':buildAll', type: Exec) {
     executable "open"
-    args "-a", "/Applications/Greenfoot.app", "build/target/level5/level5a/project.greenfoot"
-}
-
-task executeLevel5b(dependsOn: ':buildAll', type: Exec) {
-    executable "open"
-    args "-a", "/Applications/Greenfoot.app", "build/target/level5/level5b/project.greenfoot"
+    args "-a", "/Applications/Greenfoot.app", "build/target/level4/level4b/project.greenfoot"
 }
 
 task executeLevel6(dependsOn: ':buildAll', type: Exec) {
