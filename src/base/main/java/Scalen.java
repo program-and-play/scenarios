@@ -10,6 +10,7 @@ import java.util.HashMap;
  */
 
 public class Scalen extends Charakter {
+
     private static Scalen instance;
     private int zerstoerteSteine;
     private int maxZerstoerteSteine;
@@ -81,5 +82,9 @@ public class Scalen extends Charakter {
         setImageContainer(speicherStandartContainer);
         setImagePointer(pointer);
         getWorld().removeObject(foo);
+    }
+
+    public static Scalen getInstance() {
+        return instance;
     }
 }

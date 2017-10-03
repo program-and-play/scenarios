@@ -1,3 +1,4 @@
+import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 import util.ActorPosition;
@@ -82,6 +83,49 @@ public final class Jahrva extends Charakter {
 
         spielfeld.objektHinzufuegen(tmp, x, y);
         tmp.animiere();
+    }
+
+    private Scalen rufeScalen() {
+        Scalen scalen = Scalen.getInstance();
+        if (scalen != null) {
+            return scalen;
+        }
+        ActorPosition actorPosition = findeFreiePosition();
+        if (actorPosition == null) {
+            return null;
+        }
+
+        scalen = Scalen.erzeugeInstance(actorPosition);
+        getWorld().erhalteSpielfeld().objektHinzufuegen(scalen, actorPosition.getX(), actorPosition.getY());
+        return scalen;
+    }
+
+    private ActorPosition findeFreiePosition() {
+        ActorPosition actorPosition = new ActorPosition();
+        int x = getX();
+        int y = getY();
+        Spielfeld spielfeld = getWorld().erhalteSpielfeld();
+        if (spielfeld.gibObjekteAuf(x, y + 1, Actor.class).isEmpty()) {
+            y = y + 1;
+        } else {
+            loop:
+            for (int i = -1; i < 2; i++) {
+                innerLoop:
+                for (int j = -1; j < 2; j++) {
+                    if (!(Factory.getSetup().getHeight() < y + j || Factory.getSetup().getWidth() < x + i || x + i < 0 || y + j < 0) && spielfeld.gibObjekteAuf(x + i, y + j, Actor.class).isEmpty()) {
+                        x = x + i;
+                        y = y + j;
+                        break loop;
+                    } else if (i == 1 && j == 1) {
+                        return null;
+                    }
+                }
+            }
+        }
+        actorPosition.setX(x);
+        actorPosition.setY(y);
+
+        return actorPosition;
     }
 
 }
