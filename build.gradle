@@ -52,7 +52,7 @@ task copyLevel2(type: Copy){
                 'Schluessel.java',
                 'Stein.java',
                 'Tasche.java',
-                'Steinbeisser.java',
+                'Scalen.java',
                 'TascheMitBegrenztemZugriff.java',
                 'Rune.java',
                 'Jahrva.java'
@@ -73,7 +73,7 @@ task copyLevel3(type: Copy){
                 'Schluessel.java',
                 'Stein.java',
                 'Tasche.java',
-                'Steinbeisser.java',
+                'Scalen.java',
                 'TascheMitBegrenztemZugriff.java',
                 'Rune.java',
                 'Lichtwesen.java',
@@ -213,8 +213,6 @@ repositories {
 
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:21.0'
 
     compile 'com.google.code.gson:gson:2.8.1'
 

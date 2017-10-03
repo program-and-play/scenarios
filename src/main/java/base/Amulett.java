@@ -1,4 +1,3 @@
-import greenfoot.World;
 import util.Spielfeld;
 import util.WeltSetup;
 
@@ -25,17 +24,17 @@ public final class Amulett {
     }
 
     /**
-     * Erzeugt ein Steinbeisser auf dem Spielfeld
+     * Erzeugt ein Scalen auf dem Spielfeld
      *
-     * @return Steinbeisser
+     * @return Scalen
      */
 
-    public Steinbeisser rufeSteinbeisser() {
+    public Scalen rufeSteinbeisser() {
         WeltSetup.ActorPosition actorPosition = new WeltSetup.ActorPosition();
-        actorPosition.setActor("Steinbeisser");
+        actorPosition.setActor("Scalen");
         actorPosition.setX(0);
         actorPosition.setY(0);
-        Steinbeisser beisser = Steinbeisser.erzeugeInstance(actorPosition);
+        Scalen beisser = Scalen.erzeugeInstance(actorPosition);
         welt.objektHinzufuegen(beisser,0,0);
         return beisser;
     }

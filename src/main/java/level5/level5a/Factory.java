@@ -16,7 +16,7 @@ public class Factory {
     public static final Class<?>[] PAINT_ORDER = {
             Lichtwesen.class,
             Jahrva.class,
-            Steinbeisser.class,
+            Scalen.class,
             Stein.class};
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
     private static final Animator animator = Animator.getInstance();
@@ -120,8 +120,8 @@ public class Factory {
                 case "Lichtwesen":
                     tmp = new Lichtwesen(actorPosition);
                     break;
-                case "Steinbeisser":
-                    tmp = Steinbeisser.erzeugeInstance(actorPosition);
+                case "Scalen":
+                    tmp = Scalen.erzeugeInstance(actorPosition);
                     break;
 
             }

@@ -5,36 +5,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Der Steinbeisser ist der Sidekick von Jahrva. Er ist ein hilfreicher Begleiter, mit coolen Faehigkeiten.
+ * Der Scalen ist der Sidekick von Jahrva. Er ist ein hilfreicher Begleiter, mit coolen Faehigkeiten.
  *
  */
 
-public class Steinbeisser extends Charakter {
-    private static Steinbeisser instance;
+public class Scalen extends Charakter {
+    private static Scalen instance;
     private int zerstoerteSteine;
     private int maxZerstoerteSteine;
     
-    private Steinbeisser(WeltSetup.ActorPosition startPosition) {
+    private Scalen(WeltSetup.ActorPosition startPosition) {
         super(FigurTyp.Steinbeisser, startPosition);
         zerstoerteSteine = 0;
         maxZerstoerteSteine = 3;
     }
 
     /**
-     * Erzeugt eine Instance vom Steinbeisser, existiert schon ein Steinbeisser, wird dieser zurueck gegeben.
+     * Erzeugt eine Instance vom Scalen, existiert schon ein Scalen, wird dieser zurueck gegeben.
      *
-     * @return Steinbeisser
+     * @return Scalen
      */
 
-    public static Steinbeisser erzeugeInstance(WeltSetup.ActorPosition startPosition) {
-        if (Steinbeisser.instance == null) {
-            Steinbeisser.instance = new Steinbeisser(startPosition);
+    public static Scalen erzeugeInstance(WeltSetup.ActorPosition startPosition) {
+        if (Scalen.instance == null) {
+            Scalen.instance = new Scalen(startPosition);
         }
-        return Steinbeisser.instance;
+        return Scalen.instance;
     }
 
     /**
-     * Zerbeisst einen Stein direkt vor dem Steinbeisser, wenn dort einer Liegt.
+     * Zerbeisst einen Stein direkt vor dem Scalen, wenn dort einer Liegt.
      */
 
     public void zerbeisseStein() {
@@ -57,15 +57,15 @@ public class Steinbeisser extends Charakter {
                 break;
         }
         if (istWeltzuEnde()) {
-            showWarning("", "Die Welt ist zu Ende, der Steinbeisser kann keinen Stein ausserhalb der Welt zerbeissen!");
+            showWarning("", "Die Welt ist zu Ende, der Scalen kann keinen Stein ausserhalb der Welt zerbeissen!");
             return;
         }
         if (foo == null) {
-            showWarning("", "Vor dem Steinbeisser befindet sich nicht ein Stein!");
+            showWarning("", "Vor dem Scalen befindet sich nicht ein Stein!");
             return;
         }
         if(++zerstoerteSteine > maxZerstoerteSteine){
-            showWarning("", "Der Steinbeisser kann maximal " + maxZerstoerteSteine + " Steine zerstoeren!");
+            showWarning("", "Der Scalen kann maximal " + maxZerstoerteSteine + " Steine zerstoeren!");
             return;
         }
         final String KOERPER_FILE = "steinbeisser animation_neu.png";

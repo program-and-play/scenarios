@@ -18,25 +18,50 @@
     },
     {
       "actor": "Geysir",
-      "x": 1,
+      "x": 2,
       "y": 0
     },    {
       "actor": "Geysir",
       "x": 3,
-      "y": 4
+      "y": 1
     },    {
+      "actor": "Geysir",
+      "x": 6,
+      "y": 1
+    },    {
+      "actor": "Geysir",
+      "x": 0,
+      "y": 2
+    },
+    {
       "actor": "Geysir",
       "x": 3,
       "y": 2
-    },    {
+    },
+    {
+      "actor": "Geysir",
+      "x": 6,
+      "y": 2
+    },
+    {
+      "actor": "Geysir",
+      "x": 1,
+      "y": 3
+    },
+    {
+      "actor": "Geysir",
+      "x": 6,
+      "y": 3
+    },
+    {
       "actor": "Geysir",
       "x": 2,
       "y": 4
     },
     {
       "actor": "Geysir",
-      "x": 2,
-      "y": 1
+      "x": 5,
+      "y": 4
     }
   ],
   "isDark": false,
