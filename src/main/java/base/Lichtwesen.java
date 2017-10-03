@@ -1,8 +1,8 @@
 
 import greenfoot.*;
 import interfaces.*;
+import util.ActorPosition;
 import util.LichtwesenFarbe;
-import util.WeltSetup;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public final class Lichtwesen extends Figur implements LichtwesenInterface {
     LichtwesenFarbe farbe = BLAU;
     ArrayList<GreenfootImage> bewegung = loadImageForAnimation(new GreenfootImage("lichtwesen_beschwoeren.png"), 6);
 
-    public Lichtwesen(WeltSetup.ActorPosition startPosition) {
+    public Lichtwesen(ActorPosition startPosition) {
         super(startPosition);
         aktualisiereBild();
     }

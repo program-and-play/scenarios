@@ -1,4 +1,4 @@
-import util.WeltSetup;
+import util.ActorPosition;
 
 /**
  *
@@ -11,7 +11,7 @@ public final class Rune extends Figur {
      *
      * @param typ
      */
-    public Rune(RunenTyp typ, WeltSetup.ActorPosition startPosition) {
+    public Rune(RunenTyp typ, ActorPosition startPosition) {
         super(FigurTyp.Rune, startPosition);
         this.typ = typ;
     }

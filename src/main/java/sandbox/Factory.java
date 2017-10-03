@@ -114,7 +114,7 @@ public class Factory {
     }
 
     public static void initActorsFromWorldSetup(WeltSetup setup, Spielfeld playground) {
-        for (WeltSetup.ActorPosition actorPosition : setup.getActors()) {
+        for (ActorPosition actorPosition : setup.getActors()) {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
                 case "Jahrva":

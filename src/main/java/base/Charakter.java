@@ -1,8 +1,10 @@
 
 import greenfoot.*;
+import util.ActorPosition;
 import util.WeltSetup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class Charakter extends Figur {
     }
 
 
-    protected Charakter(FigurTyp typ, WeltSetup.ActorPosition startPosition) {
+    protected Charakter(FigurTyp typ, ActorPosition startPosition) {
         super(createImage(typ.path), 4, 4, startPosition);
         this.typ = typ;
     }

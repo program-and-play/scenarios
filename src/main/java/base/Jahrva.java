@@ -1,4 +1,4 @@
-import util.WeltSetup;
+import util.ActorPosition;
 
 /**
  * Jahrva ist der Hauptcharacter dieses kleines Spiels.
@@ -9,7 +9,7 @@ public final class Jahrva extends Charakter {
     private static Jahrva instance;
 
     
-    private Jahrva(WeltSetup.ActorPosition actorPosition) {
+    private Jahrva(ActorPosition actorPosition) {
         super(FigurTyp.Jahrva,actorPosition);
     }
 
@@ -19,7 +19,7 @@ public final class Jahrva extends Charakter {
      * @param actorPosition
      */
 
-    protected static Jahrva erzeugeInstance(WeltSetup.ActorPosition actorPosition) {
+    protected static Jahrva erzeugeInstance(ActorPosition actorPosition) {
         if (Jahrva.instance == null) {
             Jahrva.instance = new Jahrva(actorPosition);
         }

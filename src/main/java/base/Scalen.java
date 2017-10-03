@@ -1,5 +1,5 @@
 import greenfoot.*;
-import util.WeltSetup;
+import util.ActorPosition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class Scalen extends Charakter {
     private int zerstoerteSteine;
     private int maxZerstoerteSteine;
     
-    private Scalen(WeltSetup.ActorPosition startPosition) {
+    private Scalen(ActorPosition startPosition) {
         super(FigurTyp.Steinbeisser, startPosition);
         zerstoerteSteine = 0;
         maxZerstoerteSteine = 3;
@@ -26,7 +26,7 @@ public class Scalen extends Charakter {
      * @return Scalen
      */
 
-    public static Scalen erzeugeInstance(WeltSetup.ActorPosition startPosition) {
+    public static Scalen erzeugeInstance(ActorPosition startPosition) {
         if (Scalen.instance == null) {
             Scalen.instance = new Scalen(startPosition);
         }

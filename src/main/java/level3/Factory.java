@@ -1,7 +1,6 @@
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import interfaces.Animation;
-import interfaces.LichtwesenInterface;
 import util.*;
 
 import javax.swing.*;
@@ -53,26 +52,40 @@ public class Factory {
         animator.removeAnimation(animation);
     }
 
-    protected static void laufen(Charakter ch) {
-        Geysir geysir = (Geysir) ch.getObjectInFront(ch.getCurrentDirection(), 1, Geysir.class);
+    protected static void laufen(Charakter charakter) {
+        Geysir geysir = (Geysir) charakter.getObjectInFront(charakter.getCurrentDirection(), 1, Geysir.class);
         // Check for a geysir
 
 
        
-            ch.moveActors(ch.getCurrentDirection(), ch);
+            charakter.moveActors(charakter.getCurrentDirection(), charakter);
         if (geysir != null) {
-            ch.verbrennen();
-    
-            Spielfeld spielfeld = leereWelt.erhalteSpielfeld();
-            List<Actor> actors = spielfeld.getAllActors();
-            for(Actor a :actors){
-                WeltSetup.ActorPosition position = ((Figur) a).getActorPosition();
-                spielfeld.objektEntfernen(a);
-                spielfeld.objektHinzufuegen(a, position.getX(), position.getY());
-            }
+            charakter.verbrennen();
+
+            resetWorld();
+        }
+
+        if(stehtCharakterAufDemZiel(charakter)){
+            //TODO animation, not verbrennen but gewinneMove
+            charakter.verbrennen();
+            resetWorld();
         }
         
         
+    }
+
+    private static boolean stehtCharakterAufDemZiel(Charakter charakter){
+        return Factory.getSetup().getZielPositions().stream().filter(e-> e.getX() == charakter.getX() && e.getY() == charakter.getY() ).findFirst().isPresent();
+    }
+
+    private static void resetWorld() {
+        Spielfeld spielfeld = leereWelt.erhalteSpielfeld();
+        List<Actor> actors = spielfeld.getAllActors();
+        for(Actor a :actors){
+            ActorPosition position = ((Figur) a).getActorPosition();
+            spielfeld.objektEntfernen(a);
+            spielfeld.objektHinzufuegen(a, position.getX(), position.getY());
+        }
     }
 
     public static void addObject(Actor object, int x, int y, LeereWelt welt) {
@@ -105,7 +118,7 @@ public class Factory {
     }
 
     public static void initActorsFromWorldSetup(WeltSetup setup, Spielfeld playground) {
-        for (WeltSetup.ActorPosition actorPosition : setup.getActors()) {
+        for (ActorPosition actorPosition : setup.getActors()) {
             Actor tmp = null;
             switch (actorPosition.getActor()) {
                 case "Jahrva":

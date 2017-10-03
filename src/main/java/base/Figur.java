@@ -1,6 +1,6 @@
 import greenfoot.*;
+import util.ActorPosition;
 import util.DialogUtils;
-import util.WeltSetup;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,23 +17,23 @@ class Figur extends Actor {
     
     private HashMap<Direction, ArrayList<GreenfootImage>> imageContainer;
     
-    private WeltSetup.ActorPosition startPosition;
+    private ActorPosition startPosition;
     
-    protected Figur(FigurTyp figur, WeltSetup.ActorPosition startPosition) {
+    protected Figur(FigurTyp figur, ActorPosition startPosition) {
         this(createImage(figur.path),startPosition);
     }
     
-    protected Figur(GreenfootImage image, WeltSetup.ActorPosition startPosition) {
+    protected Figur(GreenfootImage image, ActorPosition startPosition) {
         this(image, 1, 1,startPosition);
     }
     
-    protected Figur(GreenfootImage image, int sceneX, int sceneY, WeltSetup.ActorPosition startPosition) {
+    protected Figur(GreenfootImage image, int sceneX, int sceneY, ActorPosition startPosition) {
         imageContainer = loadImage(image, sceneX, sceneY);
         resetImage();
         this.startPosition = startPosition;
     }
     
-    protected Figur(WeltSetup.ActorPosition startPosition) {
+    protected Figur(ActorPosition startPosition) {
         imageContainer = loadImage(getImage(), 1, 1);
         resetImage();
         this.startPosition = startPosition;
@@ -212,7 +212,7 @@ class Figur extends Actor {
         setImage(imageContainer.get(currentDirection).get(0));
     }
     
-    public WeltSetup.ActorPosition getActorPosition() {
+    public ActorPosition getActorPosition() {
         return startPosition;
     }
     

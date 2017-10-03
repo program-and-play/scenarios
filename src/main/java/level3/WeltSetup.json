@@ -70,5 +70,6 @@
   "offsetXToEnd": 1,
   "offsetYToEnd": 1,
   "levelScreen": "rahmen_lv2.png",
-  "mute": true
+  "mute": true,
+  "zielPositions": [{"x":7,"y":4}]
 }

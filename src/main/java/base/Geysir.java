@@ -1,9 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import interfaces.*;
-import util.WeltSetup;
+import util.ActorPosition;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 
 public final class Geysir extends Figur implements Animation {
@@ -12,7 +11,7 @@ public final class Geysir extends Figur implements Animation {
     private int index = 0;
     
     
-    public Geysir(WeltSetup.ActorPosition startPosition) {
+    public Geysir(ActorPosition startPosition) {
         super(FigurTyp.Gysir, startPosition);
         animation = loadImage(new GreenfootImage("geysir_animation.png"), 2, 1);
         

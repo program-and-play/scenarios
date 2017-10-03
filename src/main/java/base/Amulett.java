@@ -1,5 +1,5 @@
+import util.ActorPosition;
 import util.Spielfeld;
-import util.WeltSetup;
 
 public final class Amulett {
     private static Amulett instance;
@@ -30,7 +30,7 @@ public final class Amulett {
      */
 
     public Scalen rufeSteinbeisser() {
-        WeltSetup.ActorPosition actorPosition = new WeltSetup.ActorPosition();
+        ActorPosition actorPosition = new ActorPosition();
         actorPosition.setActor("Scalen");
         actorPosition.setX(0);
         actorPosition.setY(0);

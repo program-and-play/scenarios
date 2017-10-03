@@ -1,6 +1,6 @@
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
-import util.WeltSetup;
+import util.ActorPosition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.Random;
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
     
-    private Jahrva(WeltSetup.ActorPosition startPosition) {
+    private Jahrva(ActorPosition startPosition) {
         super(FigurTyp.Jahrva, startPosition);
     }
 
@@ -23,7 +23,7 @@ public final class Jahrva extends Charakter {
      * @return Jahrva
      */
 
-    protected static Jahrva erzeugeInstance (WeltSetup.ActorPosition startPosition) {
+    protected static Jahrva erzeugeInstance (ActorPosition startPosition) {
         if (Jahrva.instance == null) {
             Jahrva.instance = new Jahrva(startPosition);
         }
@@ -74,7 +74,7 @@ public final class Jahrva extends Charakter {
             Greenfoot.delay(2);
         }
         resetImage();
-        WeltSetup.ActorPosition actorPosition = new WeltSetup.ActorPosition();
+        ActorPosition actorPosition = new ActorPosition();
         actorPosition.setActor("Lichtwesen");
         actorPosition.setX(x);
         actorPosition.setY(y);
