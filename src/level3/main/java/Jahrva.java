@@ -13,8 +13,76 @@ public final class Jahrva extends Charakter {
 
     @Override
     public void act() {
+        //sequenz();
+        //einParameter();
+        zweiParameter();
+    }
+    private void sequenz(){
+        laufen();
+
+        nachRechtsDrehen();
+        laufen();
+        laufen();
+
+        nachLinksDrehen();
+        laufen();
+
+        nachRechtsDrehen();
+        laufen();
+
+        nachLinksDrehen();
+        laufen();
+        laufen();
+        laufen();
+
+        nachLinksDrehen();
+        laufen();
+        laufen();
+        laufen();
+
+        nachRechtsDrehen();
+        laufen();
+        laufen();
+
+        nachRechtsDrehen();
+        laufen();
+        laufen();
+        laufen();
+        laufen();
+
+    }
+    private void einParameter(){
+        geheSchritte(1);
+
+        nachRechtsDrehen();
+        geheSchritte(2);
+
+        nachLinksDrehen();
+        geheSchritte(1);
+
+        nachRechtsDrehen();
+        geheSchritte(1);
+
+        nachLinksDrehen();
+        geheSchritte(3);
+
+        nachLinksDrehen();
+        geheSchritte(3);
+
+        nachRechtsDrehen();
+        geheSchritte(2);
+
+        nachRechtsDrehen();
+        geheSchritte(4);
+    }
+    private void zweiParameter(){
+        geheUmXY(1,-2);
+        geheUmXY(1,-1);
+        geheUmXY(3,3);
+        geheUmXY(2,-4);
     }
 
+    /*
     public void dreheNachWesten() {
         if (blickrichtung().istNorden()) {
             nachLinksDrehen();
@@ -56,6 +124,7 @@ public final class Jahrva extends Charakter {
             }
         }
     }
+    */
 
     @Override
     public void laufen() {

@@ -67,7 +67,9 @@ public class Factory {
 
         if(stehtCharakterAufDemZiel(charakter)){
             //TODO animation, not verbrennen but gewinneMove
-            charakter.verbrennen();
+
+            DialogUtils.showMessageDialogEdt(null, "Du bist am Ende des Levels angekommen! Damit hast du es geschafft!", "Information", JOptionPane.INFORMATION_MESSAGE);
+//            charakter.verbrennen();
             resetWorld();
         }
         
