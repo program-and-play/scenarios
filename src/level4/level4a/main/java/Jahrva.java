@@ -13,13 +13,14 @@ import java.util.HashMap;
 
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
-
+    private Stein stein;
     private Jahrva(ActorPosition startPosition) {
         super(FigurTyp.Jahrva, startPosition);
     }
 
     @Override
     public void act() {
+
     }
 
     @Override
@@ -83,6 +84,23 @@ public final class Jahrva extends Charakter {
 
         spielfeld.objektHinzufuegen(tmp, x, y);
         tmp.animiere();
+    }
+
+    private void steinMagischAufheben(int x, int y) {
+        Spielfeld spielFeld = getWorld().erhalteSpielfeld();
+        Actor actor =  spielFeld.gibObjektAuf(x,y, Stein.class);
+        if (actor==null)
+            return;
+        stein = (Stein) actor;
+        spielFeld.entferneObjekteAuf(x, y, Stein.class);
+    }
+
+    private void steinMagischAblegen(int x, int y) {
+        if (stein != null) {
+            Spielfeld spielFeld = getWorld().erhalteSpielfeld();
+            spielFeld.objektHinzufuegen(stein, x, y);
+        }
+        stein = null;
     }
 
     private Scalen rufeScalen() {
