@@ -15,45 +15,16 @@ public final class Jahrva extends Charakter {
     public void act() {
     }
 
-    public void dreheNachWesten() {
-        if (blickrichtung().istNorden()) {
-            nachLinksDrehen();
-        }
-        if (blickrichtung().istSueden()) {
+    public void dreheNachOsten(){
+        if(blickrichtung().istNorden()){
             nachRechtsDrehen();
         }
-        if (blickrichtung().istOsten()) {
-            for (int i = 0; i < 2; i++) {
-                nachLinksDrehen();
-            }
-        }
-    }
-
-    public void dreheNachSueden() {
-        if (blickrichtung().istWesten()) {
+        if(blickrichtung().istSueden()){
             nachLinksDrehen();
         }
-        if (blickrichtung().istOsten()) {
+        if(blickrichtung().istWesten()){
             nachRechtsDrehen();
-        }
-        if (blickrichtung().istNorden()) {
-            for (int i = 0; i < 2; i++) {
-                nachLinksDrehen();
-            }
-        }
-    }
-
-    public void dreheNachNorden() {
-        if (blickrichtung().istOsten()) {
-            nachLinksDrehen();
-        }
-        if (blickrichtung().istWesten()) {
             nachRechtsDrehen();
-        }
-        if (blickrichtung().istSueden()) {
-            for (int i = 0; i < 2; i++) {
-                nachLinksDrehen();
-            }
         }
     }
 
@@ -84,6 +55,7 @@ public final class Jahrva extends Charakter {
         }
         return Jahrva.instance;
     }
+
 
 
 }

@@ -127,5 +127,106 @@ public final class Jahrva extends Charakter {
 
         return actorPosition;
     }
+    public void geheUmYX(int xSchritte, int ySchritte){
+        if(ySchritte<0){
+            dreheNachSueden();
+            geheSchritte(-ySchritte);
+        }
+        if(ySchritte>0){
+            dreheNachNorden();
+            geheSchritte(ySchritte);
+        }
+        if(xSchritte<0){
+            dreheNachWesten();
+            geheSchritte(-xSchritte);
+        }
+        if(xSchritte>0){
+            dreheNachOsten();
+            geheSchritte(xSchritte);
+        }
+
+    }
+    /**
+     * Geht zuerst x-Schritte nach Osten oder Westen und dann y-Schritte nach Norden oder Sueden
+     * @param xSchritte
+     * @param ySchritte
+     */
+    public void geheUmXY(int xSchritte, int ySchritte){
+        if(xSchritte<0){
+            dreheNachWesten();
+            geheSchritte(-xSchritte);
+        }
+        if(xSchritte>0){
+            dreheNachOsten();
+            geheSchritte(xSchritte);
+        }
+
+        if(ySchritte<0){
+            dreheNachSueden();
+            geheSchritte(-ySchritte);
+        }
+        if(ySchritte>0){
+            dreheNachNorden();
+            geheSchritte(ySchritte);
+        }
+    }
+    public void geheSchritte(int anzahl){
+        for(int zaehler=1;zaehler<=anzahl;zaehler++){
+            laufen();
+        }
+    }
+    public void dreheNachWesten() {
+        if (blickrichtung().istNorden()) {
+            nachLinksDrehen();
+        }
+        if (blickrichtung().istSueden()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istOsten()) {
+            for (int i = 0; i < 2; i++) {
+                nachLinksDrehen();
+            }
+        }
+    }
+
+    public void dreheNachSueden() {
+        if (blickrichtung().istWesten()) {
+            nachLinksDrehen();
+        }
+        if (blickrichtung().istOsten()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istNorden()) {
+            for (int i = 0; i < 2; i++) {
+                nachLinksDrehen();
+            }
+        }
+    }
+
+    public void dreheNachNorden() {
+        if (blickrichtung().istOsten()) {
+            nachLinksDrehen();
+        }
+        if (blickrichtung().istWesten()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istSueden()) {
+            for (int i = 0; i < 2; i++) {
+                nachLinksDrehen();
+            }
+        }
+    }
+    public void dreheNachOsten(){
+        if(blickrichtung().istNorden()){
+            nachRechtsDrehen();
+        }
+        if(blickrichtung().istSueden()){
+            nachLinksDrehen();
+        }
+        if(blickrichtung().istWesten()){
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+    }
 
 }
