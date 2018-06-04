@@ -1,6 +1,7 @@
 
 import greenfoot.*;
 import util.ActorPosition;
+import util.Spielfeld;
 import util.WeltSetup;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class Charakter extends Figur {
             characterDidntMoveWarning("Der Charackter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
             return;
         }
-
         laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
         Factory.laufen(this);
         Greenfoot.delay(1);
@@ -29,15 +29,20 @@ public class Charakter extends Figur {
     }
 
     private boolean stoneInFront() {
-        return getObjectInFront(getCurrentDirection(),1, Stein.class).equals(null);
+        return getObjectInFront(getCurrentDirection(), 1, Stein.class) != (null);
     }
 
     private void characterDidntMoveWarning(String message) {
-        if (!(laufenInfo[0].equals(getX()) && laufenInfo[1].equals(getY()) && laufenInfo[2].equals(getCurrentDirection()))) {
+        try {
+            if (!(laufenInfo[0].equals(getX()) && laufenInfo[1].equals(getY()) && laufenInfo[2].equals(getCurrentDirection()))) {
+                showWarning("", message //Optional fuer den englischen Text.
+                );
+            }
+        } catch (NullPointerException ex) {
             showWarning("", message //Optional fuer den englischen Text.
             );
-            laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
         }
+        laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
     }
 
     /**
