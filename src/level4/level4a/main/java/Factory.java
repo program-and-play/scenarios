@@ -53,17 +53,9 @@ public class Factory {
     }
 
     protected static void laufen(Charakter charakter) {
-        Geysir geysir = (Geysir) charakter.getObjectInFront(charakter.getCurrentDirection(), 1, Geysir.class);
-        // Check for a geysir
-
 
        
             charakter.moveActors(charakter.getCurrentDirection(), charakter);
-        if (geysir != null) {
-            charakter.verbrennen();
-
-            resetWorld();
-        }
 
         if(stehtCharakterAufDemZiel(charakter)){
             //TODO animation, not verbrennen but gewinneMove
@@ -148,8 +140,17 @@ public class Factory {
                 case "Jahrva":
                     tmp = Jahrva.erzeugeInstance(actorPosition);
                     break;
-                case "Geysir":
-                    tmp = new Geysir(actorPosition);
+                case "Stein":
+                    tmp = new Stein(actorPosition);
+                    break;
+                case "Steinillusion":
+                    tmp = new Steinillusion(actorPosition);
+                    break;
+                case "Lichtwesen":
+                    tmp = new Lichtwesen(actorPosition);
+                    break;
+                case "Scalen":
+                    tmp = Scalen.erzeugeInstance(actorPosition);
                     break;
 
             }
