@@ -86,13 +86,16 @@ public final class Jahrva extends Charakter {
         tmp.animiere();
     }
 
-    private void steinMagischAufheben(int x, int y) {
+    private Stein steinMagischAufheben(int x, int y) {
         Spielfeld spielFeld = getWorld().erhalteSpielfeld();
         Actor actor =  spielFeld.gibObjektAuf(x,y, Stein.class);
-        if (actor==null)
-            return;
+        if (actor==null) {
+            showWarning("", "Da liegt kein Stein!");
+            return null;
+        }
         stein = (Stein) actor;
         spielFeld.entferneObjekteAuf(x, y, Stein.class);
+        return stein;
     }
 
     private void steinMagischAblegen(int x, int y) {
