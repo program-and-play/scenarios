@@ -14,11 +14,25 @@ public class Scalen extends Charakter {
     private static Scalen instance;
     private int zerstoerteSteine;
     private int maxZerstoerteSteine;
+    private static boolean isPresent=false;
     
     private Scalen(ActorPosition startPosition) {
         super(FigurTyp.Steinbeisser, startPosition);
         zerstoerteSteine = 0;
         maxZerstoerteSteine = 3;
+    }
+
+    public static void resetScalen() {
+        setIsPresent(false);
+        instance=null;
+    }
+
+    public static boolean isPresent() {
+        return isPresent;
+    }
+
+    public static void setIsPresent(boolean isPresent) {
+        Scalen.isPresent = isPresent;
     }
 
     /**
@@ -30,6 +44,7 @@ public class Scalen extends Charakter {
     public static Scalen erzeugeInstance(ActorPosition startPosition) {
         if (Scalen.instance == null) {
             Scalen.instance = new Scalen(startPosition);
+            isPresent = true;
         }
         return Scalen.instance;
     }
@@ -58,15 +73,19 @@ public class Scalen extends Charakter {
                 break;
         }
         if (istWeltzuEnde()) {
-            showWarning("", "Die Welt ist zu Ende, der Scalen kann keinen Stein ausserhalb der Welt zerbeissen!");
+            showWarning("", "Die Welt ist zu Ende, der Scalen kann keinen Stein ausserhalb der Welt zerbeissen!",true);
             return;
         }
         if (foo == null) {
-            showWarning("", "Vor dem Scalen befindet sich nicht ein Stein!");
+            showWarning("", "Vor Scalen befindet sich kein Stein!",true);
+            return;
+        }
+        if (foo.getClass() == Steinillusion.class) {
+            showWarning("", "Scalen beisst ins Leere!Das ist kein echter Stein!",true);
             return;
         }
         if(++zerstoerteSteine > maxZerstoerteSteine){
-            showWarning("", "Der Scalen kann maximal " + maxZerstoerteSteine + " Steine zerstoeren!");
+            showWarning("", "Der Scalen kann maximal " + maxZerstoerteSteine + " Steine zerstoeren!",true);
             return;
         }
         final String KOERPER_FILE = "steinbeisser animation_neu.png";

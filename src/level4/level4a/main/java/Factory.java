@@ -134,6 +134,7 @@ public class Factory {
     }
 
     public static void initActorsFromWorldSetup(WeltSetup setup, Spielfeld playground) {
+        Scalen.resetScalen();
         for (ActorPosition actorPosition : setup.getActors()) {
             Actor tmp = null;
             switch (actorPosition.getActor()) {

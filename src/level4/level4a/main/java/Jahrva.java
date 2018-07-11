@@ -14,6 +14,7 @@ import java.util.HashMap;
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
     private Stein stein;
+
     private Jahrva(ActorPosition startPosition) {
         super(FigurTyp.Jahrva, startPosition);
     }
@@ -88,8 +89,8 @@ public final class Jahrva extends Charakter {
 
     private Stein steinMagischAufheben(int x, int y) {
         Spielfeld spielFeld = getWorld().erhalteSpielfeld();
-        Actor actor =  spielFeld.gibObjektAuf(x,y, Stein.class);
-        if (actor==null) {
+        Actor actor = spielFeld.gibObjektAuf(x, y, Stein.class);
+        if (actor == null) {
             showWarning("", "Da liegt kein Stein!");
             return null;
         }
@@ -107,15 +108,13 @@ public final class Jahrva extends Charakter {
     }
 
     private Scalen rufeScalen() {
-        Scalen scalen = Scalen.getInstance();
-        if (scalen != null) {
-            return scalen;
-        }
+        if (Scalen.isPresent())
+            return Scalen.getInstance();
+        Scalen scalen;
         ActorPosition actorPosition = findeFreiePosition();
         if (actorPosition == null) {
             return null;
         }
-
         scalen = Scalen.erzeugeInstance(actorPosition);
         getWorld().erhalteSpielfeld().objektHinzufuegen(scalen, actorPosition.getX(), actorPosition.getY());
         return scalen;
