@@ -194,11 +194,11 @@ public final class Jahrva extends Charakter {
             geheSchritte(xSchritte);
         }
 
-        if (ySchritte < 0) {
+        if (ySchritte > 0) {
             dreheNachSueden();
             geheSchritte(-ySchritte);
         }
-        if (ySchritte > 0) {
+        if (ySchritte < 0) {
             dreheNachNorden();
             geheSchritte(ySchritte);
         }
@@ -211,11 +211,11 @@ public final class Jahrva extends Charakter {
      * @param ySchritte
      */
     public void geheUmYX(int xSchritte, int ySchritte) {
-        if (ySchritte < 0) {
+        if (ySchritte > 0) {
             dreheNachSueden();
             geheSchritte(-ySchritte);
         }
-        if (ySchritte > 0) {
+        if (ySchritte < 0) {
             dreheNachNorden();
             geheSchritte(ySchritte);
         }

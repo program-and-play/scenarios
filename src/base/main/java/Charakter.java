@@ -28,6 +28,7 @@ public class Charakter extends Figur {
 
     }
 
+
     private boolean stoneInFront() {
         return getObjectInFront(getCurrentDirection(), 1, Stein.class) != (null);
     }
