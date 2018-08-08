@@ -148,8 +148,17 @@ public class Factory {
                 case "Jahrva":
                     tmp = Jahrva.erzeugeInstance(actorPosition);
                     break;
-                case "Geysir":
-                    tmp = new Geysir(actorPosition);
+                case "Stein":
+                    tmp = new Stein(actorPosition);
+                    break;
+                case "Steinillusion":
+                    tmp = new Steinillusion(actorPosition);
+                    break;
+                case "Lichtwesen":
+                    tmp = new Lichtwesen(actorPosition);
+                    break;
+                case "Scalen":
+                    tmp = Scalen.erzeugeInstance(actorPosition);
                     break;
 
             }

@@ -1,6 +1,7 @@
 
 import greenfoot.*;
 import util.ActorPosition;
+import util.Spielfeld;
 import util.WeltSetup;
 
 import java.util.ArrayList;
@@ -10,16 +11,39 @@ import java.util.List;
 public class Charakter extends Figur {
 
     private FigurTyp typ;
+    private Object[] laufenInfo = new Object[3];
 
     public void laufen() {
+
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
-            showWarning("", //Optional fuer den englischen Text.
-                    "Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!");
+            characterDidntMoveWarning("Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!");
+            return;
+        } else if (stoneInFront()) {
+            characterDidntMoveWarning("Der Charackter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
             return;
         }
-
+        laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
         Factory.laufen(this);
         Greenfoot.delay(1);
+
+    }
+
+
+    private boolean stoneInFront() {
+        return getObjectInFront(getCurrentDirection(), 1, Stein.class) != (null);
+    }
+
+    private void characterDidntMoveWarning(String message) {
+        try {
+            if (!(laufenInfo[0].equals(getX()) && laufenInfo[1].equals(getY()) && laufenInfo[2].equals(getCurrentDirection()))) {
+                showWarning("", message //Optional fuer den englischen Text.
+                );
+            }
+        } catch (NullPointerException ex) {
+            showWarning("", message //Optional fuer den englischen Text.
+            );
+        }
+        laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
     }
 
     /**
@@ -229,80 +253,86 @@ public class Charakter extends Figur {
                 return null;
         }
     }
-    public void geheSchritte(int anzahl){
-        for(int zaehler=1;zaehler<=anzahl;zaehler++){
+
+    public void geheSchritte(int anzahl) {
+        for (int zaehler = 1; zaehler <= anzahl; zaehler++) {
             laufen();
         }
     }
-    public void dreheNachOsten(){
-        if(blickrichtung().istNorden()){
+
+    public void dreheNachOsten() {
+        if (blickrichtung().istNorden()) {
             nachRechtsDrehen();
         }
-        if(blickrichtung().istSueden()){
+        if (blickrichtung().istSueden()) {
             nachLinksDrehen();
         }
-        if(blickrichtung().istWesten()){
+        if (blickrichtung().istWesten()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
     }
-    public void dreheNachNorden(){
-        if(blickrichtung().istWesten()){
+
+    public void dreheNachNorden() {
+        if (blickrichtung().istWesten()) {
             nachRechtsDrehen();
         }
-        if(blickrichtung().istSueden()){
+        if (blickrichtung().istSueden()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
-        if(blickrichtung().istOsten()){
+        if (blickrichtung().istOsten()) {
             nachLinksDrehen();
         }
     }
-    public void dreheNachWesten(){
-        if(blickrichtung().istSueden()){
+
+    public void dreheNachWesten() {
+        if (blickrichtung().istSueden()) {
             nachRechtsDrehen();
         }
-        if(blickrichtung().istOsten()){
+        if (blickrichtung().istOsten()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
-        if(blickrichtung().istNorden()){
+        if (blickrichtung().istNorden()) {
             nachLinksDrehen();
         }
     }
-    public void dreheNachSueden(){
-        if(blickrichtung().istOsten()){
+
+    public void dreheNachSueden() {
+        if (blickrichtung().istOsten()) {
             nachRechtsDrehen();
         }
-        if(blickrichtung().istNorden()){
+        if (blickrichtung().istNorden()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
-        if(blickrichtung().istWesten()){
+        if (blickrichtung().istWesten()) {
             nachLinksDrehen();
         }
     }
 
     /**
      * Geht zuerst x-Schritte nach Osten oder Westen und dann y-Schritte nach Norden oder Sueden
+     *
      * @param xSchritte
      * @param ySchritte
      */
-    public void geheUmXY(int xSchritte, int ySchritte){
-        if(xSchritte<0){
+    public void geheUmXY(int xSchritte, int ySchritte) {
+        if (xSchritte < 0) {
             dreheNachWesten();
             geheSchritte(-xSchritte);
         }
-        if(xSchritte>0){
+        if (xSchritte > 0) {
             dreheNachOsten();
             geheSchritte(xSchritte);
         }
 
-        if(ySchritte<0){
+        if (ySchritte < 0) {
             dreheNachSueden();
             geheSchritte(-ySchritte);
         }
-        if(ySchritte>0){
+        if (ySchritte > 0) {
             dreheNachNorden();
             geheSchritte(ySchritte);
         }
@@ -310,23 +340,24 @@ public class Charakter extends Figur {
 
     /**
      * Geht zuerst y-Schritte nach Norden oder Sueden und dann x-Schritte nach Osten oder Westen
+     *
      * @param xSchritte
      * @param ySchritte
      */
-    public void geheUmYX(int xSchritte, int ySchritte){
-        if(ySchritte<0){
+    public void geheUmYX(int xSchritte, int ySchritte) {
+        if (ySchritte < 0) {
             dreheNachSueden();
             geheSchritte(-ySchritte);
         }
-        if(ySchritte>0){
+        if (ySchritte > 0) {
             dreheNachNorden();
             geheSchritte(ySchritte);
         }
-        if(xSchritte<0){
+        if (xSchritte < 0) {
             dreheNachWesten();
             geheSchritte(-xSchritte);
         }
-        if(xSchritte>0){
+        if (xSchritte > 0) {
             dreheNachOsten();
             geheSchritte(xSchritte);
         }
