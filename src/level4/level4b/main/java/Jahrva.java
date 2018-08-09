@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
+    private Stein stein;
 
     private Jahrva(ActorPosition startPosition) {
         super(FigurTyp.Jahrva, startPosition);
@@ -20,6 +21,7 @@ public final class Jahrva extends Charakter {
 
     @Override
     public void act() {
+
     }
 
     @Override
@@ -27,115 +29,6 @@ public final class Jahrva extends Charakter {
         super.laufen();
     }
 
-    public void geheSchritte(int anzahl) {
-        for (int zaehler = 1; zaehler <= anzahl; zaehler++) {
-            laufen();
-        }
-    }
-
-    public void dreheNachOsten() {
-        if (blickrichtung().istNorden()) {
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istSueden()) {
-            nachLinksDrehen();
-        }
-        if (blickrichtung().istWesten()) {
-            nachRechtsDrehen();
-            nachRechtsDrehen();
-        }
-    }
-
-    public void dreheNachNorden() {
-        if (blickrichtung().istWesten()) {
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istSueden()) {
-            nachRechtsDrehen();
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istOsten()) {
-            nachLinksDrehen();
-        }
-    }
-
-    public void dreheNachWesten() {
-        if (blickrichtung().istSueden()) {
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istOsten()) {
-            nachRechtsDrehen();
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istNorden()) {
-            nachLinksDrehen();
-        }
-    }
-
-    public void dreheNachSueden() {
-        if (blickrichtung().istOsten()) {
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istNorden()) {
-            nachRechtsDrehen();
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istWesten()) {
-            nachLinksDrehen();
-        }
-    }
-
-    /**
-     * Geht zuerst x-Schritte nach Osten oder Westen und dann y-Schritte nach Norden oder Sueden
-     *
-     * @param xSchritte
-     * @param ySchritte
-     */
-    public void geheUmXY(int xSchritte, int ySchritte) {
-        if (xSchritte < 0) {
-            dreheNachWesten();
-            geheSchritte(-xSchritte);
-        }
-        if (xSchritte > 0) {
-            dreheNachOsten();
-            geheSchritte(xSchritte);
-        }
-
-        if (ySchritte > 0) {
-            dreheNachSueden();
-            geheSchritte(-ySchritte);
-        }
-        if (ySchritte < 0) {
-            dreheNachNorden();
-            geheSchritte(ySchritte);
-        }
-    }
-
-    /**
-     * Geht zuerst y-Schritte nach Norden oder Sueden und dann x-Schritte nach Osten oder Westen
-     *
-     * @param xSchritte
-     * @param ySchritte
-     */
-    public void geheUmYX(int xSchritte, int ySchritte) {
-        if (ySchritte > 0) {
-            dreheNachSueden();
-            geheSchritte(-ySchritte);
-        }
-        if (ySchritte < 0) {
-            dreheNachNorden();
-            geheSchritte(ySchritte);
-        }
-        if (xSchritte < 0) {
-            dreheNachWesten();
-            geheSchritte(-xSchritte);
-        }
-        if (xSchritte > 0) {
-            dreheNachOsten();
-            geheSchritte(xSchritte);
-        }
-
-    }
     @Override
     public void nachLinksDrehen() {
         super.nachLinksDrehen();
@@ -147,17 +40,23 @@ public final class Jahrva extends Charakter {
     }
 
     /**
-     * Erzeugt ein Lichtwesen auf dem Spielfeld
+     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
      *
-     * @param x die horizontale Position
-     * @param y die vertikale Position
+     * @return Jahrva
      */
+
+    protected static Jahrva erzeugeInstance(ActorPosition startPosition) {
+        if (Jahrva.instance == null) {
+            Jahrva.instance = new Jahrva(startPosition);
+        }
+        return Jahrva.instance;
+    }
 
     public void erzeugeLichtwesen(int x, int y) {
         if (Factory.getSetup().getHeight() < y || Factory.getSetup().getWidth() < x || x < 0 || y < 0) {
             showWarning(
                     "", //Optional fuer den englischen Text.
-                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes ausserhalb der Welt gewaehlt wurden.");
+                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes ausserhalb der Welt gewaehlt wurden.",true);
             return;
         }
 
@@ -181,23 +80,166 @@ public final class Jahrva extends Charakter {
         actorPosition.setX(x);
         actorPosition.setY(y);
         Lichtwesen tmp = new Lichtwesen(actorPosition);
-        getWorld().erhalteSpielfeld().objektHinzufuegen(tmp, x, y);
+        Spielfeld spielfeld = getWorld().erhalteSpielfeld();
+        spielfeld.entferneObjekteAuf(x, y, Steinillusion.class);
+
+        spielfeld.objektHinzufuegen(tmp, x, y);
         tmp.animiere();
     }
 
-    private Scalen rufeScalen() {
-        Scalen scalen = Scalen.getInstance();
-        if (scalen != null) {
-            return scalen;
+    private Stein steinMagischAufheben(int x, int y) {
+        Spielfeld spielFeld = getWorld().erhalteSpielfeld();
+        Actor actor = spielFeld.gibObjektAuf(x, y, Stein.class);
+        if (actor == null) {
+            showWarning("", "Da liegt kein Stein!",true);
+            return null;
         }
+        stein = (Stein) actor;
+        spielFeld.entferneObjekteAuf(x, y, Stein.class);
+        return stein;
+    }
+
+    private void steinMagischAblegen(int x, int y) {
+        if (stein != null) {
+            Spielfeld spielFeld = getWorld().erhalteSpielfeld();
+            spielFeld.objektHinzufuegen(stein, x, y);
+        }
+        stein = null;
+    }
+
+    public Scalen rufeScalen() {
+        if (Scalen.isPresent())
+            return Scalen.getInstance();
+        Scalen scalen;
         ActorPosition actorPosition = findeFreiePosition();
         if (actorPosition == null) {
             return null;
         }
-
         scalen = Scalen.erzeugeInstance(actorPosition);
         getWorld().erhalteSpielfeld().objektHinzufuegen(scalen, actorPosition.getX(), actorPosition.getY());
         return scalen;
+    }
+
+    public void geheSchritte(int anzahl) {
+        for (int zaehler = 1; zaehler <= anzahl; zaehler++) {
+            laufen();
+        }
+    }
+    public boolean istBlickrichtungNorden(){
+        return blickrichtung().istNorden();
+    }
+    public boolean istBlickrichtungSueden(){
+        return blickrichtung().istSueden();
+    }
+    public boolean istBlickrichtungWesten(){
+        return blickrichtung().istWesten();
+    }
+    public boolean istBlickrichtungOsten(){
+        return blickrichtung().istOsten();
+    }
+
+    public void dreheNachOsten() {
+        if (istBlickrichtungNorden()) {
+            nachRechtsDrehen();
+        }
+        if (istBlickrichtungSueden()) {
+            nachLinksDrehen();
+        }
+        if (istBlickrichtungWesten()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+    }
+
+    public void dreheNachNorden() {
+        if (istBlickrichtungWesten()) {
+            nachRechtsDrehen();
+        }
+        if (istBlickrichtungSueden()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+        if (istBlickrichtungOsten()) {
+            nachLinksDrehen();
+        }
+    }
+
+    public void dreheNachWesten() {
+        if (istBlickrichtungSueden()) {
+            nachRechtsDrehen();
+        }
+        if (istBlickrichtungOsten()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+        if (istBlickrichtungNorden()) {
+            nachLinksDrehen();
+        }
+    }
+
+    public void dreheNachSueden() {
+        if (istBlickrichtungOsten()) {
+            nachRechtsDrehen();
+        }
+        if (istBlickrichtungNorden()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+        if (istBlickrichtungWesten()) {
+            nachLinksDrehen();
+        }
+    }
+
+    /**
+     * Geht zuerst x-Schritte nach Osten oder Westen und dann y-Schritte nach Norden oder Sueden
+     *
+     * @param xSchritte
+     * @param ySchritte
+     */
+    public void geheUmXY(int xSchritte, int ySchritte) {
+        if (xSchritte < 0) {
+            dreheNachWesten();
+            geheSchritte(-xSchritte);
+        }
+        if (xSchritte > 0) {
+            dreheNachOsten();
+            geheSchritte(xSchritte);
+        }
+
+        if (ySchritte > 0) {
+            dreheNachSueden();
+            geheSchritte(ySchritte);
+        }
+        if (ySchritte < 0) {
+            dreheNachNorden();
+            geheSchritte(-ySchritte);
+        }
+    }
+
+    /**
+     * Geht zuerst y-Schritte nach Norden oder Sueden und dann x-Schritte nach Osten oder Westen
+     *
+     * @param xSchritte
+     * @param ySchritte
+     */
+    public void geheUmYX(int xSchritte, int ySchritte) {
+        if (ySchritte > 0) {
+            dreheNachSueden();
+            geheSchritte(ySchritte);
+        }
+        if (ySchritte < 0) {
+            dreheNachNorden();
+            geheSchritte(-ySchritte);
+        }
+        if (xSchritte < 0) {
+            dreheNachWesten();
+            geheSchritte(-xSchritte);
+        }
+        if (xSchritte > 0) {
+            dreheNachOsten();
+            geheSchritte(xSchritte);
+        }
+
     }
 
     private ActorPosition findeFreiePosition() {
@@ -227,19 +269,5 @@ public final class Jahrva extends Charakter {
 
         return actorPosition;
     }
-
-    /**
-     * Erzeugt eine Instance von Jahrva, existiert schon eine Instance von Jahrva, wird dieser zurueck gegeben.
-     *
-     * @return Jahrva
-     */
-
-    protected static Jahrva erzeugeInstance(ActorPosition startPosition) {
-        if (Jahrva.instance == null) {
-            Jahrva.instance = new Jahrva(startPosition);
-        }
-        return Jahrva.instance;
-    }
-
 
 }

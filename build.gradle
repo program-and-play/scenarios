@@ -128,7 +128,13 @@ task copyLevel4b(type: Copy){
     }
     into 'build/target/level4/level4b'
 
-    from 'src/level4/level4b/main/java'
+    from('src/level4/level4a/main/java') {
+        exclude 'Jahrva.java',
+                'WeltSetup.json'
+    }
+    into 'build/target/level4/level4b'
+
+    from'src/level4/level4b/main/java'
     into 'build/target/level4/level4b'
 
     from 'src/main/resources'

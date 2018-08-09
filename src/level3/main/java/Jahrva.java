@@ -16,22 +16,6 @@ public final class Jahrva extends Charakter {
        super.act();
     }
 
-    public void dreheNachWesten() {
-        if (blickrichtung().istNorden()) {
-            nachLinksDrehen();
-        }
-        if (blickrichtung().istSueden()) {
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istOsten()) {
-            for (int i = 0; i < 2; i++) {
-                nachLinksDrehen();
-            }
-        }
-    }
-
-
-
     @Override
     public void laufen() {
         super.laufen();

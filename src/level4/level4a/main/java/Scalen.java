@@ -133,11 +133,11 @@ public class Scalen extends Charakter {
 
         if (ySchritte > 0) {
             dreheNachSueden();
-            geheSchritte(-ySchritte);
+            geheSchritte(ySchritte);
         }
         if (ySchritte < 0) {
             dreheNachNorden();
-            geheSchritte(ySchritte);
+            geheSchritte(-ySchritte);
         }
     }
 
@@ -150,11 +150,11 @@ public class Scalen extends Charakter {
     public void geheUmYX(int xSchritte, int ySchritte) {
         if (ySchritte > 0) {
             dreheNachSueden();
-            geheSchritte(-ySchritte);
+            geheSchritte(ySchritte);
         }
         if (ySchritte < 0) {
             dreheNachNorden();
-            geheSchritte(ySchritte);
+            geheSchritte(-ySchritte);
         }
         if (xSchritte < 0) {
             dreheNachWesten();

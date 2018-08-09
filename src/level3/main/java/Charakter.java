@@ -16,10 +16,7 @@ public class Charakter extends Figur {
     public void laufen() {
 
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
-            showWarning("","Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!", true);
-            return;
-        } else if (stoneInFront()) {
-            showWarning("","Der Charackter kann sich nicht bewegen, da er den Stein nicht schieben kann!", true);
+            showWarning("", "Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!", true);
             return;
         }
         laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
@@ -29,9 +26,6 @@ public class Charakter extends Figur {
     }
 
 
-    private boolean stoneInFront() {
-        return getObjectInFront(getCurrentDirection(), 1, Stein.class) != (null);
-    }
 
     /**
      * Charakter dreht sich um 90 Grad nach links

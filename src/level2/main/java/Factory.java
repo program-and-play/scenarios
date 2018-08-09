@@ -39,10 +39,6 @@ public class Factory {
         Factory.initActorsFromWorldSetup(Factory.getSetup(), welt.erhalteSpielfeld());
     }
 
-    protected static void laufen(Charakter ch) {
-            ch.moveActors(ch.getCurrentDirection(), ch);
-        
-    }
 
     public static void addObject(Actor object, int x, int y, LeereWelt welt) {
         if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {

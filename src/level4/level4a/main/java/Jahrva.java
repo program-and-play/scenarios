@@ -13,8 +13,6 @@ import java.util.HashMap;
 
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
-    private Stein stein;
-
     private Jahrva(ActorPosition startPosition) {
         super(FigurTyp.Jahrva, startPosition);
     }
@@ -56,7 +54,7 @@ public final class Jahrva extends Charakter {
         if (Factory.getSetup().getHeight() < y || Factory.getSetup().getWidth() < x || x < 0 || y < 0) {
             showWarning(
                     "", //Optional fuer den englischen Text.
-                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes ausserhalb der Welt gewaehlt wurden.");
+                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes ausserhalb der Welt gewaehlt wurden.", true);
             return;
         }
 
@@ -87,27 +85,8 @@ public final class Jahrva extends Charakter {
         tmp.animiere();
     }
 
-    private Stein steinMagischAufheben(int x, int y) {
-        Spielfeld spielFeld = getWorld().erhalteSpielfeld();
-        Actor actor = spielFeld.gibObjektAuf(x, y, Stein.class);
-        if (actor == null) {
-            showWarning("", "Da liegt kein Stein!");
-            return null;
-        }
-        stein = (Stein) actor;
-        spielFeld.entferneObjekteAuf(x, y, Stein.class);
-        return stein;
-    }
 
-    private void steinMagischAblegen(int x, int y) {
-        if (stein != null) {
-            Spielfeld spielFeld = getWorld().erhalteSpielfeld();
-            spielFeld.objektHinzufuegen(stein, x, y);
-        }
-        stein = null;
-    }
-
-    private Scalen rufeScalen() {
+    public Scalen rufeScalen() {
         if (Scalen.isPresent())
             return Scalen.getInstance();
         Scalen scalen;
@@ -125,55 +104,67 @@ public final class Jahrva extends Charakter {
             laufen();
         }
     }
+    public boolean istBlickrichtungNorden(){
+        return blickrichtung().istNorden();
+    }
+    public boolean istBlickrichtungSueden(){
+        return blickrichtung().istSueden();
+    }
+    public boolean istBlickrichtungWesten(){
+        return blickrichtung().istWesten();
+    }
+    public boolean istBlickrichtungOsten(){
+        return blickrichtung().istOsten();
+    }
 
     public void dreheNachOsten() {
-        if (blickrichtung().istNorden()) {
+        if (istBlickrichtungNorden()) {
             nachRechtsDrehen();
         }
-        if (blickrichtung().istSueden()) {
+        if (istBlickrichtungSueden()) {
             nachLinksDrehen();
         }
-        if (blickrichtung().istWesten()) {
+        if (istBlickrichtungWesten()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
     }
 
     public void dreheNachNorden() {
-        if (blickrichtung().istWesten()) {
+        if (istBlickrichtungWesten()) {
             nachRechtsDrehen();
         }
-        if (blickrichtung().istSueden()) {
+        if (istBlickrichtungSueden()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
-        if (blickrichtung().istOsten()) {
+        if (istBlickrichtungOsten()) {
             nachLinksDrehen();
         }
     }
 
     public void dreheNachWesten() {
-        if (blickrichtung().istSueden()) {
+        if (istBlickrichtungSueden()) {
             nachRechtsDrehen();
         }
-        if (blickrichtung().istOsten()) {
+        if (istBlickrichtungOsten()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
-        if (blickrichtung().istNorden()) {
+        if (istBlickrichtungNorden()) {
             nachLinksDrehen();
         }
     }
 
     public void dreheNachSueden() {
-        if (blickrichtung().istOsten()) {
+        if (istBlickrichtungOsten()) {
             nachRechtsDrehen();
         }
-        if (blickrichtung().istNorden()) {
+        if (istBlickrichtungNorden()) {
             nachRechtsDrehen();
             nachRechtsDrehen();
         }
-        if (blickrichtung().istWesten()) {
+        if (istBlickrichtungWesten()) {
             nachLinksDrehen();
         }
     }
@@ -196,11 +187,11 @@ public final class Jahrva extends Charakter {
 
         if (ySchritte > 0) {
             dreheNachSueden();
-            geheSchritte(-ySchritte);
+            geheSchritte(ySchritte);
         }
         if (ySchritte < 0) {
             dreheNachNorden();
-            geheSchritte(ySchritte);
+            geheSchritte(-ySchritte);
         }
     }
 
@@ -213,11 +204,11 @@ public final class Jahrva extends Charakter {
     public void geheUmYX(int xSchritte, int ySchritte) {
         if (ySchritte > 0) {
             dreheNachSueden();
-            geheSchritte(-ySchritte);
+            geheSchritte(ySchritte);
         }
         if (ySchritte < 0) {
             dreheNachNorden();
-            geheSchritte(ySchritte);
+            geheSchritte(-ySchritte);
         }
         if (xSchritte < 0) {
             dreheNachWesten();
