@@ -59,6 +59,26 @@ public final class Jahrva extends Charakter {
         }
         return Jahrva.instance;
     }
+    public boolean istBlickrichtungNorden(){
+        return blickrichtung().istNorden();
+    }
+    public boolean istBlickrichtungSueden(){
+        return blickrichtung().istSueden();
+    }
+    public boolean istBlickrichtungWesten(){
+        return blickrichtung().istWesten();
+    }
+    public boolean istBlickrichtungOsten(){
+        return blickrichtung().istOsten();
+    }
+
+    public void dreheNachSueden(){
+        super.dreheNachSueden();
+    }
+
+    public void dreheNachWesten(){
+        super.dreheNachWesten();
+    }
 
 
 }
