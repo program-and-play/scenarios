@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
+    private Stein stein;
 
     private Jahrva(ActorPosition startPosition) {
         super(FigurTyp.Jahrva, startPosition);
@@ -20,6 +21,7 @@ public final class Jahrva extends Charakter {
 
     @Override
     public void act() {
+
     }
 
     @Override
@@ -85,19 +87,147 @@ public final class Jahrva extends Charakter {
         tmp.animiere();
     }
 
-    private Scalen rufeScalen() {
-        Scalen scalen = Scalen.getInstance();
-        if (scalen != null) {
-            return scalen;
+    private Stein steinMagischAufheben(int x, int y) {
+        Spielfeld spielFeld = getWorld().erhalteSpielfeld();
+        Actor actor = spielFeld.gibObjektAuf(x, y, Stein.class);
+        if (actor == null) {
+            showWarning("", "Da liegt kein Stein!");
+            return null;
         }
+        stein = (Stein) actor;
+        spielFeld.entferneObjekteAuf(x, y, Stein.class);
+        return stein;
+    }
+
+    private void steinMagischAblegen(int x, int y) {
+        if (stein != null) {
+            Spielfeld spielFeld = getWorld().erhalteSpielfeld();
+            spielFeld.objektHinzufuegen(stein, x, y);
+        }
+        stein = null;
+    }
+
+    private Scalen rufeScalen() {
+        if (Scalen.isPresent())
+            return Scalen.getInstance();
+        Scalen scalen;
         ActorPosition actorPosition = findeFreiePosition();
         if (actorPosition == null) {
             return null;
         }
-
         scalen = Scalen.erzeugeInstance(actorPosition);
         getWorld().erhalteSpielfeld().objektHinzufuegen(scalen, actorPosition.getX(), actorPosition.getY());
         return scalen;
+    }
+
+    public void geheSchritte(int anzahl) {
+        for (int zaehler = 1; zaehler <= anzahl; zaehler++) {
+            laufen();
+        }
+    }
+
+    public void dreheNachOsten() {
+        if (blickrichtung().istNorden()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istSueden()) {
+            nachLinksDrehen();
+        }
+        if (blickrichtung().istWesten()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+    }
+
+    public void dreheNachNorden() {
+        if (blickrichtung().istWesten()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istSueden()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istOsten()) {
+            nachLinksDrehen();
+        }
+    }
+
+    public void dreheNachWesten() {
+        if (blickrichtung().istSueden()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istOsten()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istNorden()) {
+            nachLinksDrehen();
+        }
+    }
+
+    public void dreheNachSueden() {
+        if (blickrichtung().istOsten()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istNorden()) {
+            nachRechtsDrehen();
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istWesten()) {
+            nachLinksDrehen();
+        }
+    }
+
+    /**
+     * Geht zuerst x-Schritte nach Osten oder Westen und dann y-Schritte nach Norden oder Sueden
+     *
+     * @param xSchritte
+     * @param ySchritte
+     */
+    public void geheUmXY(int xSchritte, int ySchritte) {
+        if (xSchritte < 0) {
+            dreheNachWesten();
+            geheSchritte(-xSchritte);
+        }
+        if (xSchritte > 0) {
+            dreheNachOsten();
+            geheSchritte(xSchritte);
+        }
+
+        if (ySchritte > 0) {
+            dreheNachSueden();
+            geheSchritte(-ySchritte);
+        }
+        if (ySchritte < 0) {
+            dreheNachNorden();
+            geheSchritte(ySchritte);
+        }
+    }
+
+    /**
+     * Geht zuerst y-Schritte nach Norden oder Sueden und dann x-Schritte nach Osten oder Westen
+     *
+     * @param xSchritte
+     * @param ySchritte
+     */
+    public void geheUmYX(int xSchritte, int ySchritte) {
+        if (ySchritte > 0) {
+            dreheNachSueden();
+            geheSchritte(-ySchritte);
+        }
+        if (ySchritte < 0) {
+            dreheNachNorden();
+            geheSchritte(ySchritte);
+        }
+        if (xSchritte < 0) {
+            dreheNachWesten();
+            geheSchritte(-xSchritte);
+        }
+        if (xSchritte > 0) {
+            dreheNachOsten();
+            geheSchritte(xSchritte);
+        }
+
     }
 
     private ActorPosition findeFreiePosition() {

@@ -241,38 +241,6 @@ public class Charakter extends Figur {
         }
     }
 
-    public void geheSchritte(int anzahl) {
-        for (int zaehler = 1; zaehler <= anzahl; zaehler++) {
-            laufen();
-        }
-    }
-
-    public void dreheNachOsten() {
-        if (blickrichtung().istNorden()) {
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istSueden()) {
-            nachLinksDrehen();
-        }
-        if (blickrichtung().istWesten()) {
-            nachRechtsDrehen();
-            nachRechtsDrehen();
-        }
-    }
-
-    public void dreheNachNorden() {
-        if (blickrichtung().istWesten()) {
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istSueden()) {
-            nachRechtsDrehen();
-            nachRechtsDrehen();
-        }
-        if (blickrichtung().istOsten()) {
-            nachLinksDrehen();
-        }
-    }
-
     public void dreheNachWesten() {
         if (blickrichtung().istSueden()) {
             nachRechtsDrehen();
@@ -297,58 +265,6 @@ public class Charakter extends Figur {
         if (blickrichtung().istWesten()) {
             nachLinksDrehen();
         }
-    }
-
-    /**
-     * Geht zuerst x-Schritte nach Osten oder Westen und dann y-Schritte nach Norden oder Sueden
-     *
-     * @param xSchritte
-     * @param ySchritte
-     */
-    public void geheUmXY(int xSchritte, int ySchritte) {
-        if (xSchritte < 0) {
-            dreheNachWesten();
-            geheSchritte(-xSchritte);
-        }
-        if (xSchritte > 0) {
-            dreheNachOsten();
-            geheSchritte(xSchritte);
-        }
-
-        if (ySchritte < 0) {
-            dreheNachSueden();
-            geheSchritte(-ySchritte);
-        }
-        if (ySchritte > 0) {
-            dreheNachNorden();
-            geheSchritte(ySchritte);
-        }
-    }
-
-    /**
-     * Geht zuerst y-Schritte nach Norden oder Sueden und dann x-Schritte nach Osten oder Westen
-     *
-     * @param xSchritte
-     * @param ySchritte
-     */
-    public void geheUmYX(int xSchritte, int ySchritte) {
-        if (ySchritte < 0) {
-            dreheNachSueden();
-            geheSchritte(-ySchritte);
-        }
-        if (ySchritte > 0) {
-            dreheNachNorden();
-            geheSchritte(ySchritte);
-        }
-        if (xSchritte < 0) {
-            dreheNachWesten();
-            geheSchritte(-xSchritte);
-        }
-        if (xSchritte > 0) {
-            dreheNachOsten();
-            geheSchritte(xSchritte);
-        }
-
     }
 
 }

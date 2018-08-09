@@ -1,4 +1,4 @@
-import greenfoot.Actor;
+import greenfoot.*;
 import greenfoot.Greenfoot;
 import interfaces.Animation;
 import util.*;
@@ -67,12 +67,34 @@ public class Factory {
 
         if(stehtCharakterAufDemZiel(charakter)){
             //TODO animation, not verbrennen but gewinneMove
-            charakter.verbrennen();
-            resetWorld();
+          
+            
+            
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run(){
+                String message = "<html>" + "" + "<p>" + "Du hast es geschafft!" + "</html>";
+                Object[] options = {"Reset"};
+                int choice = DialogUtils.showOptionDialogEdt(null, message, "Hinweis",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                options, options[0]);
+                resetWorld();
+                } 
+            });
+            thread.start();
+            
+         
+        
+        
+            
+        
+            //charakter.verbrennen();
+            //resetWorld();
         }
+       }
         
         
-    }
+    
 
     private static boolean stehtCharakterAufDemZiel(Charakter charakter){
         return Factory.getSetup().getZielPositions().stream().filter(e-> e.getX() == charakter.getX() && e.getY() == charakter.getY() ).findFirst().isPresent();
@@ -82,8 +104,10 @@ public class Factory {
         Spielfeld spielfeld = leereWelt.erhalteSpielfeld();
         List<Actor> actors = spielfeld.getAllActors();
         for(Actor a :actors){
-            ActorPosition position = ((Figur) a).getActorPosition();
+         
             spielfeld.objektEntfernen(a);
+            ActorPosition position = ((Figur) a).getActorPosition();
+            ((Figur)a).reset();
             spielfeld.objektHinzufuegen(a, position.getX(), position.getY());
         }
     }

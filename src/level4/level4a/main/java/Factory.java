@@ -1,26 +1,23 @@
-import greenfoot.Actor;
+import greenfoot.*;
 import greenfoot.Greenfoot;
 import interfaces.Animation;
-import interfaces.LichtwesenInterface;
 import util.*;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 
 
 public class Factory {
 
     public static final int CELLSIZE = 60;
     public static final Class<?>[] PAINT_ORDER = {
-            Lichtwesen.class,
-            Jahrva.class,
-            Scalen.class,
-            Stein.class};
+            Jahrva.class};
     private static final String WORLD_SETUP_FILE = "WeltSetup.json";
     private static final Animator animator = Animator.getInstance();
     private static WeltSetup setupFactory;
+    private static LeereWelt leereWelt;
 
     static {
         Factory.createWorldSetup();
@@ -34,12 +31,15 @@ public class Factory {
             DialogUtils.showMessageDialogEdt(null, DialogUtils.setupNullMessage, "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
         welt.setPaintOrder(Factory.PAINT_ORDER);
 
         welt.setSpielfeld(new Spielfeld(welt, Factory.getSetup()));
         welt.setHintergrund(new Hintergrund(Factory.getSetup(), Factory.CELLSIZE));
 
         welt.setBackground(welt.getHintergrund().getBackground());
+    
+        leereWelt = welt;
 
         Factory.initActorsFromWorldSetup(Factory.getSetup(), welt.erhalteSpielfeld());
     }
@@ -52,38 +52,64 @@ public class Factory {
         animator.removeAnimation(animation);
     }
 
-    protected static void laufen(Charakter ch) {
+    protected static void laufen(Charakter charakter) {
 
-        Stein stone = (Stein) ch.getObjectInFront(ch.getCurrentDirection(), 1, Stein.class);
-        if (stone != null) {
+       
+            charakter.moveActors(charakter.getCurrentDirection(), charakter);
 
-            if (!ch.theWorldsEnd(ch.getCurrentDirection(), 1, stone) && ch.getObjectInFront(ch.getCurrentDirection(), 2, Figur.class) == null && ch.getTyp() == Figur.FigurTyp.Steinbeisser) {
-                ch.moveActors(ch.getCurrentDirection(), ch, stone);
-            } else {
-                ch.showWarning(
-                        "",
-                        "Der Charakter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
-                return;
-            }
-        } else {
-            ch.moveActors(ch.getCurrentDirection(), ch);
+        if(stehtCharakterAufDemZiel(charakter)){
+            //TODO animation, not verbrennen but gewinneMove
+          
+            
+            
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run(){
+                String message = "<html>" + "" + "<p>" + "Du hast es geschafft!" + "</html>";
+                Object[] options = {"Reset"};
+                int choice = DialogUtils.showOptionDialogEdt(null, message, "Hinweis",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                options, options[0]);
+                resetWorld();
+                } 
+            });
+            thread.start();
+            
+         
+        
+        
+            
+        
+            //charakter.verbrennen();
+            //resetWorld();
+        }
+       }
+        
+        
+    
+
+    private static boolean stehtCharakterAufDemZiel(Charakter charakter){
+        return Factory.getSetup().getZielPositions().stream().filter(e-> e.getX() == charakter.getX() && e.getY() == charakter.getY() ).findFirst().isPresent();
+    }
+
+    private static void resetWorld() {
+        Spielfeld spielfeld = leereWelt.erhalteSpielfeld();
+        List<Actor> actors = spielfeld.getAllActors();
+        for(Actor a :actors){
+         
+            spielfeld.objektEntfernen(a);
+            ActorPosition position = ((Figur) a).getActorPosition();
+            ((Figur)a).reset();
+            spielfeld.objektHinzufuegen(a, position.getX(), position.getY());
         }
     }
 
     public static void addObject(Actor object, int x, int y, LeereWelt welt) {
-        if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {
-            welt.getHintergrund().updateBackground(welt.getObjects(LichtwesenInterface.class));
-            welt.setBackground(welt.getHintergrund().getBackground());
-        }
         if (object instanceof Animation)
             Factory.addAnimationObject((Animation) object);
     }
 
     public static void removeObject(Actor object, LeereWelt welt) {
-        if (Factory.getSetup().isDark() && object instanceof Lichtwesen) {
-            welt.getHintergrund().updateBackground(welt.getObjects(LichtwesenInterface.class));
-            welt.setBackground(welt.getHintergrund().getBackground());
-        }
 
         if (object instanceof Animation)
             Factory.removeAnimationObject((Animation) object);
@@ -108,6 +134,7 @@ public class Factory {
     }
 
     public static void initActorsFromWorldSetup(WeltSetup setup, Spielfeld playground) {
+        Scalen.resetScalen();
         for (ActorPosition actorPosition : setup.getActors()) {
             Actor tmp = null;
             switch (actorPosition.getActor()) {

@@ -134,6 +134,22 @@ class Figur extends Actor {
             getWorld().repaint();
         }
     }
+
+    protected void showWarning(String englishMessage, String germanMessage, boolean stopAct) {
+        String message = "<html>" + englishMessage + "<p>" + germanMessage + "</html>";
+        Object[] options = {"OK", "Exit Program"};
+        int choice = DialogUtils.showOptionDialogEdt(null, message, "Warning",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                options, options[0]);
+
+         if (stopAct) {
+            // Stop. This will still finish the act()-method.
+            Greenfoot.stop();
+            // Repaint, otherwise the world might keep displaying a dialog in
+            // some cases
+            getWorld().repaint();
+        }
+    }
     
     public void setLocationWithoutOffset(int x, int y) {
         super.setLocation(x + Factory.getSetup().getOffsetStartToX(), y + Factory.getSetup().getOffsetStartToY());
