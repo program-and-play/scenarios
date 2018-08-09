@@ -16,10 +16,10 @@ public class Charakter extends Figur {
     public void laufen() {
 
         if (theWorldsEnd(getCurrentDirection(), 1, this)) {
-            characterDidntMoveWarning("Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!");
+            showWarning("","Der Charakter kann sich nicht bewegen, da die Welt zu Ende ist!", true);
             return;
         } else if (stoneInFront()) {
-            characterDidntMoveWarning("Der Charackter kann sich nicht bewegen, da er den Stein nicht schieben kann!");
+            showWarning("","Der Charackter kann sich nicht bewegen, da er den Stein nicht schieben kann!", true);
             return;
         }
         laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
@@ -31,17 +31,6 @@ public class Charakter extends Figur {
 
     private boolean stoneInFront() {
         return getObjectInFront(getCurrentDirection(), 1, Stein.class) != (null);
-    }
-
-    private void characterDidntMoveWarning(String message) {
-        try {
-            if (!(laufenInfo[0].equals(getX()) && laufenInfo[1].equals(getY()) && laufenInfo[2].equals(getCurrentDirection()))) {
-                showWarning("", message /*Optional fuer den englischen Text.*/, true);
-            }
-        } catch (NullPointerException ex) {
-            showWarning("", message /*Optional fuer den englischen Text.*/, true);
-        }
-        laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
     }
 
     /**
