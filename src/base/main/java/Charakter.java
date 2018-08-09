@@ -36,12 +36,10 @@ public class Charakter extends Figur {
     private void characterDidntMoveWarning(String message) {
         try {
             if (!(laufenInfo[0].equals(getX()) && laufenInfo[1].equals(getY()) && laufenInfo[2].equals(getCurrentDirection()))) {
-                showWarning("", message //Optional fuer den englischen Text.
-                );
+                showWarning("", message /*Optional fuer den englischen Text.*/, true);
             }
         } catch (NullPointerException ex) {
-            showWarning("", message //Optional fuer den englischen Text.
-            );
+            showWarning("", message /*Optional fuer den englischen Text.*/, true);
         }
         laufenInfo = new Object[]{getX(), getY(), this.getCurrentDirection()};
     }
