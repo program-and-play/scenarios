@@ -229,4 +229,94 @@ public class Charakter extends Figur {
                 return null;
         }
     }
+         public void dreheNachWesten() {
+        if (blickrichtung().istNorden()) {
+            nachLinksDrehen();
+        }
+        if (blickrichtung().istSueden()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istOsten()) {
+            for (int i = 0; i < 2; i++) {
+                nachLinksDrehen();
+            }
+        }
+    }
+
+    public void dreheNachSueden() {
+        if (blickrichtung().istWesten()) {
+            nachLinksDrehen();
+        }
+        if (blickrichtung().istOsten()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istNorden()) {
+            for (int i = 0; i < 2; i++) {
+                nachLinksDrehen();
+            }
+        }
+    }
+
+    public void dreheNachNorden() {
+        if (blickrichtung().istOsten()) {
+            nachLinksDrehen();
+        }
+        if (blickrichtung().istWesten()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istSueden()) {
+            for (int i = 0; i < 2; i++) {
+                nachLinksDrehen();
+            }
+        }
+    }
+    public void dreheNachOsten() {
+        if (blickrichtung().istNorden()) {
+            nachRechtsDrehen();
+        }
+        if (blickrichtung().istWesten()) {
+            for (int i = 0; i < 2; i++) {
+                nachLinksDrehen();
+            }
+
+        }
+        if (blickrichtung().istSueden()) {
+           nachLinksDrehen();
+        }
+    }
+    /**
+     * Gehe um anzahl Schritte. Zuerst x, dann y.
+     * x > 0 --> nach Osten
+     * x < 0 --> nach Westen
+     * y > 0 --> nach Norden
+     * y < 0 --> nach Sueden
+     */
+    public void geheUm(int x, int y){
+       //Else if, damit bei geheUm(0,0) nichts passiert
+        if(x>0){
+            dreheNachOsten();
+            for(int i=1;i<=x;i++){
+                laufen();
+            }   
+        }else if(x<0){
+            dreheNachWesten();
+            for(int i=1;i<=(x*-1);i++){
+                laufen();
+            }
+        }
+         
+        
+        if(y>0){
+            dreheNachNorden();
+            for(int i=1;i<=y;i++){
+                laufen();
+            }
+        }else if(y<0){
+            dreheNachSueden();
+            for(int i=1;i<=(y*-1);i++){
+                laufen();
+            }
+        }
+    
+    }
 }
