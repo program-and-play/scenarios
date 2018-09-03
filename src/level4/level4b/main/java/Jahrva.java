@@ -105,6 +105,7 @@ public final class Jahrva extends Charakter {
             spielFeld.objektHinzufuegen(stein, x, y);
         }
         stein = null;
+        Factory.checkWin(this);
     }
 
     public Scalen rufeScalen() {

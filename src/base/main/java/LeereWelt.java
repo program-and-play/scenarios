@@ -28,6 +28,7 @@ public class LeereWelt extends World implements GreenfootWorld {
 
     /*-----  UNTERHALB DIESER ZEILE SIND NUR HELFERMETHODEN ----- */
 
+
     @Override
     public void addObject(Actor object, int x, int y) {
         super.addObject(object, x, y);
