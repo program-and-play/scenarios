@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public final class Jahrva extends Charakter {
     private static Jahrva instance;
-    private Stein stein;
+    private Hand hand;
 
     private Jahrva(ActorPosition startPosition) {
         super(FigurTyp.Jahrva, startPosition);
@@ -56,10 +56,25 @@ public final class Jahrva extends Charakter {
         if (Factory.getSetup().getHeight() < y || Factory.getSetup().getWidth() < x || x < 0 || y < 0) {
             showWarning(
                     "", //Optional fuer den englischen Text.
-                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes ausserhalb der Welt gewaehlt wurden.",true);
+                    "Jahrva kann kein Lichtwesen erzeugen, da die Indizes ausserhalb der Welt gewaehlt wurden.", true);
             return;
         }
 
+
+        zaubern();
+        ActorPosition actorPosition = new ActorPosition();
+        actorPosition.setActor("Lichtwesen");
+        actorPosition.setX(x);
+        actorPosition.setY(y);
+        Lichtwesen tmp = new Lichtwesen(actorPosition);
+        Spielfeld spielfeld = getWorld().erhalteSpielfeld();
+        spielfeld.entferneObjekteAuf(x, y, Steinillusion.class);
+
+        spielfeld.objektHinzufuegen(tmp, x, y);
+        tmp.animiere();
+    }
+
+    private void zaubern() {
         final String KOERPER_FILE = "character_body.png";
         final String ZAUBERSTAB_FILE = "stab_lichtwesenbeschwoeren.png";
         final String KLEIDUNG_FILE = "character_kleidung.png";
@@ -75,37 +90,41 @@ public final class Jahrva extends Charakter {
             Greenfoot.delay(2);
         }
         resetImage();
-        ActorPosition actorPosition = new ActorPosition();
-        actorPosition.setActor("Lichtwesen");
-        actorPosition.setX(x);
-        actorPosition.setY(y);
-        Lichtwesen tmp = new Lichtwesen(actorPosition);
-        Spielfeld spielfeld = getWorld().erhalteSpielfeld();
-        spielfeld.entferneObjekteAuf(x, y, Steinillusion.class);
 
-        spielfeld.objektHinzufuegen(tmp, x, y);
-        tmp.animiere();
+        Greenfoot.delay(1);
     }
 
-    private Stein steinMagischAufheben(int x, int y) {
-        Spielfeld spielFeld = getWorld().erhalteSpielfeld();
-        Actor actor = spielFeld.gibObjektAuf(x, y, Stein.class);
-        if (actor == null) {
-            showWarning("", "Da liegt kein Stein!",true);
-            return null;
-        }
-        stein = (Stein) actor;
-        spielFeld.entferneObjekteAuf(x, y, Stein.class);
-        return stein;
-    }
-
-    private void steinMagischAblegen(int x, int y) {
-        if (stein != null) {
+    public void steinMagischAufheben(int x, int y) {
+        if (hand.hatStein())
+            showWarning("", "Noch mehr Steine kann Jahrva nicht aufheben!", true);
+        else {
             Spielfeld spielFeld = getWorld().erhalteSpielfeld();
-            spielFeld.objektHinzufuegen(stein, x, y);
+            Actor actor = spielFeld.gibObjektAuf(x, y, Stein.class);
+            if (actor == null) {
+                showWarning("", "Da liegt kein Stein!", true);
+                return;
+            }
+            hand.nimmStein((Stein) actor);
+            zaubern(); //Animation Zauberstab schwingen
+            spielFeld.entferneObjekteAuf(x, y, Stein.class);
         }
-        stein = null;
-        Factory.checkWin(this);
+    }
+
+    public void steinMagischAblegen(int x, int y) {
+
+        if (hand.hatStein()) {
+            Spielfeld spielFeld = getWorld().erhalteSpielfeld();
+            if (!spielFeld.isEmpty(x,y))
+                showWarning("", "Das Feld ist belegt. Hier kannst du keinen Stein ablegen!", true);
+            else {
+                zaubern();
+                spielFeld.objektHinzufuegen(hand.gibStein(), x, y);
+                hand.leeren();
+                Factory.checkWin(this);
+            }
+        }
+        else
+            showWarning("", "Jahrva hat noch keinen Stein aufgehoben, den er ablegen könnte!", true);
     }
 
     public Scalen rufeScalen() {
@@ -126,16 +145,20 @@ public final class Jahrva extends Charakter {
             laufen();
         }
     }
-    public boolean istBlickrichtungNorden(){
+
+    public boolean istBlickrichtungNorden() {
         return blickrichtung().istNorden();
     }
-    public boolean istBlickrichtungSueden(){
+
+    public boolean istBlickrichtungSueden() {
         return blickrichtung().istSueden();
     }
-    public boolean istBlickrichtungWesten(){
+
+    public boolean istBlickrichtungWesten() {
         return blickrichtung().istWesten();
     }
-    public boolean istBlickrichtungOsten(){
+
+    public boolean istBlickrichtungOsten() {
         return blickrichtung().istOsten();
     }
 

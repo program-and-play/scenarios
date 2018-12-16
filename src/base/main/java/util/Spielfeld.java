@@ -6,6 +6,7 @@ import interfaces.GreenfootWorld;
 import javax.swing.*;
 import java.util.*;
 import java.lang.*;
+import java.util.stream.Collectors;
 
 /**
  * Spielfeldklasse kapselt die Funktionalitaet des Spielfeldes von der Logik der Welt.
@@ -54,6 +55,14 @@ public final class Spielfeld {
         if(actor != null) {
             objektEntfernen(actor);
         }
+    }
+
+    public boolean isEmpty(int x, int y) {
+        for (Class c : getAllActors().stream().map(a -> a.getClass()).distinct().collect(Collectors.toList())){
+            if (gibObjektAuf(x,y, c)!= null)
+                return false;
+        }
+        return true;
     }
     
     public List<Actor> gibObjekteAuf(int x, int y, Class cls) {
